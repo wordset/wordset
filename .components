@@ -1,0 +1,9 @@
+---
+:orm: activerecord
+:test: none
+:mock: none
+:script: none
+:renderer: slim
+:stylesheet: sass
+:namespace: WordsetData
+:migration_format: number
