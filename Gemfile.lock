@@ -1,5 +1,6 @@
-PATH
-  remote: ../padrino-framework
+GIT
+  remote: git://github.com/hcatlin/padrino-framework.git
+  revision: b59f47a0351390e6c106be7f01f6569f79b600ce
   specs:
     padrino (0.13.0.rc1)
       padrino-admin (= 0.13.0.rc1)
@@ -36,8 +37,9 @@ PATH
     padrino-support (0.13.0.rc1)
       activesupport (>= 3.1)
 
-PATH
-  remote: ../padrino-grape
+GIT
+  remote: git://github.com/hcatlin/padrino-grape.git
+  revision: 18aea6c6289bb5f384308af3eb2752a2136fbacc
   specs:
     padrino-grape (1.1.0)
       grape

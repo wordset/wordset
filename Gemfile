@@ -22,12 +22,12 @@ gem 'mysql2'
 
 gem 'grape'
 gem 'grape-swagger'
-gem 'padrino-grape', :path => "../padrino-grape"
+gem 'padrino-grape', :github => "hcatlin/padrino-grape"
 
 # Test requirements
 
 # Padrino Stable Gem
-gem 'padrino', :path => "../padrino-framework"
+gem 'padrino', :github => "hcatlin/padrino-framework"
 
 gem 'pry'
 
