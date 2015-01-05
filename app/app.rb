@@ -6,6 +6,10 @@ module WordsetData
 
     enable :sessions
 
+    get '/' do
+      "WORDSET DATA"
+    end
+
     ##
     # Caching support.
     #

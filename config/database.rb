@@ -14,9 +14,9 @@
 #   }
 #
 ActiveRecord::Base.configurations[:development] = {
-  :adapter => 'sqlite3',
-  :database => Padrino.root('db', 'wordset_data_development.db')
-
+  :adapter => 'mysql2',
+  :database => "wordset_development",
+  :user => "root"
 }
 
 ActiveRecord::Base.configurations[:production] = {
@@ -33,15 +33,6 @@ ActiveRecord::Base.configurations[:test] = {
 
 # Setup our logger
 ActiveRecord::Base.logger = logger
-
-if ActiveRecord::VERSION::MAJOR.to_i < 4
-  # Raise exception on mass assignment protection for Active Record models.
-  ActiveRecord::Base.mass_assignment_sanitizer = :strict
-
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL).
-  ActiveRecord::Base.auto_explain_threshold_in_seconds = 0.5
-end
 
 # Doesn't include Active Record class name as root for JSON serialized output.
 ActiveRecord::Base.include_root_in_json = false

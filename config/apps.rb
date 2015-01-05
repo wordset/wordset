@@ -1,3 +1,6 @@
+
+#require_relative '../api/app'
+
 ##
 # This file mounts each app in the Padrino project to a specified sub-uri.
 # You can mount additional applications using any of these commands below:
@@ -31,6 +34,8 @@ Padrino.configure_apps do
   set :protection, :except => :path_traversal
   set :protect_from_csrf, true
 end
+
+Padrino.mount("WordsetData::API::App", :app_file => Padrino.root('api/app.rb')).to('/api')
 
 # Mounts the core application for this project
 Padrino.mount('WordsetData::App', :app_file => Padrino.root('app/app.rb')).to('/')

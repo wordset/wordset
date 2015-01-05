@@ -18,6 +18,11 @@ gem 'haml'
 gem 'activerecord', '>= 4.2', :require => 'active_record'
 gem 'sass'
 
+gem 'mysql2'
+
+gem 'grape'
+gem 'grape-swagger'
+
 # Test requirements
 
 # Padrino Stable Gem
