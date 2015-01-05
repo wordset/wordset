@@ -8,6 +8,7 @@ module WordsetData
 
     get '/' do
       "WORDSET DATA"
+      pry
     end
 
     ##

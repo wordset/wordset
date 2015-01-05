@@ -21,13 +21,15 @@ module WordsetData::API
       rack_response(json, code, headers)
     end
 
-    resource :users do
+    resource :word do
+      get '/' do
+        {
+          changed?: Padrino::Reloader.changed?,
+          hi: true,
+          reload: Padrino::Reloader.reload!
+        }
+      end
       #crud MyApp::User, :user
-    end
-
-    get :any do
-      logger.error "API << #{env['REQUEST_METHOD']} #{env['PATH_INFO']}; errors: Not Found"
-      error!({message: "#{env['REQUEST_METHOD']} #{env['PATH_INFO']}", errors: "Not Found"},404)
     end
 
   end
