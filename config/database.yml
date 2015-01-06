@@ -19,14 +19,14 @@ default: &default
 
 development:
   <<: *default
-  database: wordset-db_development
+  database: wordset_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: wordset-db_test
+  database: wordset_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: wordset-db_production
-  username: wordset-db
-  password: <%= ENV['WORDSET-DB_DATABASE_PASSWORD'] %>
+  database: wordset_production
+  username: wordset
+  password: <%= ENV['wordset_DATABASE_PASSWORD'] %>
