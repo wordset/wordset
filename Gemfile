@@ -6,13 +6,18 @@ gem 'rails', '4.2.0'
 # Use mysql as the database for Active Record
 gem 'mongoid'
 
-gem 'grape'
-gem 'grape-swagger'
+gem "grape", '0.9.0'
+gem "grape-active_model_serializers"
+gem 'grape-swagger', github: 'tim-vandecasteele/grape-swagger'
+gem 'grape-swagger-rails', github: 'BrandyMint/grape-swagger-rails'
 
 gem 'active_model_serializers'
+gem 'mongoid-serializer'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+
+gem "rack-cors", require: "rack/cors"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'

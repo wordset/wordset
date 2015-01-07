@@ -1,5 +1,6 @@
+
 module Wordset
   class API < Grape::API
-    mount Wordset::API::V1 => '/v1'
+    mount Wordset::V1::Base => '/v1'
   end
 end
