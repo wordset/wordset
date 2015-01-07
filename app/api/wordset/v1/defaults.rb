@@ -4,7 +4,7 @@ module Wordset
       extend ActiveSupport::Concern
 
       included do
-        version 'v1', using: :header, vendor: 'wordset'
+        version 'v1', using: :path, vendor: 'wordset'
         default_format :json
         format :json
         formatter :json, Grape::Formatter::ActiveModelSerializers

@@ -3,9 +3,7 @@ module Wordset
     class Base < Grape::API
       include Wordset::V1::Defaults
 
-      get '/' do
-        Word.where(name: "just").first
-      end
+      mount Wordset::V1::Words
     end
   end
 end
