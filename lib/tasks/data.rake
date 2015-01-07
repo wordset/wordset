@@ -18,7 +18,7 @@ namespace :data do
                 wm = WordMeaning.new(def: meaning['def'])
                 if meaning['quotes'] != nil
                   wm.quotes = meaning['quotes'].map do |quote|
-                    WordMeaningQuote.new(text: quote)
+                    WordMeaningQuote.new(text: quote['text'])
                   end
                 end
                 wm

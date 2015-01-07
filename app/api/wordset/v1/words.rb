@@ -4,7 +4,9 @@ module Wordset
       include Wordset::V1::Defaults
 
       resource :words do
-
+        get '/:id' do
+          Word.find(params[:id])
+        end
       end
     end
   end

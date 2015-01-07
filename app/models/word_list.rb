@@ -8,13 +8,14 @@ class WordList
     wl = WordList.where({term: term}).first
     if wl == nil
       wl = WordList.new(term: term)
-      wl.words = Word.limit(20).where({ :name => /^#{term}.*/i }).to_a
+      wl.words = Word.limit(20).where({ :name => /^#{term}.*/i }).sort("name.length" => 1).to_a
       wl.save
     end
     wl
   end
 
   def self.starter_pack
+    #WordList.destroy_all
     if WordList.count < 26
       ("a".."z").each do |letter|
         search(letter)

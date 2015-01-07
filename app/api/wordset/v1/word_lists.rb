@@ -8,6 +8,10 @@ module Wordset
           WordList.starter_pack
         end
 
+        post "/reset" do
+          WordList.destroy_all
+        end
+
         desc 'Return a WordList from search term'
         params do
           requires :term
