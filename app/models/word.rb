@@ -1,5 +1,7 @@
-class Word < ActiveRecord::Base
-  has_many :word_entries
-  has_many :word_forms, :through => :word_entries
-  has_many :word_meanings, :through => :word_entries
+class Word
+  include Mongoid::Document
+  field :name
+  embeds_many :entries, class_name: "WordEntry"
+
+  index({:name => 1}, {:unique => true})
 end

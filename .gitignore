@@ -6,6 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
+/db/wordnet.json
 
 # Ignore all logfiles and tempfiles.
 /log/*
