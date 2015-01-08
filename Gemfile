@@ -17,6 +17,8 @@ gem 'mongoid-serializer'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
+gem 'appsignal'
+
 gem "rack-cors", require: "rack/cors"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
