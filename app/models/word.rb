@@ -8,5 +8,6 @@ class Word
     d.word_length = d.name.length
   end
 
-  index({:name => 1}, {:unique => true})
+  index({:name => 1}, {:unique => true, drop_dups: true})
+  index({"entries.word_forms.text" => 1}, {unique: true, drop_dups: true})
 end

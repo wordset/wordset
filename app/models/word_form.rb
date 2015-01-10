@@ -3,6 +3,4 @@ class WordForm
   field :text
 
   embedded_in :word_entry, inverse_of: :form
-
-  index({text: 1}, {unique: true})
 end

@@ -11,6 +11,9 @@ gem "grape", '0.9.0'
 gem "grape-active_model_serializers"
 gem 'grape-swagger', github: 'tim-vandecasteele/grape-swagger'
 gem 'grape-swagger-rails', github: 'BrandyMint/grape-swagger-rails'
+gem 'grape-raketasks'
+
+gem 'devise'
 
 gem 'active_model_serializers'
 gem 'mongoid-serializer'

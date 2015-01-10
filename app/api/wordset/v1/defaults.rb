@@ -17,6 +17,36 @@ module Wordset
           def logger
             Rails.logger
           end
+
+          def authorize!
+            authenticate
+            error!('401 Unauthorized', 401) unless current_user
+          end
+
+          def authenticate
+            return @user if @user
+            header = request.headers["Authorization"]
+            return false unless header
+            pair = request.headers["Authorization"].split(" ").last
+            username, key = pair.split(":")
+            if key == nil
+              return false
+            end
+            u = User.where(username: username, auth_key: key).first
+            puts u.inspect
+            if u.nil?
+              return false
+            end
+            @user = u
+          end
+
+          def current_user
+            @user
+          end
+        end
+
+        rescue_from Mongoid::Errors::Validations do |e|
+          rack_response e.to_json, 503
         end
 
         #rescue_from Mongoid::RecordNotFound do |e|

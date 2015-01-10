@@ -3,8 +3,17 @@ module Wordset
     class Base < Grape::API
       include Wordset::V1::Defaults
 
+      mount Wordset::V1::Auth
       mount Wordset::V1::Words
       mount Wordset::V1::WordLists
+
+      add_swagger_documentation(
+        api_version: "v1",
+        base_path: "api",
+        hide_documentation_path: true,
+        mount_path: "/swagger_doc",
+        hide_format: true
+      )
     end
   end
 end
