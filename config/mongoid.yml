@@ -6,7 +6,7 @@ development:
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
       #
-      database: wordset_db_development
+      database: wordset_dev
       # Provides the hosts the default session can connect to. Must be an array
       # of host:port pairs. (required)
       hosts:
