@@ -13,6 +13,8 @@ gem 'grape-swagger', github: 'tim-vandecasteele/grape-swagger'
 gem 'grape-swagger-rails', github: 'BrandyMint/grape-swagger-rails'
 gem 'grape-raketasks'
 
+gem 'rails_12factor', group: :production
+
 gem 'devise'
 
 gem 'active_model_serializers'
