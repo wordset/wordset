@@ -1,6 +1,5 @@
 class WordSerializer < BaseSerializer
-  attributes :id, :name
-  has_many :entries
+  attributes :id, :name, :entries
 
   #params :hi
 end

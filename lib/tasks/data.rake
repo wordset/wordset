@@ -12,20 +12,10 @@ namespace :data do
           data = JSON.parse(line)
           data.each do |name, entries|
             word = Word.new(name: name)
-            entries.each do |pos, meanings|
-              we = WordEntry.new(pos: pos)
-              we.meanings = meanings.map do |meaning|
-                wm = WordMeaning.new(def: meaning['def'])
-                if meaning['quotes'] != nil
-                  wm.quotes = meaning['quotes'].map do |quote|
-                    WordMeaningQuote.new(text: quote['text'])
-                  end
-                end
-                wm
-              end
-              word.entries << we
+            word.entries = entries.map do |pos, meanings|
+              {pos: pos,
+              meanings: meanings}
             end
-            #puts word.inspect
             word.save
             counter = counter + 1
             if counter % 1000 == 0
