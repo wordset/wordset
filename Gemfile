@@ -28,9 +28,10 @@ gem 'appsignal'
 gem "rack-cors", require: "rack/cors"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+#gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+#gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'bson'
 
 gem 'thin'
 
@@ -54,6 +55,18 @@ group :development, :test do
   gem "pry-rails"
   gem "pry-stack_explorer"
   gem "pry-theme"
+
+  #gem "capybara"
+  #gem "capybara-screenshot"
+  gem "database_cleaner"
+  gem "factory_girl_rails"
+  gem "faker"
+  #gem "poltergeist"
+  gem "rspec-rails"
+  #gem "rubocop"
+  #gem "shoulda-matchers"
+  #gem "spring-commands-rspec"
+  gem 'mongoid-rspec'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
