@@ -1,5 +1,5 @@
 class UserSerializer < BaseSerializer
-  attributes :id
+  attributes :id, :errors
 
   def id
     object.username

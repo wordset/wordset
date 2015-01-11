@@ -14,6 +14,10 @@ module Wordset
             @permitted_params ||= declared(params, include_missing: false)
           end
 
+          def default_serializer_options
+            {only: params[:only], except: params[:except]}
+          end
+
           def logger
             Rails.logger
           end
@@ -46,7 +50,8 @@ module Wordset
         end
 
         rescue_from Mongoid::Errors::Validations do |e|
-          rack_response e.to_json, 503
+          response = {errors: e.document.errors}
+          rack_response response.to_json, 422
         end
 
         #rescue_from Mongoid::RecordNotFound do |e|

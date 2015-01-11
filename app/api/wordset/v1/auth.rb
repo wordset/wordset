@@ -36,9 +36,9 @@ module Wordset
           password = user_params[:password]
 
           User.create!(email: email,
-                          password: password,
-                          password_confirmation: password,
-                          username: user_params[:username])
+                       password: password,
+                       password_confirmation: password,
+                       username: user_params[:username])
         end
 
         desc "Check your session is authorized as a user"
