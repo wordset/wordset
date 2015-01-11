@@ -9,13 +9,14 @@ module Wordset
           requires :username, type: String
           requires :password, type: String
         end
-        post '/login', serializer: AuthenticatedUserSerializer do
+        post '/login' do
           username = params[:username]
           password = params[:password]
 
           user = User.where(username: username).first
           if user && user.valid_password?(password)
-            user
+            {username: user.username,
+             auth_key: user.auth_key}
           else
             error!({:error_code => 404, :error_message => "Invalid email or password"}, 401)
           end
