@@ -9,5 +9,5 @@ class Word
   end
 
   index({:name => 1}, {:unique => true, drop_dups: true})
-  index({"entries.word_forms.text" => 1}, {unique: true, drop_dups: true})
+  index({"entries.word_forms.text" => 1})
 end
