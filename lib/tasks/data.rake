@@ -29,4 +29,15 @@ namespace :data do
       end
     end
   end
+
+  task :create_suggestions => :environment do
+    counter = 0
+    Word.all.each do |word|
+      counter += 1
+      s = Suggestion.create(word: word, entries: word.entries, source: "Wordnet 3.0", status: "accepted")
+      word.current = s
+      word.save
+      puts counter
+    end
+  end
 end

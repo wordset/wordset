@@ -1,8 +1,11 @@
 class Word
   include Mongoid::Document
+  include Mongoid::Timestamps
   field :name
   field :word_length, type: Integer, as: "l"
   field :entries, type: Array
+  has_many :suggestions
+  belongs_to :current, class_name: "Suggestion", inverse_of: nil
 
   before_save do |d|
     d.word_length = d.name.length

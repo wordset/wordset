@@ -1,5 +1,7 @@
 class User
   include Mongoid::Document
+  has_many :suggestions
+
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
