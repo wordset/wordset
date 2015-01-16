@@ -55,6 +55,7 @@ group :development, :test do
   gem "pry-rails"
   gem "pry-stack_explorer"
   gem "pry-theme"
+  gem 'mongoid-tree'
 
   #gem "capybara"
   #gem "capybara-screenshot"

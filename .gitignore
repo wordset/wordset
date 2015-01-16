@@ -9,6 +9,8 @@
 /db/wordnet.json
 .DS_Store
 
+dump
+
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep

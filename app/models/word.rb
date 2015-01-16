@@ -9,4 +9,8 @@ class Word
   end
 
   index({:name => 1}, {:unique => true, drop_dups: true})
+
+  def self.pos
+    %w(adv adj verb noun)
+  end
 end
