@@ -25,5 +25,23 @@ describe Wordset::V1 do
         end
       end
     end
+
+    it "should search for aa and return things that start with a" do
+      create_list :word, 100
+      create :word, name: "aa"
+      get('/api/v1/word_lists/aa')
+      data = JSON.parse(response.body)
+      expect(data.keys.first).to eq("word_list")
+      list = data["word_list"]
+      expect(list).to be_an_instance_of(Hash)
+
+      expect(list["id"]).to eq("aa")
+      expect(list["results"]).to be_a(Array)
+
+      list["results"].each do |word|
+        expect(word["name"]).to be_an_instance_of(String)
+        expect(word["word_id"]).to be_an_instance_of(String)
+      end
+    end
   end
 end
