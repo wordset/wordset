@@ -25,14 +25,25 @@ module Suggestable
     end
   end
 
-  def validate_suggestion(suggestion, errors)
-    model = self.dup
+  def apply_suggestion(suggestion)
     suggestion["data"].each do |field, value|
       if !self.class.suggestable_fields.include?(field.to_s)
         errors.add field, "is not suggestable"
       end
-      model[field] = value
+      self[field] = value
     end
+  end
+
+  def validate_suggestion(suggestion, errors)
+    model = self.dup
+    model.apply_suggestion(suggestion)
+    # this will grab all of the applied suggestable validations from the apply_suggestion method
+    if model.errors.any?
+      model.errors.each do |name, msg|
+        errors.add name, msg
+      end
+    end
+    # We want to re-run any validations at this point
     unless model.valid?
       model.errors.each do |name, msg|
         errors.add name, msg
