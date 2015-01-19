@@ -260,6 +260,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    state_machine (1.2.0)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -315,5 +316,6 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   spring
+  state_machine
   thin
   web-console (~> 2.0)
