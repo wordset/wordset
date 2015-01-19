@@ -1,6 +1,7 @@
 
 class Meaning
   include Mongoid::Document
+  include Suggestable
   field :def, type: String
   has_many :quotes
   belongs_to :entry

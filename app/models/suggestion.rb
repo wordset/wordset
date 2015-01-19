@@ -25,7 +25,7 @@ class Suggestion
   end
 
   def create_class
-    constantize(create_class_name)
+    create_class_name.constantize
   end
 
   def create_class=(klass)

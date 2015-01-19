@@ -45,8 +45,22 @@ describe Suggestion do
     end
 
     describe "create action" do
-      it "should work with proper attributes" do
-        suggestion = Quote.suggest(@user, {text: @original_quote_text, source: "Hampton Catlin", url: "http://www.google.com"})
+      it "should build with proper attributes" do
+        meaning = create(:meaning)
+        suggestion = Quote.suggest(@user, {text: @original_quote_text, source: "Hampton Catlin", url: "http://www.google.com"}, meaning)
+        expect(suggestion).to be_valid
+      end
+
+      it "should error on invalid model" do
+        meaning = create(:meaning)
+        suggestion = Quote.suggest(@user, {}, meaning)
+        expect(suggestion).to_not be_valid
+      end
+
+      it "should fail on non-whitelisted attributes" do
+        meaning = create(:meaning)
+        suggestion = Quote.suggest(@user, {bad: true, text: @original_quote_text, source: "Hampton Catlin", url: "http://www.google.com"}, meaning)
+        expect(suggestion).to_not be_valid
       end
     end
   end

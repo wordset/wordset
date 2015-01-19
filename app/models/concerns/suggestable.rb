@@ -6,10 +6,12 @@ module Suggestable
   end
 
   class_methods do
+    # IMPLEMENT IN CLASS
     def suggestable_fields
       %()
     end
 
+    # IMPLEMENT IN CLASS
     def suggestable_children
       %()
     end
@@ -24,11 +26,26 @@ module Suggestable
       if self.class != Word
         throw "Requires a valid target" if target.nil?
       end
-      Suggestion.new(create_class: self.class, data: data, user: user, target: target)
+      Suggestion.new(action: "create", create_class_name: self.to_s, data: data, user: user, target: target)
+    end
+
+    def new_from_suggestion(suggestion)
+      if suggestion.create_class == Word
+        Word.new(suggestion.data)
+      else
+        suggestion.target.new_child_from_suggestion(suggestion)
+      end
     end
 
     def validate_suggestion(suggestion, errors)
-
+      model = new_from_suggestion(suggestion)
+      model.errors.each do |name, msg|
+        errors.add name, msg
+      end
+      model.valid?
+      model.errors.each do |name, msg|
+        errors.add name, msg
+      end
     end
   end
 
@@ -36,10 +53,8 @@ module Suggestable
     self.suggestions.build(data: data, word: word, user: user, action: action)
   end
 
-  Suggestion.actions.each do |action|
-    define_method("suggest_#{action}") do |*args|
-      suggest(action, *args)
-    end
+  def suggest_change(user, data = {})
+    suggest("change", user, data)
   end
 
   def apply_suggestion(suggestion)
@@ -80,6 +95,14 @@ module Suggestable
     end
     # Return the dup'd model, in case someone does want to do something
     # with it after
+    model
+  end
+
+  # This is called when we need a new child of me from a create suggestion
+  def new_child_from_suggestion(suggestion)
+    model = suggestion.create_class.new
+    model.apply_suggestion suggestion
+    model[self.class.to_s.underscore] = self
     model
   end
 

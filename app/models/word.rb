@@ -1,6 +1,7 @@
 class Word
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Suggestable
   field :name
   field :word_length, type: Integer, as: "l"
   has_many :entries
