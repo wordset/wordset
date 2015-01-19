@@ -11,20 +11,24 @@ namespace :data do
         begin
           data = JSON.parse(line)
           data.each do |name, entries|
-            word = Word.new(name: name)
-            word.entries = entries.map do |pos, meanings|
-              {pos: pos,
-              meanings: meanings}
+            word = Word.create(name: name)
+            entries.each do |pos, meanings|
+              entry = Entry.create(pos: pos, word: word)
+              meanings.each do |data|
+                meaning = Meaning.create(def: data["def"], entry: entry)
+                (data["quotes"] || []).each do |qdata|
+                  Quote.create(text: qdata["text"], source: "Wordnet 3.0", meaning: meaning)
+                end
+              end
             end
-            word.save
             counter = counter + 1
             if counter % 1000 == 0
               puts "#{counter}"
               #exit
             end
           end
-        rescue Exception => e
-          puts e.inspect
+        #rescue Exception => e
+        #  puts e.inspect
         end
       end
     end
