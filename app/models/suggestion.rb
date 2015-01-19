@@ -7,6 +7,7 @@ class Suggestion
 
   field :data, type: Hash
   field :action, type: String
+  field :create_class_name, type: String
 
   validates :user,
             :presence => true,
@@ -19,13 +20,32 @@ class Suggestion
     ["create", "destroy", "change"]
   end
 
+  def create?
+    action == "create"
+  end
+
+  def create_class
+    constantize(create_class_name)
+  end
+
+  def create_class=(klass)
+    if klass.suggestable?
+      create_class_name = klass.to_s
+    else
+      throw "Not suggestable class!"
+    end
+  end
+
   state_machine :initial => :new do
     event :approve do
       transition :new => :approved
     end
 
     state :new do
-      validate {|s| s.target.validate_suggestion(self, errors) }
+      validate do |s|
+        target = s.create? ? create_class : s.target
+        target.validate_suggestion(self, errors)
+      end
     end
   end
 end

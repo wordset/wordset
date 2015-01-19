@@ -15,6 +15,10 @@ class Quote
             :url => true,
             :unless => Proc.new { |q| q.source == "Wordnet 3.0"}
 
+  validates :meaning,
+            :presence => true,
+            :associated => true
+
   def word
     meaning.word
   end

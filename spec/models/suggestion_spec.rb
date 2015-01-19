@@ -8,7 +8,13 @@ describe Suggestion do
       @user = create(:user)
     end
 
-
+    it "should apply_suggestion" do
+      new_text = "Hello, mom! I'm here! Totally here."
+      suggestion = @quote.suggest_change(@user, text: new_text)
+      expect(@quote.text).to eq(@original_quote_text)
+      @quote.apply_suggestion(suggestion)
+      expect(@quote.text).to eq(new_text)
+    end
 
     describe "new change suggestions" do
       it "should allow valid suggestions" do
@@ -35,6 +41,12 @@ describe Suggestion do
         # Reload the quote and make sure it's not saved
         @quote.reload
         expect(@quote.text).to eq(@original_quote_text)
+      end
+    end
+
+    describe "create action" do
+      it "should work with proper attributes" do
+        suggestion = Quote.suggest(@user, {text: @original_quote_text, source: "Hampton Catlin", url: "http://www.google.com"})
       end
     end
   end

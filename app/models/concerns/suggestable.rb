@@ -13,6 +13,23 @@ module Suggestable
     def suggestable_children
       %()
     end
+
+    # We use this to test if a class is suggestable
+    def suggestable?
+      true
+    end
+
+    # To create a proper suggestion
+    def suggest(user, data, target = nil)
+      if self.class != Word
+        throw "Requires a valid target" if target.nil?
+      end
+      Suggestion.new(create_class: self.class, data: data, user: user, target: target)
+    end
+
+    def validate_suggestion(suggestion, errors)
+
+    end
   end
 
   def suggest(action, user, data = {})
@@ -35,6 +52,14 @@ module Suggestable
   end
 
   def validate_suggestion(suggestion, errors)
+    if suggestion.action == "change"
+      validate_change_suggestion(suggestion, errors)
+    elsif suggestion.action == "destroy"
+      true
+    end
+  end
+
+  def validate_change_suggestion(suggestion, errors)
     # Since we are changing the model, and we don't want
     # to actually save the data (like, when we make a new)
     # suggestion. We dup it FIRST.
