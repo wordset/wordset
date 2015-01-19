@@ -8,6 +8,13 @@ class Suggestion
   field :data, type: Hash
   field :action, type: String
 
+  validates :user,
+            :presence => true,
+            :associated => true
+  validates :action,
+            :presence => true,
+            :inclusion => {in: Proc.new() { Suggestion.actions } }
+
   def self.actions
     ["create", "destroy", "change"]
   end

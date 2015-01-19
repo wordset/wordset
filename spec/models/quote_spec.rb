@@ -15,5 +15,9 @@ describe Quote do
     it "should fail without url" do
       expect(build(:quote, url: nil)).to_not be_valid
     end
+
+    it "should be able to find the word its associated with" do
+      create(:quote).word
+    end
   end
 end
