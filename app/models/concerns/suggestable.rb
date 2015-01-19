@@ -35,7 +35,11 @@ module Suggestable
   end
 
   def validate_suggestion(suggestion, errors)
+    # Since we are changing the model, and we don't want
+    # to actually save the data (like, when we make a new)
+    # suggestion. We dup it FIRST.
     model = self.dup
+    # And then we only apply the suggestion to the new dup'd model
     model.apply_suggestion(suggestion)
     # this will grab all of the applied suggestable validations from the apply_suggestion method
     if model.errors.any?
@@ -49,6 +53,9 @@ module Suggestable
         errors.add name, msg
       end
     end
+    # Return the dup'd model, in case someone does want to do something
+    # with it after
+    model
   end
 
 end
