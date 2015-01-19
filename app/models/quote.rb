@@ -7,6 +7,14 @@ class Quote
   belongs_to :meaning
   has_many :suggestions, as: :target
 
+  validates :text,
+           :presence => true,
+           :length => {:in => 15..200}
+
+  validates :url,
+            :url => true,
+            :unless => Proc.new { |q| q.source == "Wordnet 3.0"}
+
   def self.suggestable_fields
     %(text source url)
   end

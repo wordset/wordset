@@ -20,6 +20,7 @@ gem 'devise'
 gem 'active_model_serializers'
 gem 'mongoid-serializer'
 gem 'state_machine'
+gem 'validate_url'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
