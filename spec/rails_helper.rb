@@ -28,14 +28,14 @@ RSpec.configure do |config|
   #
   # You can disable this behaviour by removing the line below, and instead
   # explicitly tag your specs with their type, e.g.:
-  #
+  #bundle exec rspec spec/models
   #     RSpec.describe UsersController, :type => :controller do
   #       # ...
   #     end
   #
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
-  config.infer_spec_type_from_file_location!
-  config.include RSpec::Rails::RequestExampleGroup, type: :request, file_path: /spec\/api\/v1/
 
+  config.include RSpec::Rails::RequestExampleGroup, type: :request, file_path: /spec\/api\/v1/
+  config.infer_spec_type_from_file_location!
 end
