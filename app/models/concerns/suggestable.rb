@@ -31,16 +31,17 @@ module Suggestable
 
     def new_from_suggestion(suggestion)
       if suggestion.create_class == Word
-        w = Word.new
-        w.apply_suggestion(suggestion["data"])
-        w
+        Word.new.apply_suggestion(suggestion["data"])
       else
         suggestion.target.new_child_from_suggestion(suggestion)
       end
     end
 
     def validate_suggestion(suggestion, errors)
-      model = new_from_suggestion(suggestion)
+      merge_errors(errors, new_from_suggestion(suggestion))
+    end
+
+    def merge_errors(errors, model)
       model.errors.each do |name, msg|
         errors.add name, msg
       end
@@ -48,6 +49,7 @@ module Suggestable
       model.errors.each do |name, msg|
         errors.add name, msg
       end
+      model
     end
   end
 
@@ -65,9 +67,7 @@ module Suggestable
         value.each do |child_data|
           child = field.to_s.classify.constantize.new(self.class.to_s.underscore => self)
           child.apply_suggestion(child_data)
-          child.errors.each do |name, msg|
-            errors.add name, msg
-          end
+          self.class.merge_errors(errors, child)
           self.send(field) << child
         end
       else
@@ -77,6 +77,7 @@ module Suggestable
         self[field] = value
       end
     end
+    self
   end
 
   def validate_suggestion(suggestion, errors)
@@ -95,20 +96,7 @@ module Suggestable
     # And then we only apply the suggestion to the new dup'd model
     model.apply_suggestion(suggestion["data"])
     # this will grab all of the applied suggestable validations from the apply_suggestion method
-    if model.errors.any?
-      model.errors.each do |name, msg|
-        errors.add name, msg
-      end
-    end
-    # We want to re-run any validations at this point
-    unless model.valid?
-      model.errors.each do |name, msg|
-        errors.add name, msg
-      end
-    end
-    # Return the dup'd model, in case someone does want to do something
-    # with it after
-    model
+    self.class.merge_errors(errors, model)
   end
 
   # This is called when we need a new child of me from a create suggestion
