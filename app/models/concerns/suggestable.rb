@@ -41,13 +41,20 @@ module Suggestable
       merge_errors(errors, new_from_suggestion(suggestion))
     end
 
-    def merge_errors(errors, model)
+    def merge_errors(error_obj, model)
+      store = {}
       model.errors.each do |name, msg|
-        errors.add name, msg
+        store[name] ||= []
+        store[name] << msg
       end
       model.valid?
+      store.each do |name, list|
+        list.each do |msg|
+          error_obj.add name, msg
+        end
+      end
       model.errors.each do |name, msg|
-        errors.add name, msg
+        error_obj.add name, msg
       end
       model
     end
@@ -67,7 +74,7 @@ module Suggestable
         value.each do |child_data|
           child = field.to_s.classify.constantize.new(self.class.to_s.underscore => self)
           child.apply_suggestion(child_data)
-          self.class.merge_errors(errors, child)
+          self.class.merge_errors(self.errors, child)
           self.send(field) << child
         end
       else

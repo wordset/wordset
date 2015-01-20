@@ -68,6 +68,7 @@ describe Suggestion do
   describe "Word Suggestion" do
     before(:each) do
       @user = create(:user)
+      @valid_data = {name: "Hampton", entries: [{pos: "noun", meanings: [{def: "An awesome guy", quotes: [{text: "Hampton is such a great guy", source: "Hampton", url: "http://www.hamptoncatlin.com"}]}]}]}
     end
 
     it "Should have valid children" do
@@ -79,7 +80,7 @@ describe Suggestion do
       expect(@user.suggestions.count).to eq(0)
       expect(Word.count).to eq(0)
       expect(Quote.count).to eq(0)
-      s = Word.suggest(@user, {name: "Hampton", entries: [{pos: "noun", meanings: [{def: "An awesome guy", quotes: [{text: "Hampton is such a great guy", source: "Hampton", url: "http://www.hamptoncatlin.com"}]}]}]})
+      s = Word.suggest(@user, @valid_data)
       expect(s).to be_valid
       expect(s.save).to eq(true)
       s.commit_suggestion!
@@ -89,7 +90,13 @@ describe Suggestion do
       word = Word.where(name: "Hampton").first
       expect(word.name).to eq("Hampton")
       expect(word.entries.first.pos).to eq("noun")
+    end
 
+    it "Should reject invalid children" do
+      invalid_data = @valid_data
+      invalid_data[:entries].first[:meanings].first["invalid"] = "now"
+      s = Word.suggest(@user, invalid_data)
+      expect(s).to_not be_valid
     end
   end
 end
