@@ -25,9 +25,14 @@ class Suggestion
   aasm :column => :state do
     state :new, initial: true
     state :accepted
+    state :rejected
 
     event :approve, after: :commit_suggestion! do
       transitions from: :new, to: :accepted
+    end
+
+    event :reject do
+      transitions from: :new, to: :rejected
     end
   end
 
