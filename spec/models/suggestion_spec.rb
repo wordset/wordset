@@ -83,7 +83,8 @@ describe Suggestion do
       s = Word.suggest(@user, @valid_data)
       expect(s).to be_valid
       expect(s.save).to eq(true)
-      s.commit_suggestion!
+      s.approve
+      s.save
       expect(@user.suggestions.count).to eq(1)
       expect(Word.count).to eq(1)
       expect(Quote.count).to eq(1)
