@@ -10,6 +10,10 @@ class Meaning
             :presence => true,
             :associated => true
 
+  validates :quotes,
+            :associated => true,
+            :length => { :minimum => 1 }
+
   def word
     entry.word
   end
@@ -21,5 +25,4 @@ class Meaning
   def self.suggestable_fields
     %w(def)
   end
-  suggestable_validations
 end

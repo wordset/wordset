@@ -6,6 +6,12 @@ class Word
   field :word_length, type: Integer, as: "l"
   has_many :entries, autosave: true
 
+  validates :entries,
+            :associated => true,
+            :length => { :minimum => 1 }
+
+  index({:name => 1}, {:unique => true, drop_dups: true})
+
 
   before_save do |d|
     d.word_length = d.name.length
@@ -18,7 +24,4 @@ class Word
   def self.suggestable_children
     %w(entries)
   end
-  suggestable_validations
-
-  index({:name => 1}, {:unique => true, drop_dups: true})
 end

@@ -18,6 +18,8 @@ class Quote
   validates :meaning,
             :presence => true,
             :associated => true
+  
+
 
   def word
     meaning.word
@@ -26,7 +28,6 @@ class Quote
   def self.suggestable_fields
     %w(text source url)
   end
-  suggestable_validations
 
 
 end

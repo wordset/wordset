@@ -10,6 +10,10 @@ class Entry
             :presence => true,
             :associated => true
 
+  validates :meanings,
+            :associated => true,
+            :length => { :minimum => 1 }
+
   def self.pos
     %w(adv adj verb noun)
   end
@@ -21,5 +25,4 @@ class Entry
   def self.suggestable_children
     %w(meanings)
   end
-  suggestable_validations
 end

@@ -21,15 +21,6 @@ module Suggestable
       true
     end
 
-    # Call this AFTER you have configured
-    def suggestable_validations
-      suggestable_children.each do |child|
-        validates child,
-                  :associated => true,
-                  :length => { :minimum => 1 }
-      end
-    end
-
     # To create a proper suggestion
     def suggest(user, data, target = nil)
       if self != Word
