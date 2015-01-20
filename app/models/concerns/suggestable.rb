@@ -25,8 +25,8 @@ module Suggestable
     def suggestable_validations
       suggestable_children.each do |child|
         validates child,
-        :associated => true,
-        :length => { :minimum => 1 }
+                  :associated => true,
+                  :length => { :minimum => 1 }
       end
     end
 
