@@ -28,6 +28,22 @@ class Suggestion
     create_class_name.constantize
   end
 
+  def commit_suggestion!
+    case action
+    when "create"
+      model = create_class.new_from_suggestion(self)
+      model.save
+      model
+    when "destroy"
+      target.destroy
+      target
+    when "change"
+      model = target.apply_suggestion(self)
+      model.save
+      model
+    end
+  end
+
   def create_class=(klass)
     if klass.suggestable?
       create_class_name = klass.to_s

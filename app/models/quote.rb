@@ -24,8 +24,9 @@ class Quote
   end
 
   def self.suggestable_fields
-    %(text source url)
+    %w(text source url)
   end
+  suggestable_validations
 
 
 end

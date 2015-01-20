@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :quote do
-    text { Faker::Lorem.sentence }
-    source { Faker::Name.name }
-    url { Faker::Internet.url }
+    text { Faker::Lorem.sentences }
+    source "Hampton Catlin"
+    url "http://www.hamptoncatlin.com"
     meaning
 
     factory :wordnet_quote do
