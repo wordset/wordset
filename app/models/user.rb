@@ -39,6 +39,8 @@ class User
   # Token
   field :auth_key,  type: String, as: "key"
 
+  field :points, type: Integer, default: 0
+
   before_save :ensure_auth_key
 
   def ensure_auth_key
