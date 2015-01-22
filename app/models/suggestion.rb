@@ -7,7 +7,7 @@ class Suggestion
   belongs_to :user
   belongs_to :target, polymorphic: true
 
-  field :data, type: Hash
+  field :delta, type: Hash
   field :action, type: String
   field :create_class_name, type: String
   field :state, type: String

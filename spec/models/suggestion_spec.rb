@@ -12,7 +12,7 @@ describe Suggestion do
       new_text = "Hello, mom! I'm here! Totally here."
       suggestion = @quote.suggest_change(@user, text: new_text)
       expect(@quote.text).to eq(@original_quote_text)
-      @quote.apply_suggestion(suggestion["data"])
+      @quote.apply_suggestion(suggestion["delta"])
       expect(@quote.text).to eq(new_text)
     end
 
@@ -68,7 +68,7 @@ describe Suggestion do
   describe "Word Suggestion" do
     before(:each) do
       @user = create(:user)
-      @valid_data = {name: "Hampton", entries: [{pos: "noun", meanings: [{def: "An awesome guy", quotes: [{text: "Hampton is such a great guy", source: "Hampton", url: "http://www.hamptoncatlin.com"}]}]}]}
+      @valid_delta = {name: "Hampton", entries: [{pos: "noun", meanings: [{def: "An awesome guy", quotes: [{text: "Hampton is such a great guy", source: "Hampton", url: "http://www.hamptoncatlin.com"}]}]}]}
     end
 
     it "Should have valid children" do
@@ -80,7 +80,7 @@ describe Suggestion do
       expect(@user.suggestions.count).to eq(0)
       expect(Word.count).to eq(0)
       expect(Quote.count).to eq(0)
-      s = Word.suggest(@user, @valid_data)
+      s = Word.suggest(@user, @valid_delta)
       expect(s).to be_valid
       expect(s.save).to eq(true)
       s.approve
@@ -94,9 +94,9 @@ describe Suggestion do
     end
 
     it "Should reject invalid children" do
-      invalid_data = @valid_data
-      invalid_data[:entries].first[:meanings].first["invalid"] = "now"
-      s = Word.suggest(@user, invalid_data)
+      invalid_delta = @valid_delta
+      invalid_delta[:entries].first[:meanings].first["invalid"] = "now"
+      s = Word.suggest(@user, invalid_delta)
       expect(s).to_not be_valid
     end
   end

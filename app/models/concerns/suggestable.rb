@@ -22,16 +22,16 @@ module Suggestable
     end
 
     # To create a proper suggestion
-    def suggest(user, data, target = nil)
+    def suggest(user, delta, target = nil)
       if self != Word
         throw "Requires a valid target" if target.nil?
       end
-      Suggestion.new(action: "create", create_class_name: self.to_s, data: data, user: user, target: target)
+      Suggestion.new(action: "create", create_class_name: self.to_s, delta: delta, user: user, target: target)
     end
 
     def new_from_suggestion(suggestion)
       if suggestion.create_class == Word
-        Word.new.apply_suggestion(suggestion["data"])
+        Word.new.apply_suggestion(suggestion["delta"])
       else
         suggestion.target.new_child_from_suggestion(suggestion)
       end
@@ -60,20 +60,20 @@ module Suggestable
     end
   end
 
-  def suggest(action, user, data = {})
-    self.suggestions.build(data: data, word: word, user: user, action: action)
+  def suggest(action, user, delta = {})
+    self.suggestions.build(delta: delta, word: word, user: user, action: action)
   end
 
-  def suggest_change(user, data = {})
-    suggest("change", user, data)
+  def suggest_change(user, delta = {})
+    suggest("change", user, delta)
   end
 
-  def apply_suggestion(data)
-    data.each do |field, value|
+  def apply_suggestion(delta)
+    delta.each do |field, value|
       if self.class.suggestable_children.include?(field.to_s)
-        value.each do |child_data|
+        value.each do |child_delta|
           child = field.to_s.classify.constantize.new(self.class.to_s.underscore => self)
-          child.apply_suggestion(child_data)
+          child.apply_suggestion(child_delta)
           self.class.merge_errors(self.errors, child)
           self.send(field) << child
         end
@@ -97,11 +97,11 @@ module Suggestable
 
   def validate_change_suggestion(suggestion, errors)
     # Since we are changing the model, and we don't want
-    # to actually save the data (like, when we make a new)
+    # to actually save the delta (like, when we make a new)
     # suggestion. We dup it FIRST.
     model = self.dup
     # And then we only apply the suggestion to the new dup'd model
-    model.apply_suggestion(suggestion["data"])
+    model.apply_suggestion(suggestion["delta"])
     # this will grab all of the applied suggestable validations from the apply_suggestion method
     self.class.merge_errors(errors, model)
   end
@@ -109,7 +109,7 @@ module Suggestable
   # This is called when we need a new child of me from a create suggestion
   def new_child_from_suggestion(suggestion)
     model = suggestion.create_class.new
-    model.apply_suggestion suggestion["data"]
+    model.apply_suggestion suggestion["delta"]
     model[self.class.to_s.underscore] = self
     model
   end
