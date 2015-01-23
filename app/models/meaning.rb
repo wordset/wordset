@@ -16,6 +16,8 @@ class Meaning
             :length => { :minimum => 1 },
             :unless => :wordnet_import?
 
+  index({entry_id: 1})
+
   def word
     entry.word
   end

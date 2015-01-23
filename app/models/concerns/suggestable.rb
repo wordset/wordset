@@ -2,7 +2,9 @@ module Suggestable
   extend ActiveSupport::Concern
 
   included do |base|
-    base.has_many :suggestions, as: :target
+    unless base.is_a? Word
+      base.has_many :suggestions, as: :target, inverse_of: :target
+    end
   end
 
   class_methods do

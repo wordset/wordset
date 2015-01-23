@@ -1,6 +1,7 @@
 class WordSerializer < BaseSerializer
   attributes :id, :name
-  has_many :entries
+  has_many :entries, serializer: EntrySerializer
+  has_many :suggestions, serializer: SuggestionSerializer
 
   #params :hi
 end

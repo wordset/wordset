@@ -2,7 +2,6 @@ class Suggestion
   include Mongoid::Document
   include AASM
 
-  belongs_to :parent, class_name: "Suggestion"
   belongs_to :word
   belongs_to :user
   belongs_to :target, polymorphic: true
@@ -21,6 +20,10 @@ class Suggestion
             :inclusion => {in: Proc.new() { Suggestion.actions } }
 
   validate :validate_suggestion, if: :new?
+
+  index({target_id: 1, target_type: 1})
+  index({target_id: 1, target_type: 1, status: 1})
+  index({word_id: 1, status: 1})
 
   aasm :column => :state do
     state :new, initial: true
@@ -50,7 +53,7 @@ class Suggestion
       target.destroy
       target
     when "change"
-      model = target.apply_suggestion(self)
+      model = target.apply_suggestion(self["delta"])
       model.save
       model
     end

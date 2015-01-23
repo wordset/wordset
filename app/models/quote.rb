@@ -19,6 +19,8 @@ class Quote
             :presence => true,
             :associated => true
 
+  index({meaning_id: 1})
+
   def word
     meaning.word
   end

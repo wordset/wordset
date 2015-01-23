@@ -14,6 +14,9 @@ class Entry
             :associated => true,
             :length => { :minimum => 1 }
 
+  index({word_id: 1})
+  index({pos: 1})
+
   def self.pos
     %w(adv adj verb noun)
   end
