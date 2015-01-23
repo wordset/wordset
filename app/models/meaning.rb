@@ -3,6 +3,7 @@ class Meaning
   include Mongoid::Document
   include Suggestable
   field :def, type: String
+  field :wordnet_import, type: Boolean, default: false
   has_many :quotes, autosave: true
   belongs_to :entry
 
@@ -12,7 +13,8 @@ class Meaning
 
   validates :quotes,
             :associated => true,
-            :length => { :minimum => 1 }
+            :length => { :minimum => 1 },
+            :unless => :wordnet_import?
 
   def word
     entry.word

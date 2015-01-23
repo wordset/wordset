@@ -102,11 +102,24 @@ describe Suggestion do
   end
 
   describe "Meaning suggestion" do
-    it "shouldn't require a quote" do
-      user = create(:user)
+    before :each do
+      @user = create(:user)
+    end
+
+    it "can change meaning without editing pre-existing quote" do
       meaning = create(:meaning)
-      s = meaning.suggest_change(user, {def: "sushi is delicious, you know"})
+      s = meaning.suggest_change(@user, {def: "sushi is delicious, you know"})
       expect(s).to be_valid
+    end
+
+    describe "from imported wordnet meaning" do
+      it "doesnt need a quote" do
+        meaning = create(:wordnet_meaning)
+        meaning.quotes = []
+        expect(meaning).to be_valid
+        s = meaning.suggest_change(@user, {def: "sushi is delicious, you know"})
+        expect(s).to be_valid
+      end
     end
   end
 end
