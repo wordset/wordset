@@ -105,7 +105,7 @@ describe Suggestion do
     it "shouldn't require a quote" do
       user = create(:user)
       meaning = create(:meaning)
-      s = meaning.suggest_change(user, {text: "sushi is delicious, you know"})
+      s = meaning.suggest_change(user, {def: "sushi is delicious, you know"})
       expect(s).to be_valid
     end
   end

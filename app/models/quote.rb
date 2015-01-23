@@ -19,8 +19,6 @@ class Quote
             :presence => true,
             :associated => true
 
-
-
   def word
     meaning.word
   end
