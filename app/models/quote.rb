@@ -9,7 +9,7 @@ class Quote
 
   validates :text,
            :presence => true,
-           :length => {:in => 15..200}
+           :length => {:in => 8..200}
 
   validates :url,
             :url => true,
@@ -18,7 +18,7 @@ class Quote
   validates :meaning,
             :presence => true,
             :associated => true
-  
+
 
 
   def word

@@ -100,4 +100,13 @@ describe Suggestion do
       expect(s).to_not be_valid
     end
   end
+
+  describe "Meaning suggestion" do
+    it "shouldn't require a quote" do
+      user = create(:user)
+      meaning = create(:meaning)
+      s = meaning.suggest_change(user, {text: "sushi is delicious, you know"})
+      expect(s).to be_valid
+    end
+  end
 end
