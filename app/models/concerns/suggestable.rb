@@ -95,11 +95,22 @@ module Suggestable
     end
   end
 
+  def deep_copy
+    model = self.clone
+
+    self.class.suggestable_children.each do |child_relation|
+      self.send(child_relation).each do |child|
+        model.send("#{child_relation}") << child.deep_copy
+      end
+    end
+    model
+  end
+
   def validate_change_suggestion(suggestion, errors)
     # Since we are changing the model, and we don't want
     # to actually save the delta (like, when we make a new)
     # suggestion. We dup it FIRST.
-    model = self.dup
+    model = self.deep_copy
     # And then we only apply the suggestion to the new dup'd model
     model.apply_suggestion(suggestion["delta"])
     # this will grab all of the applied suggestable validations from the apply_suggestion method
