@@ -26,7 +26,7 @@ gem 'validate_url'
 gem 'sass-rails', '~> 5.0'
 
 gem 'appsignal'
-gem 'grape-appsignal'
+gem 'grape-appsignal', github: 'madglory/grape-appsignal'
 
 gem "rack-cors", require: "rack/cors"
 
