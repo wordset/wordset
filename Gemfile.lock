@@ -117,6 +117,9 @@ GEM
     grape-active_model_serializers (1.3.1)
       active_model_serializers (>= 0.9.0)
       grape (~> 0.3)
+    grape-appsignal (0.4.1)
+      appsignal (> 0.7)
+      grape (> 0.6)
     grape-entity (0.4.4)
       activesupport
       multi_json (>= 1.3.2)
@@ -302,6 +305,7 @@ DEPENDENCIES
   faker
   grape (= 0.9.0)
   grape-active_model_serializers
+  grape-appsignal
   grape-raketasks
   grape-swagger!
   grape-swagger-rails!
