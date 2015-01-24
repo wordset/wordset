@@ -31,7 +31,7 @@ module Wordset
         desc "Register New User"
         params do
           requires :user, type: Hash do
-            requires :username, :type => String, :desc => "Username"
+            requires :id, :type => String, :desc => "Username"
             requires :email, :type => String, :desc => "User email"
             requires :password, :type => String, :desc => "User password"
           end
@@ -44,7 +44,7 @@ module Wordset
           User.create!(email: email,
                        password: password,
                        password_confirmation: password,
-                       username: user_params[:username])
+                       username: user_params[:id])
         end
 
         desc "Check your session is authorized as a user"
