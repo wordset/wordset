@@ -1,10 +1,5 @@
-class SuggestionSerializer < ActiveModel::Serializer
+class MiniSuggestionSerializer < BaseSerializer
   attributes :id, :target_id, :target_type, :word_id, :delta, :user_id, :meaning_id, :quote_id, :action, :state
-  has_one :user
-  has_one :word
-  embed :ids, include: true
-
-
 
   def meaning_id
     if object.target.is_a? Meaning

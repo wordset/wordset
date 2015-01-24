@@ -5,6 +5,14 @@ module Wordset
 
       resource :suggestions do
         params do
+          optional :limit, default: 100
+          optional :offset, default: 0
+        end
+        get '/', each_serializer: SuggestionSerializer do
+          Suggestion.limit(params[:limit])
+        end
+
+        params do
           requires :suggestion, type: Hash do
             requires :delta, type: Hash
             requires :action, type: String
