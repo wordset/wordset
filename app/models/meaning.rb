@@ -12,8 +12,7 @@ class Meaning
   validates :def,
             :length => {minimum: 10}
   validates :example,
-            :length => {minimum: 10},
-            :on => :update
+            :length => {minimum: 10}
 
   index({entry_id: 1})
 
