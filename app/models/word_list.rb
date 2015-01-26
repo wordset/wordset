@@ -8,7 +8,7 @@ class WordList
     wl = WordList.where({term: term}).first
     if wl == nil
       wl = WordList.new(term: term)
-      wl.words = Word.limit(20).where({ :name => /^#{term}.*/i }).sort("name.length" => 1).to_a
+      wl.words = Word.limit(20).where({ :name => /^#{term}.*/i }).sort("word_length" => 1).to_a
       wl.save
     end
     wl
