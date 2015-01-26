@@ -9,7 +9,8 @@ class Word
 
   validates :entries,
             :associated => true,
-            :length => { :minimum => 1 }
+            :length => { :minimum => 1 },
+            :on => :create
 
   index({:name => 1}, {:unique => true, drop_dups: true})
 

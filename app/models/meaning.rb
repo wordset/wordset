@@ -8,12 +8,12 @@ class Meaning
   belongs_to :entry
 
   validates :entry,
-            :presence => true,
-            :associated => true
+            :presence => true
   validates :def,
             :length => {minimum: 10}
   validates :example,
-            :length => {minimum: 10}
+            :length => {minimum: 10},
+            :on => :update
 
   index({entry_id: 1})
 

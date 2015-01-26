@@ -7,12 +7,12 @@ class Entry
   belongs_to :word
 
   validates :word,
-            :presence => true,
-            :associated => true
+            :presence => true
 
   validates :meanings,
             :associated => true,
-            :length => { :minimum => 1 }
+            :length => { :minimum => 1 },
+            :on => :create
 
   index({word_id: 1})
   index({pos: 1})
