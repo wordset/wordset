@@ -4,17 +4,16 @@ class Meaning
   include Suggestable
   field :def, type: String
   field :wordnet_import, type: Boolean, default: false
-  has_many :quotes, autosave: true
+  field :example, type: String
   belongs_to :entry
 
   validates :entry,
             :presence => true,
             :associated => true
-
-  validates :quotes,
-            :associated => true,
-            :length => { :minimum => 1 },
-            :unless => :wordnet_import?
+  validates :def,
+            :length => {minimum: 10}
+  validates :example,
+            :length => {minimum: 10}
 
   index({entry_id: 1})
 
@@ -22,11 +21,7 @@ class Meaning
     entry.word
   end
 
-  def self.suggestable_children
-    %w(quotes)
-  end
-
   def self.suggestable_fields
-    %w(def)
+    %w(def example)
   end
 end

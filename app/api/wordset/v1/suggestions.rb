@@ -36,10 +36,9 @@ module Wordset
             s.word = s.target
           elsif s.target.is_a? Meaning
             s.word = s.target.entry.word
-          elsif s.target.is_a? Quote
-            s.word = s.target.meaning.entry.word
           end
           s.save!
+          s
         end
       end
     end
