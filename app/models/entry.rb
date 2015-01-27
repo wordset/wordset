@@ -1,7 +1,7 @@
 
 class Entry
   include Mongoid::Document
-  include Suggestable
+  include Editable
   field :pos, type: String
   has_many :meanings, autosave: true
   belongs_to :word
@@ -21,11 +21,11 @@ class Entry
     %w(adv adj verb noun)
   end
 
-  def self.suggestable_fields
+  def self.editable_fields
     %w(pos)
   end
 
-  def self.suggestable_children
+  def self.editable_children
     %w(meanings)
   end
 end

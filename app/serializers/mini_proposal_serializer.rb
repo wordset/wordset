@@ -1,4 +1,4 @@
-class MiniSuggestionSerializer < BaseSerializer
+class MiniProposalSerializer < BaseSerializer
   attributes :id, :target_id, :target_type, :word_id, :delta, :user_id, :meaning_id, :action, :state, :created_at, :wordnet
 
   def meaning_id

@@ -1,4 +1,4 @@
-class Suggestion
+class Proposal
   include Mongoid::Document
   include Mongoid::Timestamps
   include AASM
@@ -20,9 +20,9 @@ class Suggestion
 
   validates :action,
             :presence => true,
-            :inclusion => {in: Proc.new() { Suggestion.actions } }
+            :inclusion => {in: Proc.new() { Proposal.actions } }
 
-  validate :validate_suggestion, if: :new?
+  validate :validate_proposal, if: :new?
 
   index({target_id: 1, target_type: 1})
   index({target_id: 1, target_type: 1, status: 1})
@@ -34,7 +34,7 @@ class Suggestion
     state :accepted
     state :rejected
 
-    event :approve, after: :commit_suggestion! do
+    event :approve, after: :commit_proposal! do
       transitions from: :new, to: :accepted
     end
 
@@ -47,24 +47,24 @@ class Suggestion
   def create?; action == "create"; end
   def create_class; create_class_name.constantize; end
 
-  def commit_suggestion!
+  def commit_proposal!
     case action
     when "create"
-      model = create_class.new_from_suggestion(self)
+      model = create_class.new_from_proposal(self)
       raise "create failed" unless model.save
       model
     when "destroy"
       target.destroy
       target
     when "change"
-      model = target.apply_suggestion(self["delta"])
+      model = target.apply_proposal(self["delta"])
       model.save
       model
     end
   end
 
-  def validate_suggestion
+  def validate_proposal
     target = self.create? ? create_class : self.target
-    target.validate_suggestion(self, errors)
+    target.validate_proposal(self, errors)
   end
 end

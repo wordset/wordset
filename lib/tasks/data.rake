@@ -40,7 +40,7 @@ namespace :data do
       word.entries.all.each do |entry|
         entry.meanings.each do |meaning|
           counter += 1
-          s = Suggestion.create(word: word, action: "create", wordnet: true, target: meaning, state: "accepted", delta: {def: meaning.def, example: meaning.example})
+          s = Proposal.create(word: word, action: "create", wordnet: true, target: meaning, state: "accepted", delta: {def: meaning.def, example: meaning.example})
           s.save!
           puts counter
         end

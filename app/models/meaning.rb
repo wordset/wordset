@@ -1,7 +1,7 @@
 
 class Meaning
   include Mongoid::Document
-  include Suggestable
+  include Editable
   field :def, type: String
   field :wordnet_import, type: Boolean, default: false
   field :example, type: String
@@ -20,7 +20,7 @@ class Meaning
     entry.word
   end
 
-  def self.suggestable_fields
+  def self.editable_fields
     %w(def example)
   end
 end
