@@ -18,7 +18,7 @@ module Wordset
         end
 
         params do
-          requires :suggestion, type: Hash do
+          requires :proposal, type: Hash do
             requires :delta, type: Hash
             requires :action, type: String
             requires :target_id
@@ -27,7 +27,7 @@ module Wordset
         end
         post '/' do
           authorize!
-          d = params[:suggestion]
+          d = params[:proposal]
           s = Proposal.new
           s.delta = d[:delta]
           s.action = d[:action]
