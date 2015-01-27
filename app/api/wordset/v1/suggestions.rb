@@ -8,8 +8,13 @@ module Wordset
           optional :limit, default: 100
           optional :offset, default: 0
         end
-        get '/', each_serializer: SuggestionSerializer do
-          Suggestion.limit(params[:limit])
+        get '/', each_serializer: MiniSuggestionSerializer do
+          Suggestion.limit(params[:limit])#.sort({created_at: 1}).to_a
+        end
+
+
+        get '/:id', serializer: SuggestionSerializer do
+          Suggestion.find(params[:id])
         end
 
         params do

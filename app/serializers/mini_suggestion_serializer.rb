@@ -1,5 +1,5 @@
 class MiniSuggestionSerializer < BaseSerializer
-  attributes :id, :target_id, :target_type, :word_id, :delta, :user_id, :meaning_id, :action, :state
+  attributes :id, :target_id, :target_type, :word_id, :delta, :user_id, :meaning_id, :action, :state, :created_at, :wordnet
 
   def meaning_id
     if object.target.is_a? Meaning
@@ -10,6 +10,8 @@ class MiniSuggestionSerializer < BaseSerializer
   end
 
   def user_id
-    object.user.username
+    if !object.wordnet?
+      object.user.username
+    end
   end
 end

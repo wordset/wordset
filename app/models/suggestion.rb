@@ -1,19 +1,22 @@
 class Suggestion
   include Mongoid::Document
+  include Mongoid::Timestamps
   include AASM
 
   belongs_to :word
   belongs_to :user
   belongs_to :target, polymorphic: true
 
-  field :delta, type: Hash
-  field :action, type: String
-  field :create_class_name, type: String
-  field :state, type: String
+  field :delta, type: Hash, as: "d"
+  field :action, type: String, as: "a"
+  field :create_class_name, type: String, as: "ccn"
+  field :state, type: String, as: "s"
+  field :wordnet, type: Boolean, default: false, as: "wi"
 
   validates :user,
             :presence => true,
-            :associated => true
+            :associated => true,
+            :unless => :wordnet?
 
   validates :action,
             :presence => true,
@@ -24,6 +27,7 @@ class Suggestion
   index({target_id: 1, target_type: 1})
   index({target_id: 1, target_type: 1, status: 1})
   index({word_id: 1, status: 1})
+  index({created_at: 1})
 
   aasm :column => :state do
     state :new, initial: true

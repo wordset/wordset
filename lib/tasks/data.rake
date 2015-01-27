@@ -37,11 +37,14 @@ namespace :data do
   task :create_suggestions => :environment do
     counter = 0
     Word.all.each do |word|
-      counter += 1
-      s = Suggestion.create(word: word, entries: word.entries, source: "Wordnet 3.0", status: "accepted")
-      word.current = s
-      word.save
-      puts counter
+      word.entries.all.each do |entry|
+        entry.meanings.each do |meaning|
+          counter += 1
+          s = Suggestion.create(word: word, action: "create", wordnet: true, target: meaning, state: "accepted", delta: {def: meaning.def, example: meaning.example})
+          s.save!
+          puts counter
+        end
+      end
     end
   end
 end

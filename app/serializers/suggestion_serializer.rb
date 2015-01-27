@@ -1,5 +1,5 @@
 class SuggestionSerializer < ActiveModel::Serializer
-  attributes :id, :target_id, :target_type, :word_id, :delta, :user_id, :meaning_id, :action, :state
+  attributes :id, :target_id, :target_type, :word_id, :delta, :user_id, :meaning_id, :action, :state, :created_at, :wordnet
   has_one :user
   has_one :word
   embed :ids, include: true
@@ -13,6 +13,8 @@ class SuggestionSerializer < ActiveModel::Serializer
   end
 
   def user_id
-    object.user.username
+    if !object.wordnet?
+      object.user.username
+    end
   end
 end
