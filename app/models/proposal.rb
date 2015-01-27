@@ -6,6 +6,8 @@ class Proposal
   belongs_to :word
   belongs_to :user
   belongs_to :target, polymorphic: true
+  belongs_to :proposal
+  has_many :proposals
 
   field :delta, type: Hash, as: "d"
   field :action, type: String, as: "a"
@@ -27,7 +29,9 @@ class Proposal
   index({target_id: 1, target_type: 1})
   index({target_id: 1, target_type: 1, status: 1})
   index({word_id: 1, status: 1})
-  index({created_at: 1})
+  index({created_at: -1})
+
+  before_create :set_previous_proposal
 
   aasm :column => :state do
     state :new, initial: true
@@ -61,6 +65,10 @@ class Proposal
       model.save
       model
     end
+  end
+
+  def set_previous_proposal
+    self.proposal = target.proposals.where(state: "accepted").sort(created_at: -1).first
   end
 
   def validate_proposal

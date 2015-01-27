@@ -1,20 +1,17 @@
 class ProposalSerializer < ActiveModel::Serializer
-  attributes :id, :target_id, :target_type, :word_id, :delta, :user_id, :meaning_id, :action, :state, :created_at, :wordnet
-  has_one :user
+  attributes :id, :word_id, :delta, :target_id, :user_id, :target_type, :action, :state, :created_at, :wordnet, :proposal_id
   has_one :word
-  #embed :ids, include: true
+  has_one :proposal
 
-  def meaning_id
-    if object.target.is_a? Meaning
-      object.target.id
-    else
-      nil
-    end
+  def meaning
+    object.target
   end
 
   def user_id
-    if !object.wordnet?
+    if object.user
       object.user.username
+    else
+      nil
     end
   end
 end

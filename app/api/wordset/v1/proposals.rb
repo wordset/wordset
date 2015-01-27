@@ -8,12 +8,12 @@ module Wordset
           optional :limit, default: 100
           optional :offset, default: 0
         end
-        get '/', each_serializer: MiniProposalSerializer do
-          Proposal.limit(params[:limit])#.sort({created_at: 1}).to_a
+        get '/', each_serializer: ProposalSerializer do
+          Proposal.limit(params[:limit]).sort({created_at: -1}).to_a
         end
 
 
-        get '/:id', serializer: ProposalSerializer do
+        get '/:id', each_serializer: ProposalSerializer do
           Proposal.find(params[:id])
         end
 
