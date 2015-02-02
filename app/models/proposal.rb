@@ -28,7 +28,7 @@ class Proposal
             :presence => true,
             :unless => :create?
 
-  validate :validate_proposal, if: :new?
+  validate :validate_proposal, if: :open?
 
   index({target_id: 1, target_type: 1})
   index({target_id: 1, target_type: 1, status: 1})
@@ -38,16 +38,16 @@ class Proposal
   before_create :set_previous_proposal
 
   aasm :column => :state do
-    state :new, initial: true
+    state :open, initial: true
     state :accepted
     state :rejected
 
     event :approve, after: :commit_proposal! do
-      transitions from: :new, to: :accepted
+      transitions from: :open, to: :accepted
     end
 
     event :reject do
-      transitions from: :new, to: :rejected
+      transitions from: :open, to: :rejected
     end
   end
 

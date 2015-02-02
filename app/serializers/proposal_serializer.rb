@@ -1,20 +1,47 @@
 class ProposalSerializer < ActiveModel::Serializer
   attributes :id, :word_id, :delta,
-             :target_id, :user_id, :target_type,
+             :target_id, :target_type,
              :action, :state, :created_at, :wordnet,
-             :meaning_id
+             :meaning_id, :parent_id, :pos, :word_name,
+             :original, :original_user, :user_id
+  has_one :user, embed_key: :to_param
+  has_one :word
 
-  def meaning_id
+  def pos
     if object.target_type == "Meaning"
-      object.target_id
+      object.target.entry.pos
     else
       nil
     end
   end
 
-  def user_id
-    if object.user
-      object.user.username
+  def parent_id
+    object.proposal_id
+  end
+
+  def original
+    if object.proposal
+      object.proposal.delta
+    else
+      nil
+    end
+  end
+
+  def original_user
+    if object.proposal && object.proposal.user
+      object.proposal.user.username
+    else
+      nil
+    end
+  end
+
+  def word_name
+    object.word.name
+  end
+
+  def meaning_id
+    if object.target_type == "Meaning"
+      object.target_id
     else
       nil
     end
