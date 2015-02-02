@@ -24,6 +24,10 @@ class Proposal
             :presence => true,
             :inclusion => {in: Proc.new() { Proposal.actions } }
 
+  validates :target,
+            :presence => true,
+            :unless => :create?
+
   validate :validate_proposal, if: :new?
 
   index({target_id: 1, target_type: 1})
@@ -68,7 +72,9 @@ class Proposal
   end
 
   def set_previous_proposal
-    self.proposal = target.proposals.where(state: "accepted").sort(created_at: -1).first
+    if target
+      self.proposal = target.proposals.where(state: "accepted").sort(created_at: -1).first
+    end
   end
 
   def validate_proposal
