@@ -3,7 +3,8 @@ class ProposalSerializer < ActiveModel::Serializer
              :target_id, :target_type,
              :action, :state, :created_at, :wordnet,
              :meaning_id, :parent_id, :pos, :word_name,
-             :original, :original_user, :user_id
+             :original, :original_user, :user_id,
+             :reason, :errors
   has_one :user, embed_key: :to_param
   has_one :word
 
@@ -16,11 +17,13 @@ class ProposalSerializer < ActiveModel::Serializer
   end
 
   def parent_id
-    object.proposal_id
+    unless object.create?
+      object.proposal_id
+    end
   end
 
   def original
-    if object.proposal
+    if !object.create? && object.proposal
       object.proposal.delta
     else
       nil

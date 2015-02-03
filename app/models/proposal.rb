@@ -13,6 +13,7 @@ class Proposal
   field :action, type: String, as: "a"
   field :create_class_name, type: String, as: "ccn"
   field :state, type: String, as: "s"
+  field :reason, type: String, as: "r"
   field :wordnet, type: Boolean, default: false, as: "wi"
 
   validates :user,
@@ -27,6 +28,16 @@ class Proposal
   validates :target,
             :presence => true,
             :unless => :create?
+
+  validates :word,
+            :presence => true
+
+  validates :reason,
+            presence: true,
+            length: {minimum: 5}
+
+  validates :delta,
+            presence: true
 
   validate :validate_proposal, if: :open?
 
