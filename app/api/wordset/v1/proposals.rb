@@ -5,7 +5,7 @@ module Wordset
 
       resource :proposals do
         params do
-          optional :limit, default: 100
+          optional :limit, default: 25
           optional :offset, default: 0
         end
         get '/', each_serializer: ProposalSerializer do

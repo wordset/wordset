@@ -4,7 +4,7 @@ class ProposalSerializer < ActiveModel::Serializer
              :action, :state, :created_at, :wordnet,
              :meaning_id, :parent_id, :pos, :word_name,
              :original, :original_user, :user_id,
-             :reason, :errors
+             :reason
   has_one :user, embed_key: :to_param
   has_one :word
 
