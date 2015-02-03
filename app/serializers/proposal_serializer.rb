@@ -6,13 +6,13 @@ class ProposalSerializer < ActiveModel::Serializer
              :original, :original_user, :user_id,
              :reason
   has_one :user, embed_key: :to_param
-  has_one :word
+  #has_one :word
 
   def pos
     if object.target_type == "Meaning"
       object.target.entry.pos
     else
-      nil
+      object.delta["pos"]
     end
   end
 

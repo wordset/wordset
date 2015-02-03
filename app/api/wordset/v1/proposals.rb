@@ -9,7 +9,7 @@ module Wordset
           optional :offset, default: 0
         end
         get '/', each_serializer: ProposalSerializer do
-          Proposal.limit(params[:limit]).sort({created_at: -1}).to_a
+          Proposal.includes(:user).limit(params[:limit]).sort({created_at: -1}).to_a
         end
 
 
