@@ -25,7 +25,6 @@ module Wordset
             requires :target_id
             requires :target_type
             optional :create_class_name, type: String
-            optional :parent_id
           end
         end
         post '/' do
@@ -36,15 +35,14 @@ module Wordset
           s.action = d[:action]
           s.reason = d[:reason]
           s.user = current_user
-          if s.create?
-            s.create_class_name = d[:create_class_name]
-          else
-            s.proposal_id = d[:parent_id]
-          end
+
           s.target_id = d[:target_id]
           s.target_type = d[:target_type].camelcase
           if !s.target.class.editable?
             throw "BAD TARGET"
+          end
+          if s.create?
+            s.create_class_name = d[:create_class_name]
           end
           if s.target.is_a? Word
             s.word = s.target

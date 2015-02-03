@@ -64,6 +64,7 @@ class Proposal
 
   def self.actions; ["create", "destroy", "change"]; end
   def create?; action == "create"; end
+  def change?; action == "change"; end
   def create_class; create_class_name.constantize; end
 
   def commit_proposal!
@@ -83,7 +84,7 @@ class Proposal
   end
 
   def set_previous_proposal
-    if target
+    if change?
       self.proposal = target.proposals.where(state: "accepted").sort(created_at: -1).first
     end
   end
