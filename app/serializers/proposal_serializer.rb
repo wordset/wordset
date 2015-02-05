@@ -1,52 +1,34 @@
 class ProposalSerializer < ActiveModel::Serializer
-  attributes :id, :word_id, :delta,
-             :target_id, :target_type,
-             :action, :state, :created_at, :wordnet,
-             :meaning_id, :parent_id, :pos, :word_name,
-             :original, :original_user, :user_id,
-             :reason
+  attributes :id, :word_id, :state, :created_at, :wordnet,
+             :user_id, :reason, :type
   has_one :user, embed_key: :to_param
-  #has_one :word
 
-  def pos
-    if object.target_type == "Meaning"
-      object.target.entry.pos
+  def type
+    object._type[7..-1]
+  end
+
+  def attributes
+    h = super
+    if object.is_a? ProposeNewWord
+      h["meanings"] = object.embed_new_word_meanings.collect do |m|
+        {def: m.def,
+         example: m.example,
+         pos: m.pos}
+      end
+      h["word_name"] = object.name
     else
-      object.delta["pos"]
+      h["def"] = object.def
+      h["example"] = object.example
+      h["word_name"] = object.word.name
+      if object.is_a? ProposeMeaningChange
+        h["meaning_id"] = object.meaning_id
+        h["original"] = object.original
+        h["parent_id"] = object.proposal_id
+      elsif object.is_a? ProposeNewMeaning
+        h["pos"] = object.pos
+      end
+      h["word_id"] = object.word_id
     end
-  end
-
-  def parent_id
-    unless object.create?
-      object.proposal_id
-    end
-  end
-
-  def original
-    if !object.create? && object.proposal
-      object.proposal.delta
-    else
-      nil
-    end
-  end
-
-  def original_user
-    if object.proposal && object.proposal.user
-      object.proposal.user.username
-    else
-      nil
-    end
-  end
-
-  def word_name
-    object.word.name
-  end
-
-  def meaning_id
-    if object.target_type == "Meaning"
-      object.target_id
-    else
-      nil
-    end
+    h
   end
 end

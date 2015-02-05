@@ -24,7 +24,7 @@ class ProposeNewWord < Proposal
   end
 
   def validate_unique_name
-    if Word.where(name: self.name).any?
+    if !wordnet? && Word.where(name: self.name).any?
       self.errors.add :name, "already exists"
     end
   end

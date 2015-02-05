@@ -17,4 +17,8 @@ class Meaning
   def word
     entry.word
   end
+
+  def wordnet?
+    wordnet_import?
+  end
 end

@@ -6,8 +6,10 @@ module MeaningLike
     base.field :example, type: String
 
     base.validates :def,
-                   :length => {minimum: 10}
+                   :length => {minimum: 10},
+                   :unless => :wordnet?
     base.validates :example,
-                   :length => {minimum: 10}
+                   :length => {minimum: 10},
+                   :unless => :wordnet?
   end
 end

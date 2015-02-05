@@ -2,6 +2,6 @@ class MeaningSerializer < BaseSerializer
   attributes :id, :def, :example, :has_proposal
 
   def has_proposal
-    object.proposals.where(state: "open").any?
+    !object.open_proposal_id.nil?
   end
 end

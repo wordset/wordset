@@ -2,15 +2,18 @@ class ProposeMeaningChange < Proposal
   include MeaningLike #!!!!! LOOK IN MEANING LIKE!
 
   belongs_to :meaning
+  belongs_to :proposal
 
   validates :meaning,
             :associated => true,
             :presence => true
 
+  field :original, type: Hash
+
   index({meaning_id: 1})
   index({_type: 1, meaning_id: 1})
 
-  before_create :set_word_before_create
+  before_create :set_before_create
   after_create :set_meaning_proposal
 
   def commit!
@@ -22,8 +25,10 @@ class ProposeMeaningChange < Proposal
     meaning
   end
 
-  def set_word_before_create
+  def set_before_create
     self.word = meaning.word
+    self.original = {def: meaning.def,
+                     example: meaning.example}
   end
 
   def set_meaning_proposal

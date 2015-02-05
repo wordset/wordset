@@ -4,4 +4,8 @@ class EmbedNewWordMeaning
   include MeaningLike
   include PosLike
   embedded_in :propose_new_word
+
+  def wordnet?
+    propose_new_word.wordnet?
+  end
 end

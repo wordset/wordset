@@ -17,34 +17,39 @@ namespace :data do
               meanings.each do |data|
                 meaning = Meaning.create(def: data["def"], entry: entry)
                 (data["quotes"] || []).each do |qdata|
-                  Quote.create(text: qdata["text"], source: "Wordnet 3.0", meaning: meaning)
+                  meaning.example = qdata
                 end
               end
             end
             counter = counter + 1
             if counter % 1000 == 0
               puts "#{counter}"
-              #exit
             end
           end
-        #rescue Exception => e
-        #  puts e.inspect
         end
       end
     end
   end
 
-  task :create_suggestions => :environment do
+  task :create_proposals => :environment do
     counter = 0
     Word.all.each do |word|
+      s = ProposeNewWord.new(wordnet: true, state: "accepted", name: word.name, word: word)
       word.entries.all.each do |entry|
         entry.meanings.each do |meaning|
           counter += 1
-          s = Proposal.create(word: word, action: "create", wordnet: true, target: meaning, state: "accepted", delta: {def: meaning.def, example: meaning.example})
-          s.save!
+          meaning = s.embed_new_word_meanings.build(pos: entry.pos, def: meaning.def, example: meaning.example)
           puts counter
         end
       end
+      if !s.valid?
+        s.embed_new_word_meanings.each do |m|
+          puts m.inspect
+          puts m.errors.messages
+        end
+      end
+
+      s.save!
     end
   end
 end
