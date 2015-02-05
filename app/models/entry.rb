@@ -1,8 +1,7 @@
 
 class Entry
   include Mongoid::Document
-  include Editable
-  field :pos, type: String
+  include PosLike
   has_many :meanings, autosave: true
   belongs_to :word
 
@@ -19,13 +18,5 @@ class Entry
 
   def self.pos
     %w(adv adj verb noun)
-  end
-
-  def self.editable_fields
-    %w(pos)
-  end
-
-  def self.editable_children
-    %w(meanings)
   end
 end

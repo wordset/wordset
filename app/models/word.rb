@@ -1,7 +1,6 @@
 class Word
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Editable
   field :name
   field :word_length, type: Integer, as: "l"
   has_many :entries, autosave: true
@@ -18,11 +17,11 @@ class Word
     d.word_length = d.name.length
   end
 
-  def self.editable_fields
-    %w(name)
-  end
-
-  def self.editable_children
-    %w(entries)
+  def add_meaning(pos, definition, example)
+    entry = self.entries.where(pos: pos).first
+    if entry.nil?
+      entry = self.entries.build(pos: pos)
+    end
+    entry.meanings.build(def: definition, example: example)
   end
 end

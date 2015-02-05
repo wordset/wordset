@@ -1,26 +1,20 @@
 
 class Meaning
   include Mongoid::Document
-  include Editable
-  field :def, type: String
+  include MeaningLike #!!!!! LOOK IN MEANING LIKE!
   field :wordnet_import, type: Boolean, default: false
-  field :example, type: String
+
   belongs_to :entry
+  belongs_to :open_proposal, class_name: "Proposal"
+  belongs_to :accepted_proposal, class_name: "Proposal" # last accepted proposal
+  has_many :proposals, inverse_of: :meaning, class_name: "ProposeMeaningChange"
 
   validates :entry,
             :presence => true
-  validates :def,
-            :length => {minimum: 10}
-  validates :example,
-            :length => {minimum: 10}
 
   index({entry_id: 1})
 
   def word
     entry.word
-  end
-
-  def self.editable_fields
-    %w(def example)
   end
 end

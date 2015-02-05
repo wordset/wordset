@@ -5,48 +5,21 @@ class Proposal
 
   belongs_to :word
   belongs_to :user
-  belongs_to :target, polymorphic: true
-  belongs_to :proposal
-  has_many :proposals
 
-  field :delta, type: Hash, as: "d"
-  field :action, type: String, as: "a"
-  field :create_class_name, type: String, as: "ccn"
   field :state, type: String, as: "s"
   field :reason, type: String, as: "r"
-  field :wordnet, type: Boolean, default: false, as: "wi"
+  field :wordnet, type: Boolean, default: false, as: "wn"
 
   validates :user,
             :presence => true,
             :associated => true,
             :unless => :wordnet?
 
-  validates :action,
-            :presence => true,
-            :inclusion => {in: Proc.new() { Proposal.actions } }
-
-  validates :target,
-            :presence => true,
-            :unless => :create?
-
-  validates :word,
-            :presence => true
-
-  validates :reason,
-            presence: true,
-            length: {minimum: 5}
-
-  validates :delta,
-            presence: true
-
-  validate :validate_proposal, if: :open?
-
-  index({target_id: 1, target_type: 1})
-  index({target_id: 1, target_type: 1, status: 1})
   index({word_id: 1, status: 1})
+  index({word_id: 1, created_at: -1})
+  index({user_id: 1})
   index({created_at: -1})
-
-  before_create :set_previous_proposal
+  index({_type: 1})
 
   aasm :column => :state do
     state :open, initial: true
@@ -62,35 +35,9 @@ class Proposal
     end
   end
 
-  def self.actions; ["create", "destroy", "change"]; end
-  def create?; action == "create"; end
-  def change?; action == "change"; end
-  def create_class; create_class_name.constantize; end
-
   def commit_proposal!
-    case action
-    when "create"
-      model = create_class.new_from_proposal(self)
-      raise "create failed" unless model.save
-      model
-    when "destroy"
-      target.destroy
-      target
-    when "change"
-      model = target.apply_proposal(self["delta"])
-      model.save
-      model
+    if valid?
+      commit!
     end
-  end
-
-  def set_previous_proposal
-    if change?
-      self.proposal = target.proposals.where(state: "accepted").sort(created_at: -1).first
-    end
-  end
-
-  def validate_proposal
-    target = self.create? ? create_class : self.target
-    target.validate_proposal(self, errors)
   end
 end
