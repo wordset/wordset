@@ -1,5 +1,8 @@
 class User
   include Mongoid::Document
+  include Gravtastic
+  include Mongoid::Timestamps
+  is_gravtastic
   has_many :proposals
 
   # Include default devise modules. Others available are:
@@ -41,12 +44,18 @@ class User
 
   field :points, type: Integer, default: 0
 
+  index points: 1
+
   before_save :ensure_auth_key
 
   def ensure_auth_key
     if auth_key.blank?
       self.auth_key = generate_auth_key
     end
+  end
+
+  def recalculate_points!
+    self.points = self.proposals.where(state: "accepted").count
   end
 
   private

@@ -14,6 +14,13 @@ module Wordset
           if params[:word_id]
             p = p.where(word_id: params[:word_id])
           end
+          if params[:user_id]
+            user = User.where(username: params[:user_id]).first
+            if user == nil
+              raise "No such user"
+            end
+            p = p.where(user_id: user.id)
+          end
           p.limit(params[:limit]).sort({created_at: -1}).to_a
         end
 

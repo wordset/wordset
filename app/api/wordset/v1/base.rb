@@ -7,6 +7,7 @@ module Wordset
       mount Wordset::V1::Words
       mount Wordset::V1::WordLists
       mount Wordset::V1::Proposals
+      mount Wordset::V1::Users
 
       add_swagger_documentation(
         api_version: "v1",

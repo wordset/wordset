@@ -38,6 +38,8 @@ class Proposal
   def commit_proposal!
     if valid?
       commit!
+      user.recalculate_points!
+      user.save
     end
   end
 end

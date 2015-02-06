@@ -29,6 +29,7 @@ gem 'appsignal'
 gem 'grape-appsignal', github: 'madglory/grape-appsignal'
 
 gem "rack-cors", require: "rack/cors"
+gem 'gravtastic'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 #gem 'jbuilder', '~> 2.0'
