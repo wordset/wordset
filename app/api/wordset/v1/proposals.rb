@@ -7,9 +7,14 @@ module Wordset
         params do
           optional :limit, default: 25
           optional :offset, default: 0
+          optional :word_id
         end
         get '/', each_serializer: ProposalSerializer do
-          Proposal.includes(:user).limit(params[:limit]).sort({created_at: -1}).to_a
+          p = Proposal.includes(:user)
+          if params[:word_id]
+            p = p.where(word_id: params[:word_id])
+          end
+          p.limit(params[:limit]).sort({created_at: -1}).to_a
         end
 
 
