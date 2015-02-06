@@ -54,6 +54,20 @@ class User
     end
   end
 
+  def rank
+    if admin?
+      "Admin"
+    elsif self.points > 0
+      "Contributor"
+    else
+      "User"
+    end
+  end
+
+  def admin?
+    (username == "hcatlin") || (username == "malrase")
+  end
+
   def recalculate_points!
     self.points = self.proposals.where(state: "accepted").count
   end

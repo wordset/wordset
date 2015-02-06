@@ -1,5 +1,5 @@
 class UserSerializer < BaseSerializer
-  attributes :id, :points, :image_url, :created_at
+  attributes :id, :points, :image_url, :rank, :created_at
 
   def id
     object.username
@@ -8,4 +8,5 @@ class UserSerializer < BaseSerializer
   def image_url
     object.gravatar_url
   end
+
 end

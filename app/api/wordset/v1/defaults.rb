@@ -27,6 +27,11 @@ module Wordset
             error!('401 Unauthorized', 401) unless current_user
           end
 
+          def admin!
+            user = authenticate
+            error!('admin only!', 401) unless user.admin?
+          end
+
           def authenticate
             return @user if @user
             header = request.headers["Authorization"]

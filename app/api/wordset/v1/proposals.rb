@@ -29,6 +29,11 @@ module Wordset
           Proposal.find(params[:id])
         end
 
+        put '/:id/approve' do
+          admin!
+          Proposal.find(params[:id]).approve!
+        end
+
         params do
           requires :proposal, type: Hash do
             requires :type, type: String
