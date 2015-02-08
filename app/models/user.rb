@@ -2,8 +2,10 @@ class User
   include Mongoid::Document
   include Gravtastic
   include Mongoid::Timestamps
+  include Ranks # This is all the stuff with user rank names and points
   is_gravtastic
   has_many :proposals
+  has_many :votes
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
@@ -54,20 +56,6 @@ class User
     end
   end
 
-  def rank
-    if admin?
-      "Admin"
-    elsif self.points > 0
-      "Contributor"
-    else
-      "User"
-    end
-  end
-
-  def admin?
-    (username == "hcatlin") || (username == "malrase")
-  end
-
   def recalculate_points!
     self.points = self.proposals.where(state: "accepted").count
   end
@@ -84,6 +72,4 @@ class User
   def to_param
     self.username
   end
-
-
 end

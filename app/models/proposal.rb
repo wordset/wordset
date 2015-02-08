@@ -6,9 +6,12 @@ class Proposal
   belongs_to :word
   belongs_to :user
 
+  has_many :votes
+
   field :state, type: String, as: "s"
   field :reason, type: String, as: "r"
   field :wordnet, type: Boolean, default: false, as: "wn"
+  field :tally, type: Integer, default: 0
 
   validates :user,
             :presence => true,
@@ -42,4 +45,10 @@ class Proposal
       user.save
     end
   end
+
+  def recalculate_tally!
+    self.tally = votes.sum(:value)
+    self.save
+  end
+
 end
