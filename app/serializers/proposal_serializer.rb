@@ -1,6 +1,6 @@
 class ProposalSerializer < ActiveModel::Serializer
   attributes :id, :word_id, :state, :created_at, :wordnet,
-             :user_id, :reason, :type
+             :user_id, :reason, :type, :tally
   has_one :user, embed_key: :to_param
   has_many :votes
 
