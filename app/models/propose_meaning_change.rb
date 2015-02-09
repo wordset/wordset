@@ -28,7 +28,8 @@ class ProposeMeaningChange < Proposal
   def set_before_create
     self.word = meaning.word
     self.original = {def: meaning.def,
-                     example: meaning.example}
+                     example: meaning.example,
+                     pos: meaning.entry.pos}
   end
 
   def set_meaning_proposal
