@@ -9,4 +9,8 @@ class UserSerializer < BaseSerializer
     object.gravatar_url
   end
 
+  def rank
+    object.rank[:name]
+  end
+
 end
