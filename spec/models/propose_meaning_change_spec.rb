@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe ProposeMeaningChange do
+
   before do
     @user = create(:user)
     @meaning = create(:meaning)
@@ -37,6 +38,7 @@ describe ProposeMeaningChange do
       @p.approve!
       expect(Meaning.count).to eq(count)
     end
+
   end
 
 end

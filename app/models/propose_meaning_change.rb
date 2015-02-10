@@ -36,4 +36,10 @@ class ProposeMeaningChange < Proposal
     self.meaning.open_proposal = self
     self.meaning.save
   end
+
+  def cleanup_proposal!
+    meaning.update_attributes(open_proposal: nil)
+    super
+  end
+
 end
