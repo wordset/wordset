@@ -8,6 +8,7 @@ module Wordset
           optional :limit, default: 25
           optional :offset, default: 0
           optional :word_id
+          optional :flagged
         end
         get '/', each_serializer: ProposalSerializer do
           p = Proposal.includes(:user)
@@ -20,6 +21,11 @@ module Wordset
               raise "No such user"
             end
             p = p.where(user_id: user.id)
+          end
+          if params[:flagged] == false
+            p = p.ne(state: "flagged")
+          elsif params[:flagged] == true
+            p = p.where(state: "flagged")
           end
           p.limit(params[:limit]).sort({created_at: -1}).to_a
         end
