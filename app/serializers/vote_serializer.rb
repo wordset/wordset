@@ -1,5 +1,5 @@
 class VoteSerializer < BaseSerializer
-  attributes :id, :proposal_id, :yae, :value
+  attributes :id, :proposal_id, :yae, :value, :comment
   has_one :user, embed_key: :to_param
 
 

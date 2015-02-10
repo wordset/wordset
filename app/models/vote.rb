@@ -8,6 +8,7 @@ class Vote
   field :value, type: Integer
   field :flagged, type: Boolean, as: "f", default: false
   field :yae, type: Boolean, as: "y", default: true
+  field :comment, type: String
 
   before_create :calculate_value
   after_save :run_tally
