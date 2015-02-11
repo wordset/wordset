@@ -8,8 +8,6 @@ class ProposeMeaningChange < Proposal
             :associated => true,
             :presence => true
 
-  field :original, type: Hash
-
   index({meaning_id: 1})
   index({_type: 1, meaning_id: 1})
 

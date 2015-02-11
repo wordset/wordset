@@ -24,10 +24,10 @@ class ProposalSerializer < ActiveModel::Serializer
     else
       h["def"] = object.def
       h["example"] = object.example
+      h["original"] = object.original
       h["word_name"] = object.word.name
       if object.is_a? ProposeMeaningChange
         h["meaning_id"] = object.meaning_id
-        h["original"] = object.original
         h["parent_id"] = object.proposal_id
       elsif object.is_a? ProposeNewMeaning
         h["pos"] = object.pos

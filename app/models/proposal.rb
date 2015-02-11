@@ -13,6 +13,7 @@ class Proposal
   field :wordnet, type: Boolean, default: false, as: "wn"
   field :tally, type: Integer, default: 0
   field :flagged_value, type: Integer, default: 0
+  field :original, type: Hash
 
   validates :user,
             :presence => true,
