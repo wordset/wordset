@@ -11,6 +11,7 @@ class Vote
   field :comment, type: String
 
   before_create :calculate_value
+  after_create :recalculate_points!
   after_save :run_tally
 
   validates :user,

@@ -57,7 +57,9 @@ class User
   end
 
   def recalculate_points!
-    self.points = self.proposals.where(state: "accepted").count
+    proposals = self.proposals.where(state: "accepted").count
+    votes = self.votes.count
+    self.points = (proposals*10) + votes
   end
 
   private

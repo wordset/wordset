@@ -6,7 +6,7 @@ module Wordset
       resource :users do
         desc "Top users"
         get '/' do
-          User.all
+          User.all.desc(:points)
         end
 
         desc "Load user info"
