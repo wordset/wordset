@@ -12,7 +12,8 @@ describe ProposeNewWord do
       expect(@p).to_not be_valid
       @p.embed_new_word_meanings.build(pos: "adj",
                                       def: "To be secretly submissive",
-                                      example: "I thought the boss was a little subbery")
+                                      example: "I thought the boss was a little subbery",
+                                      reason: "Fifty Shades of Grey")
     end
 
     it "should work with one meaning" do

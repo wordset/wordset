@@ -72,7 +72,13 @@ module Wordset
 
           case d[:type]
           when "NewWord"
-            throw "NOT IMPLMEENTED"
+            prop.name = d[:word_name]
+            d[:meanings].each do |meaning|
+              prop.embed_new_word_meanings.build(def: meaning[:def],
+                                            pos: meaning[:pos],
+                                            example: meaning[:example],
+                                            reason: meaning[:reason])
+            end
           when "NewMeaning"
             prop.word_id = d[:word_id]
             prop.def = d[:def]

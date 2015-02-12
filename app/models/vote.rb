@@ -57,4 +57,8 @@ class Vote
     end
   end
 
+  def recalculate_points!
+    self.user.recalculate_points!
+  end
+
 end

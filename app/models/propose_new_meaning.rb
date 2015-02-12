@@ -13,11 +13,14 @@ class ProposeNewMeaning < Proposal
 
   def set_original
     entry = word.entries.where(pos: pos).first
-    self.original = {} if entry.nil?
-    meanings = entry.meanings.collect do |meaning|
-      { def: meaning.def, example: meaning.example }
+    if entry.nil?
+      self.original = {}
+    else
+      meanings = entry.meanings.collect do |meaning|
+        { def: meaning.def, example: meaning.example }
+      end
+      self.original = { meanings: meanings }
     end
-    self.original = { meanings: meanings }
   end
 
 end
