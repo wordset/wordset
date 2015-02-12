@@ -21,6 +21,7 @@ class ProposeNewWord < Proposal
       meaning.accepted_proposal = self
     end
     word.save
+    self.word = word
     WordList.destroy_all
     word
   end
