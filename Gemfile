@@ -21,6 +21,7 @@ gem 'active_model_serializers'#, github: "rails-api/active_model_serializers"
 gem 'mongoid-serializer'
 gem 'aasm'
 gem 'validate_url'
+gem 'postmark-rails'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -52,6 +53,7 @@ group :development do
   gem "better_errors"
   gem "meta_request"
   gem "quiet_assets"
+  gem "letter_opener"
 end
 
 group :development, :test do
