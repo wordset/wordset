@@ -27,10 +27,12 @@ module Wordset
           email = user_params[:email]
           password = user_params[:password]
 
-          User.create!(email: email,
-                       password: password,
-                       password_confirmation: password,
-                       username: user_params[:id])
+          u = User.create!(email: email,
+                          password: password,
+                          password_confirmation: password,
+                          username: user_params[:id])
+          UserMailer.signed_up(u).deliver
+          u
         end
 
         desc "Check your session is authorized as a user"
