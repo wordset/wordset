@@ -19,8 +19,7 @@ describe Wordset::V1 do
         # because we added it at the top!
         if list["id"] == "a"
           list["results"].each do |word|
-            expect(word["name"]).to be_an_instance_of(String)
-            expect(word["word_id"]).to be_an_instance_of(String)
+            expect(word).to be_an_instance_of(String)
           end
         end
       end
@@ -39,8 +38,7 @@ describe Wordset::V1 do
       expect(list["results"]).to be_a(Array)
 
       list["results"].each do |word|
-        expect(word["name"]).to be_an_instance_of(String)
-        expect(word["word_id"]).to be_an_instance_of(String)
+        expect(word).to be_an_instance_of(String)
       end
     end
   end

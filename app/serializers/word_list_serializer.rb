@@ -6,8 +6,6 @@ class WordListSerializer < BaseSerializer
   end
 
   def results
-    object.words.map do |word|
-      {name: word.name, word_id: word._id}
-    end
+    object.words.map &:name
   end
 end

@@ -13,7 +13,7 @@ module Wordset
         get '/', each_serializer: ProposalSerializer do
           p = Proposal.includes(:user)
           if params[:word_id]
-            p = p.where(word_id: params[:word_id])
+            p = p.where(word: Word.lookup(params[:word_id]))
           end
           if params[:user_id]
             user = User.where(username: params[:user_id]).first
@@ -80,7 +80,7 @@ module Wordset
                                             reason: meaning[:reason])
             end
           when "NewMeaning"
-            prop.word_id = d[:word_id]
+            prop.word = Word.lookup(d[:word_id])
             prop.def = d[:def]
             prop.example = d[:example]
             prop.pos = d[:pos]

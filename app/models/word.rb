@@ -17,6 +17,10 @@ class Word
     d.word_length = d.name.length
   end
 
+  def self.lookup(name)
+    Word.where(name: name).first
+  end
+
   def add_meaning(pos, definition, example)
     entry = self.entries.where(pos: pos).first
     if entry.nil?
