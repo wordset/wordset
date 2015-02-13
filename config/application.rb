@@ -21,6 +21,8 @@ module Wordset
 
     config.assets.enabled = false
 
+    config.action_mailer.postmark_settings = { :api_token => "e80a08dc-3307-4f1d-ad14-0077412e5380" }
+
     config.middleware.use Rack::Cors do
       allow do
         origins "*"
