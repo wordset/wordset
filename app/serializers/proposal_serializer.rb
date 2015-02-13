@@ -32,7 +32,7 @@ class ProposalSerializer < ActiveModel::Serializer
       elsif object.is_a? ProposeNewMeaning
         h["pos"] = object.pos
       end
-      h["word_id"] = object.word_id
+      h["word_id"] = object.word.name
     end
     h
   end
