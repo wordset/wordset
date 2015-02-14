@@ -19,6 +19,8 @@ class User
                        length: { minimum: 3, maximum: 16 },
                        uniqueness: true
 
+
+
   ## Database authenticatable
   field :email,              type: String, default: ""
   index :email => 1
@@ -43,6 +45,19 @@ class User
 
   # Token
   field :auth_key,  type: String, as: "key"
+
+  ## For Registration Only
+  field :email_opt_in_at, type: Time
+  field :email_opt_in_ip, type: String
+  field :accept_tos_at,   type: Time
+  field :accept_tos_ip,   type: String
+  validates :accept_tos_at,
+            presence: true,
+            on: :create
+  validates :accept_tos_ip,
+            presence: true,
+            on: :create
+
 
   field :points, type: Integer, default: 0
 

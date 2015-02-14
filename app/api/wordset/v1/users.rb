@@ -20,6 +20,8 @@ module Wordset
             requires :id, :type => String, :desc => "Username"
             requires :email, :type => String, :desc => "User email"
             requires :password, :type => String, :desc => "User password"
+            requires :accept_tos, :type => Boolean
+            optional :email_opt_in, :type => Boolean
           end
         end
         post '/', serializer: NewUserSerializer do
@@ -27,10 +29,17 @@ module Wordset
           email = user_params[:email]
           password = user_params[:password]
 
-          u = User.create!(email: email,
+          u = User.new(email: email,
                           password: password,
                           password_confirmation: password,
                           username: user_params[:id])
+          if user_params[:accept_tos]
+            u.accept_tos_at = Time.now
+            u.accept_tos_ip = env['REMOTE_ADDR']
+            u.email_opt_in_at = Time.now
+            u.email_opt_in_ip = env['REMOTE_ADDR']
+          end
+          u.save!
           UserMailer.signed_up(u).deliver
           u
         end
