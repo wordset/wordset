@@ -23,7 +23,7 @@ class User
 
   ## Database authenticatable
   field :email,              type: String, default: ""
-  index :email => 1
+  index({:email => 1}, {unique: true})
   field :encrypted_password, type: String, default: ""
 
   ## Recoverable

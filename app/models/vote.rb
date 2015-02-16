@@ -3,10 +3,14 @@ class Vote
   include Mongoid::Timestamps
 
   belongs_to :user
+  index({user_id: 1})
+  index({user_id: 1, proposal_id: 1}, {unique: true})
   belongs_to :proposal
+  index({proposal_id: 1})
 
   field :value, type: Integer
   field :flagged, type: Boolean, as: "f", default: false
+  index({proposal_id: 1, flagged: 1})
   field :yae, type: Boolean, as: "y", default: true
   field :comment, type: String
 
