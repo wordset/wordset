@@ -77,6 +77,11 @@ class User
     self.points = (proposals*10) + votes
   end
 
+  def voted_proposal_ids
+    #Mongoid::Sessions.default[:votes].find(user_id: current_user.id).select(proposal_id: 1).to_a
+    self.votes.map &:proposal_id
+  end
+
   private
 
   def generate_auth_key

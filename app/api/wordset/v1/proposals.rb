@@ -5,8 +5,9 @@ module Wordset
 
       resource :proposals do
         params do
-          optional :limit, default: 25
-          optional :offset, default: 0
+          optional :limit, default: 25, type: Integer
+          optional :needs_my_vote, type: Boolean, default: nil
+          optional :random, type: Boolean, default: false
           optional :word_id
           optional :flagged
         end
@@ -26,6 +27,14 @@ module Wordset
             p = p.ne(state: "flagged")
           elsif params[:flagged] == true
             p = p.where(state: "flagged")
+          end
+          if params[:needs_my_vote] == true
+            authorize!
+            p = p.where(state: "open")
+            p = p.nin(id: current_user.voted_proposal_ids)
+          end
+          if params[:random] == true
+            p = p.offset(rand(p.count))
           end
           p.limit(params[:limit]).sort({created_at: -1}).to_a
         end
