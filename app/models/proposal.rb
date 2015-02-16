@@ -60,7 +60,7 @@ class Proposal
   end
 
   def recalculate_tally!
-    self.tally = votes.sum(:value)
+    self.tally = votes..where(created_at > self.updated_at).sum(:value)
     self.flagged_value = votes.where(flagged: true).sum(:value)
     if self.flagged_value <= -50
       flag!

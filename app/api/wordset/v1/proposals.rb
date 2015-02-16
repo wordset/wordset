@@ -106,6 +106,45 @@ module Wordset
           prop.save!
           prop
         end
+
+
+        params do
+          requires :proposal, type: Hash do
+            optional :reason, type: String
+            optional :meanings # NewWord
+            optional :name # NewWord
+
+            optional :def # Meaning
+            optional :example # Meaning
+            optional :pos # NewMeaning
+          end
+        end
+        put '/:id', serializer: ProposalSerializer  do
+          authorize!
+          prop = current_user.proposals.where(state: "open").find(params[:id])
+          d = params[:proposal]
+          if prop.class == ProposeNewMeaning
+            prop.def = d[:def]
+            prop.example = d[:example]
+            prop.pos = d[:pos]
+            prop.reason = d[:reason]
+          elsif prop.class == ProposeNewWord
+            prop.name = d[:name]
+            prop.meanings = d[:meanings]
+            prop.def = d[:def]
+            prop.example = d[:example]
+            prop.pos = d[:pos]
+            prop.reason = d[:reason]
+          elsif prop.class == ProposeMeaningChange
+            prop.def = d[:def]
+            prop.example = d[:example]
+            prop.reason = d[:reason]
+          end
+          prop.save!
+          prop
+        end
+
+
       end
     end
   end
