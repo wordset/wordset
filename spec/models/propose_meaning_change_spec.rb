@@ -39,6 +39,13 @@ describe ProposeMeaningChange do
       expect(Meaning.count).to eq(count)
     end
 
+    it "should clear open_proposal_id if rejected" do
+      @p.save
+      @p.reject!
+      @meaning.reload
+      expect(@meaning.open_proposal).to be_nil
+    end
+
   end
 
 end
