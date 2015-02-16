@@ -46,6 +46,20 @@ describe ProposeMeaningChange do
       expect(@meaning.open_proposal).to be_nil
     end
 
+    it "should clear open_proposal if accepted" do
+      @p.save
+      @p.approve!
+      @meaning.reload
+      expect(@meaning.open_proposal).to be_nil
+    end
+
+    it "should clear open_proposal if flagged" do
+      @p.save
+      @p.flag!
+      @meaning.reload
+      expect(@meaning.open_proposal).to be_nil
+    end
+
   end
 
 end
