@@ -20,11 +20,12 @@ class Proposal
             :associated => true,
             :unless => :wordnet?
 
-  index({word_id: 1, status: 1})
+  index({word_id: 1, state: 1})
   index({word_id: 1, created_at: -1})
   index({user_id: 1})
   index({created_at: -1})
   index({_type: 1})
+  index({state: 1})
 
   aasm :column => :state do
     state :open, initial: true
