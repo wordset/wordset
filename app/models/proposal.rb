@@ -36,7 +36,7 @@ class Proposal
       transitions from: :open, to: :accepted
     end
 
-    event :reject do
+    event :reject, after: :cleanup_proposal! do
       transitions from: :open, to: :rejected
     end
 
