@@ -24,7 +24,7 @@ module Ranks
     },
     admin: {
       name: "Admin",
-      vote_value: 100,
+      vote_value: 75,
       min_trust: nil
     }
   }
