@@ -42,7 +42,7 @@ class Vote
   end
 
   def create_activity!
-    VoteActivity.create(proposal: self.proposal, user: self.user, word: self.proposal.word, comment: self.comment)
+    VoteActivity.create(proposal: self.proposal, user: self.user, word: self.proposal.word, comment: self.comment, vote_value: self.value)
   end
 
   private
