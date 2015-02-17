@@ -32,7 +32,17 @@ class Word
         end
         if w.valid?
           puts "Fixed to #{w.name}"
-          w.save
+          begin
+            w.save
+          rescue Moped::Errors::OperationFailure
+            o = Word.where(name: w.name).first
+            w.entries.each do |entry|
+              puts "Duplicate, so moving entries"
+              entry.update_attributes(:word_id => o.id)
+            end
+            w.reload
+            w.destroy
+          end
         else
           puts "DELETED #{w.name}"
           w.destroy
