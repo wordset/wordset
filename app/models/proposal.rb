@@ -15,6 +15,8 @@ class Proposal
   field :flagged_value, type: Integer, default: 0
   field :original, type: Hash
 
+  field :edited_at, type: Time, default: lambda { Time.now }
+
   validates :user,
             :presence => true,
             :associated => true,
@@ -60,7 +62,7 @@ class Proposal
   end
 
   def recalculate_tally!
-    self.tally = votes..where(created_at > self.updated_at).sum(:value)
+    self.tally = votes.where(:created_at.gt => self.edited_at).sum(:value)
     self.flagged_value = votes.where(flagged: true).sum(:value)
     if self.flagged_value <= -50
       flag!

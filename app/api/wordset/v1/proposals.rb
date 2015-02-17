@@ -140,6 +140,7 @@ module Wordset
             prop.example = d[:example]
             prop.reason = d[:reason]
           end
+          prop.edited_at = Time.now
           prop.save!
           prop
         end

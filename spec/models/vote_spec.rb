@@ -58,6 +58,7 @@ describe Vote do
 
   it "should trigger accepted if enough yae votes are there" do
     yae!(:admin)
+    yae!(:admin)
     expect(@proposal.accepted?).to eq(true)
   end
 
