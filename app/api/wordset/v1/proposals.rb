@@ -44,11 +44,6 @@ module Wordset
           Proposal.find(params[:id])
         end
 
-        put '/:id/approve' do
-          admin!
-          Proposal.find(params[:id]).approve!
-        end
-
         params do
           requires :proposal, type: Hash do
             requires :type, type: String
@@ -140,7 +135,7 @@ module Wordset
             prop.example = d[:example]
             prop.reason = d[:reason]
           end
-          prop.edited_at = Time.now
+          prop.finished_edit!
           prop.save!
           prop
         end

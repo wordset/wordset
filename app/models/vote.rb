@@ -4,7 +4,7 @@ class Vote
 
   belongs_to :user
   index({user_id: 1})
-  index({user_id: 1, proposal_id: 1}, {unique: true})
+  index({user_id: 1, proposal_id: 1})
   belongs_to :proposal
   index({proposal_id: 1})
 
@@ -13,6 +13,11 @@ class Vote
   index({proposal_id: 1, flagged: 1})
   field :yae, type: Boolean, as: "y", default: true
   field :comment, type: String
+
+  # If a vote has been usurped, that is a revision
+  # was made on the proposal, so this doesn't
+  # count anymore.
+  field :usurped, type: Boolean, default: false, as: "u"
 
   before_create :calculate_value
   after_create :recalculate_points!
@@ -49,7 +54,7 @@ class Vote
   end
 
   def check_uniqueness
-    if Vote.where(user: user, proposal: proposal).count != 0
+    if Vote.where(user: user, proposal: proposal, usurped: false).count != 0
       errors.add :user, "You can only vote once per proposal."
     end
   end

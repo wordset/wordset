@@ -68,6 +68,20 @@ describe Vote do
     expect(@proposal.rejected?).to eq(true)
   end
 
+  it "should allow editing and restart the vote" do
+    vote = yae!(:user)
+    flag!(:contributor)
+    expect(@proposal.tally).to eq(-9)
+    expect(@proposal.flagged_value).to eq(-10)
+    @proposal.finished_edit!
+    expect(@proposal.tally).to eq(0)
+    expect(@proposal.flagged_value).to eq(-10)
+    new_vote = Vote.create(proposal: @proposal, user: vote.user, yae: true)
+    expect(new_vote).to be_valid
+    expect(@proposal.tally).to eq(1)
+    expect(@proposal.flagged_value).to eq(-10)
+  end
+
   describe "flagging" do
     it "should count as a nay also" do
       flag!

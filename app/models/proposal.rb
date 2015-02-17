@@ -57,12 +57,22 @@ class Proposal
     end
   end
 
+  # Call this if the user just did an edit and
+  # you want to reset everything.
+  def finished_edit!
+    self.edited_at = Time.now
+    self.votes.each do |v|
+      v.update_attributes(usurped: true)
+    end
+    recalculate_tally!
+  end
+
   def cleanup_proposal!
 
   end
 
   def recalculate_tally!
-    self.tally = votes.where(:created_at.gt => self.edited_at).sum(:value)
+    self.tally = votes.where(:usurped => false).sum(:value)
     self.flagged_value = votes.where(flagged: true).sum(:value)
     if self.flagged_value <= -50
       flag!

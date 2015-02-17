@@ -28,7 +28,7 @@ class Word
     Word.each do |w|
       if !w.valid?
         if w.name.include?("(")
-          w.name.gsub!(/\([a-z]+\)/, "")
+          w.name = w.name.gsub(/\([a-z]+\)/, "")
         end
         if w.valid?
           puts "Fixed to #{w.name}"
