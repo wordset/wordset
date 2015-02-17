@@ -5,7 +5,7 @@ module Wordset
 
       resource :activities do
         get "/", :each_serializer => ActivitySerializer do
-          Activity.limit(20).all
+          Activity.limit(20).sort({created_at: -1}).to_a
         end
       end
     end
