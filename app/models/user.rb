@@ -79,7 +79,7 @@ class User
 
   def voted_proposal_ids
     #Mongoid::Sessions.default[:votes].find(user_id: current_user.id).select(proposal_id: 1).to_a
-    self.votes.map &:proposal_id
+    self.votes.where(usurped: false).map &:proposal_id
   end
 
   private

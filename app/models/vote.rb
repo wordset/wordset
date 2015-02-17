@@ -4,6 +4,7 @@ class Vote
 
   belongs_to :user
   index({user_id: 1})
+  index({user_id: 1, usurped: 1})
   index({user_id: 1, proposal_id: 1})
   belongs_to :proposal
   index({proposal_id: 1})
