@@ -1,0 +1,2 @@
+class NewProposalActivity < Activity
+end

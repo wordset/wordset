@@ -22,6 +22,7 @@ class Vote
 
   before_create :calculate_value
   after_create :recalculate_points!
+  after_create :create_activity!
   after_save :run_tally
 
   validates :user,
@@ -38,6 +39,10 @@ class Vote
 
   def nay?
     !is_yae
+  end
+
+  def create_activity!
+    VoteActivity.create(proposal: self.proposal, user: self.user, word: self.proposal.word, comment: self.comment)
   end
 
   private

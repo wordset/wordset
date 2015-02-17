@@ -12,7 +12,7 @@ module Wordset
           optional :flagged
         end
         get '/', each_serializer: ProposalSerializer do
-          p = Proposal.includes(:user)
+          p = Proposal.includes(:user).includes(:activities)
           if params[:word_id]
             p = p.where(word: Word.lookup(params[:word_id]))
           end

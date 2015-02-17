@@ -1,0 +1,2 @@
+class EditProposalActivity < Activity
+end

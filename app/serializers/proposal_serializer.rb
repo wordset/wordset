@@ -3,6 +3,7 @@ class ProposalSerializer < ActiveModel::Serializer
              :user_id, :reason, :type, :tally, :flagged
   has_one :user, embed_key: :to_param
   has_many :votes
+  has_many :activities, serializer: ActivitySerializer
 
   def type
     object._type[7..-1]

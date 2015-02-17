@@ -7,6 +7,7 @@ class Proposal
   belongs_to :user
 
   has_many :votes
+  has_many :activities
 
   field :state, type: String, as: "s"
   field :reason, type: String, as: "r"
@@ -16,6 +17,8 @@ class Proposal
   field :original, type: Hash
 
   field :edited_at, type: Time, default: lambda { Time.now }
+
+  after_create :create_initial_activity!
 
   validates :user,
             :presence => true,
@@ -52,6 +55,7 @@ class Proposal
   def commit_proposal!
     if valid?
       commit!
+      create_final_activity!
       user.recalculate_points!
       user.save
     end
@@ -64,11 +68,12 @@ class Proposal
     self.votes.each do |v|
       v.update_attributes(usurped: true)
     end
+    EditProposalActivity.create(user: self.user, proposal: self, word: self.word)
     recalculate_tally!
   end
 
   def cleanup_proposal!
-
+    create_final_activity!
   end
 
   def recalculate_tally!
@@ -84,6 +89,14 @@ class Proposal
       end
     end
     self.save
+  end
+
+  def create_initial_activity!
+    NewProposalActivity.create(user: self.user, proposal: self, word: self.word)
+  end
+
+  def create_final_activity!
+    ProposalClosedActivity.create(user: self.user, proposal: self, word: self.word, final_state: self.state)
   end
 
 end

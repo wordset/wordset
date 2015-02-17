@@ -74,6 +74,7 @@ describe Vote do
     expect(@proposal.tally).to eq(-9)
     expect(@proposal.flagged_value).to eq(-10)
     @proposal.finished_edit!
+    expect(ProposalActivity.where(proposal: @proposal).last.class).to eq(EditProposalActivity)
     expect(@proposal.tally).to eq(0)
     expect(@proposal.flagged_value).to eq(-10)
     new_vote = Vote.create(proposal: @proposal, user: vote.user, yae: true)
@@ -102,5 +103,6 @@ describe Vote do
       expect(@proposal.flagged?).to eq(true)
     end
   end
+
 
 end
