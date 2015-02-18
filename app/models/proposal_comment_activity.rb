@@ -1,0 +1,2 @@
+class ProposalCommentActivity < Activity
+end

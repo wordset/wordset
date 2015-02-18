@@ -41,7 +41,4 @@ class Activity
     # (number/total)*100
   end
 
-  def create_comment_activity!
-    # Activity.create(user: self.user, proposal: self.proposal, word: self.word, comment: self.comment)
-  end
 end
