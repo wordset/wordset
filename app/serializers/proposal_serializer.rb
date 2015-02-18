@@ -1,6 +1,6 @@
 class ProposalSerializer < ActiveModel::Serializer
   attributes :id, :word_id, :state, :created_at, :wordnet,
-             :user_id, :reason, :type, :tally, :flagged
+             :user_id, :reason, :type, :tally, :flagged, :word_name
   has_one :user, embed_key: :to_param
   has_many :votes
   has_many :activities, serializer: ActivitySerializer
@@ -21,7 +21,6 @@ class ProposalSerializer < ActiveModel::Serializer
          example: m.example,
          pos: m.pos}
       end
-      h["word_name"] = object.name
     else
       h["def"] = object.def
       h["example"] = object.example
