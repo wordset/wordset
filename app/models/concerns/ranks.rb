@@ -40,6 +40,8 @@ module Ranks
   def rank_id
     if admin?
       return :admin
+    elsif self.points > 200
+      return :editor
     elsif self.points > 5
       return :contributor
     else
