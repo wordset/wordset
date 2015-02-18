@@ -13,7 +13,6 @@ class Vote
   field :flagged, type: Boolean, as: "f", default: false
   index({proposal_id: 1, flagged: 1})
   field :yae, type: Boolean, as: "y", default: true
-  field :comment, type: String
 
   # If a vote has been usurped, that is a revision
   # was made on the proposal, so this doesn't
@@ -42,7 +41,7 @@ class Vote
   end
 
   def create_activity!
-    VoteActivity.create(proposal: self.proposal, user: self.user, word: self.proposal.word, comment: self.comment, vote_value: self.value)
+    VoteActivity.create(proposal: self.proposal, user: self.user, word: self.proposal.word, vote_value: self.value)
   end
 
   private

@@ -13,13 +13,13 @@ module Wordset
             requires :proposal_id
             requires :yae, type: Boolean
             optional :flagged, type: Boolean
-            optional :comment, type: String
           end
         end
         post "/" do
           authorize!
           p = Proposal.find(params[:vote][:proposal_id])
-          v = p.votes.build(yae: params[:vote][:yae], flagged: params[:vote][:flagged], comment: params[:vote][:comment])
+          v = p.votes.build(yae: params[:vote][:yae],
+                            flagged: params[:vote][:flagged])
           v.user = @user
           v.save!
           v

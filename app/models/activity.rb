@@ -14,8 +14,6 @@ class Activity
 
   index({created_at: -1})
 
-  field :comment, type: String
-
   before_create :set_cached_fields
 
   def set_cached_fields
@@ -29,9 +27,6 @@ class Activity
     end
     true
   end
-
-
-
 
   def calculate_percentage_edited
     # total = Word.count

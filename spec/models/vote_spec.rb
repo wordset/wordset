@@ -93,12 +93,13 @@ describe Vote do
       expect(@proposal.tally).to eq(-50)
       expect(@proposal.flagged?).to eq(true)
     end
+
     it "should mark flagged, even if the score is positive" do
       yae!(:editor)
-      yae!(:editor)
-      yae!(:editor)
+      yae!(:contributor)
+      yae!(:contributor)
       flag!(:senior_editor)
-      expect(@proposal.tally).to eq(10)
+      expect(@proposal.tally).to eq(5)
       expect(@proposal.flagged_value).to eq(-50)
       expect(@proposal.flagged?).to eq(true)
     end

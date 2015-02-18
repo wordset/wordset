@@ -1,5 +1,5 @@
 class ActivitySerializer < ActiveModel::Serializer
-  attributes :id, :comment, :type, :word_id, :user_id, :proposal_id, :created_at
+  attributes :id, :type, :word_id, :user_id, :proposal_id, :created_at
 
   def type
     object._type[0..-9]
@@ -19,6 +19,8 @@ class ActivitySerializer < ActiveModel::Serializer
       h["final_state"] = object.final_state
     elsif object.is_a? VoteActivity
       h["vote_value"] = object.vote_value
+    elsif object.is_a? ProposalCommentActivity
+      h["comment"] = object.comment
     end
     h
   end
