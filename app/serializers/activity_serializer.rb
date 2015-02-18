@@ -6,15 +6,11 @@ class ActivitySerializer < ActiveModel::Serializer
   end
 
   def user_id
-    if object.user
-      object.user.username
-    end
+    object.username
   end
 
   def word_id
-    if object.word
-      object.word.name
-    end
+    object.word_name
   end
 
   def attributes

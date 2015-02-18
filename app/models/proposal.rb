@@ -6,8 +6,10 @@ class Proposal
   belongs_to :word
   belongs_to :user
 
-  has_many :votes
-  has_many :activities
+  has_many :votes,
+            dependent: :destroy
+  has_many :activities,
+            dependent: :destroy
 
   field :state, type: String, as: "s"
   field :reason, type: String, as: "r"
@@ -52,6 +54,12 @@ class Proposal
 
   end
 
+  # Accessor that we use to either access the word belongs_to
+  # or we override it in child proposals
+  def word_name
+    word.name
+  end
+
   def commit_proposal!
     if valid?
       commit!
@@ -68,7 +76,9 @@ class Proposal
     self.votes.each do |v|
       v.update_attributes(usurped: true)
     end
-    EditProposalActivity.create(user: self.user, proposal: self, word: self.word)
+    EditProposalActivity.create(user: self.user,
+                                proposal: self,
+                                word: self.word)
     recalculate_tally!
   end
 
