@@ -19,6 +19,9 @@ module Wordset
         post "/", :serializer => ActivitySerializer do
           authorize!
           p = Proposal.find(params[:activity][:proposal_id])
+          if !p.open?
+            throw "This proposal is closed."
+          end
           a = ProposalCommentActivity.new(comment: params[:activity][:comment],
                                          user: current_user,
                                          proposal: p,
