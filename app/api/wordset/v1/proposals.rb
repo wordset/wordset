@@ -125,7 +125,7 @@ module Wordset
             prop.reason = d[:reason]
           elsif prop.class == ProposeNewWord
             prop.name = d[:name]
-            prop.meanings = d[:meanings]
+            prop.embed_new_word_meanings = d[:meanings]
             prop.def = d[:def]
             prop.example = d[:example]
             prop.pos = d[:pos]
