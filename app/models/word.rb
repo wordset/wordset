@@ -6,7 +6,7 @@ class Word
   has_many :entries, autosave: true
   has_many :proposals
 
-  validates :name, :format => { with: /\A[a-zA-Z][a-zA-Z\d\/\-' .]*\z/ }
+  validates :name, :format => { with: /\A[a-zA-Z][a-zA-Z\d\/\-' .]*\z/ } #'
 
   validates :entries,
             :associated => true,
@@ -22,33 +22,6 @@ class Word
 
   def self.lookup(name)
     Word.where(name: name).first
-  end
-
-  def self.cleanup
-    Word.each do |w|
-      if !w.valid?
-        if w.name.include?("(")
-          w.name = w.name.gsub(/\([a-z]+\)/, "")
-        end
-        if w.valid?
-          puts "Fixed to #{w.name}"
-          begin
-            w.save
-          rescue Moped::Errors::OperationFailure
-            o = Word.where(name: w.name).first
-            w.entries.each do |entry|
-              puts "Duplicate, so moving entries"
-              entry.update_attributes(:word_id => o.id)
-            end
-            w.reload
-            w.destroy
-          end
-        else
-          puts "DELETED #{w.name}"
-          w.destroy
-        end
-      end
-    end
   end
 
   def add_meaning(pos, definition, example)

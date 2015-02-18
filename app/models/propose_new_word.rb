@@ -26,6 +26,11 @@ class ProposeNewWord < Proposal
     word
   end
 
+  # OVERRIDE
+  def word_name
+    name
+  end
+
   def validate_unique_name
     if !wordnet? && Word.where(name: self.name).any?
       self.errors.add :name, "already exists"
