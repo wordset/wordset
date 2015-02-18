@@ -134,10 +134,8 @@ module Wordset
             prop.example = d[:example]
           end
           prop.reason = d[:reason]
-          if prop.valid?
-            prop.finished_edit!
-          end
           prop.save!
+          prop.finished_edit!
           prop
         end
 
