@@ -13,4 +13,18 @@ class Activity
   index({created_at: -1})
 
   field :comment, type: String
+
+
+  def calculate_percentage_edited
+    # total = Word.count
+    # Word.proposals.count > 1
+    #   return true
+    # end
+    # (number/total)*100
+  end
+
+  def create_comment_activity!
+    # Activity.create(user: self.user, proposal: self.proposal, word: self.word, comment: self.comment)
+  end
+
 end
