@@ -3,8 +3,8 @@ class Word
   include Mongoid::Timestamps
   field :name
   field :word_length, type: Integer, as: "l"
-  has_many :entries, autosave: true
-  has_many :proposals
+  has_many :entries, autosave: true, dependent: :destroy
+  has_many :proposals, dependent: :destroy
 
   validates :name, :format => { with: /\A[a-zA-Z][a-zA-Z\d\/\-' .]*\z/ } #'
 

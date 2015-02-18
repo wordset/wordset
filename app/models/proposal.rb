@@ -6,8 +6,10 @@ class Proposal
   belongs_to :word
   belongs_to :user
 
-  has_many :votes
-  has_many :activities
+  has_many :votes,
+            dependent: :destroy
+  has_many :activities,
+            dependent: :destroy
 
   field :state, type: String, as: "s"
   field :reason, type: String, as: "r"

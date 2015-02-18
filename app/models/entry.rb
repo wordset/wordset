@@ -2,7 +2,9 @@
 class Entry
   include Mongoid::Document
   include PosLike
-  has_many :meanings, autosave: true
+  has_many :meanings,
+            autosave: true,
+            dependent: :destroy
   belongs_to :word
 
   validates :word,
