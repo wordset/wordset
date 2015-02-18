@@ -12,15 +12,20 @@ module Ranks
       vote_value: 10,
       min_trust: 20
     },
-    editor: {
-      name: "Editor",
+    junior_editor: {
+      name: "Junior Editor",
       vote_value: 20,
       min_trust: 50
+    },
+    editor: {
+      name: "Editor",
+      vote_value: 35,
+      min_trust: 100
     },
     senior_editor: {
       name: "Senior Editor",
       vote_value: 50,
-      min_trust: 100
+      min_trust: 500
     },
     admin: {
       name: "Admin",
