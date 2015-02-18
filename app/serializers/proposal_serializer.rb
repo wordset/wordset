@@ -19,7 +19,8 @@ class ProposalSerializer < ActiveModel::Serializer
       h["meanings"] = object.embed_new_word_meanings.collect do |m|
         {def: m.def,
          example: m.example,
-         pos: m.pos}
+         pos: m.pos,
+         reason: m.reason}
       end
     else
       h["def"] = object.def

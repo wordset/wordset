@@ -106,8 +106,7 @@ module Wordset
         params do
           requires :proposal, type: Hash do
             optional :reason, type: String
-            optional :meanings # NewWord
-            optional :name # NewWord
+            optional :meanings, type: Array # NewWord
 
             optional :def # Meaning
             optional :example # Meaning
@@ -122,17 +121,22 @@ module Wordset
             prop.def = d[:def]
             prop.example = d[:example]
             prop.pos = d[:pos]
-            prop.reason = d[:reason]
           elsif prop.class == ProposeNewWord
-            prop.name = d[:name]
-            prop.embed_new_word_meanings = d[:meanings]
-            prop.reason = d[:reason]
+            prop.embed_new_word_meanings.each &:destroy
+            d[:meanings].each do |meaning|
+              prop.embed_new_word_meanings.build(def: meaning[:def],
+                                            pos: meaning[:pos],
+                                            example: meaning[:example],
+                                            reason: meaning[:reason])
+            end
           elsif prop.class == ProposeMeaningChange
             prop.def = d[:def]
             prop.example = d[:example]
-            prop.reason = d[:reason]
           end
-          prop.finished_edit!
+          prop.reason = d[:reason]
+          if prop.valid?
+            prop.finished_edit!
+          end
           prop.save!
           prop
         end
