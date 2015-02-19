@@ -21,9 +21,11 @@ describe ProposeNewMeaning do
 
     it "should create a new entry" do
       @p.save
-      entry_count = Entry.count
+      entry_count = @word.entries.count
+      meaning_count = Meaning.count
       @p.approve!
-      expect(Entry.count).to eq(entry_count + 1)
+      expect(@word.entries.count).to eq(entry_count + 1)
+      expect(Meaning.count).to eq(meaning_count + 1)
     end
 
     it "Should work if it's the same entry too" do

@@ -20,7 +20,7 @@ class ProposeNewWord < Proposal
       meaning = word.add_meaning(meaning.pos, meaning.def, meaning.example)
       meaning.accepted_proposal = self
     end
-    word.save
+    word.save!
     self.word = word
     WordList.destroy_all
     word

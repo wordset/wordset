@@ -7,7 +7,8 @@ class ProposeNewMeaning < Proposal
   def commit!
     meaning = word.add_meaning(pos, self.def, example)
     meaning.accepted_proposal_id = self.id
-    word.save
+    word.save!
+    meaning.save!
     meaning
   end
 
