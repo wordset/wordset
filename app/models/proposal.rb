@@ -33,6 +33,7 @@ class Proposal
   index({created_at: -1})
   index({_type: 1})
   index({state: 1})
+  index({state: 1, created_at: -1, _id: 1})
 
   aasm :column => :state do
     state :open, initial: true

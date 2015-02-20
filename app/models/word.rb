@@ -16,6 +16,7 @@ class Word
 
   index({:name => 1}, {:unique => true, drop_dups: true})
   index({word_length: 1})
+  index({name: 1, word_length: 1})
 
   before_save do |d|
     d.word_length = d.name.length
