@@ -8,8 +8,6 @@ module Wordset
           Activity.limit(20).sort({created_at: -1}).to_a
         end
 
-
-
         params do
           requires :activity, type: Hash do
             requires :proposal_id

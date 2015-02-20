@@ -19,6 +19,6 @@ class Entry
   index({pos: 1})
 
   def self.pos
-    %w(adv adj verb noun prep)
+    %w(adv adj verb noun prep pronoun conj)
   end
 end
