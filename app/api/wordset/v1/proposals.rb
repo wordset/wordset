@@ -121,6 +121,13 @@ module Wordset
           return {can: true}
         end
 
+        post '/:id/withdraw', serializer: ProposalSerializer do
+          authorize!
+          prop = Proposal.where(user: current_user, state: "open", id: params[:id]).first
+          prop.withdraw!
+          prop
+        end
+
         params do
           requires :proposal, type: Hash do
             optional :reason, type: String

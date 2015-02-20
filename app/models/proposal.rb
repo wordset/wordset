@@ -40,6 +40,7 @@ class Proposal
     state :accepted
     state :rejected
     state :flagged
+    state :withdrawn
 
     event :approve, after: :commit_proposal! do
       transitions from: :open, to: :accepted
@@ -51,6 +52,10 @@ class Proposal
 
     event :flag, after: :cleanup_proposal! do
       transitions from: :open, to: :flagged
+    end
+
+    event :withdraw, after: :cleanup_proposal! do
+      transitions from: :open, to: :withdrawn
     end
 
   end
