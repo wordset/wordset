@@ -9,6 +9,7 @@ module Wordset
           optional :needs_my_vote, type: Boolean, default: nil
           optional :random, type: Boolean, default: false
           optional :word_id
+          optional :offset, default: 0, type: Integer
           optional :flagged
         end
         get '/', each_serializer: ProposalSerializer do
@@ -30,13 +31,18 @@ module Wordset
           end
           if params[:needs_my_vote] == true
             authorize!
-            p = p.where(state: "open")
-            p = p.nin(id: current_user.voted_proposal_ids)
+            p = p.open.nin(id: current_user.voted_proposal_ids)
           end
+          count = p.count
           if params[:random] == true
             p = p.offset(rand(p.count))
+          elsif params[:offset]
+            p = p.offset(params[:offset])
           end
-          p.limit(params[:limit]).sort({created_at: -1}).to_a
+          render p.limit(params[:limit])
+                 .sort({created_at: -1})
+                 .to_a,
+                 { meta: { total: count } }
         end
 
 
