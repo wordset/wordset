@@ -109,6 +109,18 @@ module Wordset
         end
 
 
+        get '/new-word-status/:word' do
+          word = Word.where(name: params[:word]).first
+          if word
+            return {word_id: word.name, can: false}
+          end
+          prop = ProposeNewWord.where(name: params[:word]).open.first
+          if prop
+            return {proposal_id: prop.id, can: false}
+          end
+          return {can: true}
+        end
+
         params do
           requires :proposal, type: Hash do
             optional :reason, type: String
@@ -144,7 +156,6 @@ module Wordset
           prop.finished_edit!
           prop
         end
-
 
       end
     end
