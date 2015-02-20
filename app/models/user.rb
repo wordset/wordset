@@ -10,7 +10,7 @@ class User
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-        :trackable, :validatable
+        :trackable, :validatable, :recoverable
          #:confirmable :recoverable, :rememberable,
 
   field :username, type: String
@@ -27,8 +27,8 @@ class User
   field :encrypted_password, type: String, default: ""
 
   ## Recoverable
-  #field :reset_password_token,   type: String
-  #field :reset_password_sent_at, type: Time
+  field :reset_password_token,   type: String
+  field :reset_password_sent_at, type: Time
 
   ## Trackable
   field :sign_in_count,      type: Integer, default: 0, as: "sic"

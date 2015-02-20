@@ -48,6 +48,36 @@ module Wordset
         get '/authorized' do
           authorize!
         end
+
+        params do
+          requires :email, type: String
+        end
+        post '/forgot_password' do
+          user = User.where(email: params[:email]).first
+          if user
+            user.send(:set_reset_password_token)
+            user.reset_password_sent_at = Time.now
+            user.save
+            UserMailer.forgot_password(user).deliver
+          end
+          true
+        end
+
+        params do
+          requires :token, type: String
+          requires :password, type: String
+        end
+        post '/reset_password' do
+          user = User.where(reset_password_token: params[:token]).first
+          if user.reset_password_sent_at < 2.hours.ago
+            throw "invalid"
+          end
+          user.update_attributes(password: params[:password],
+                                 password_confirmation: params[:password],
+                                 reset_password_token: nil,
+                                 reset_password_sent_at: nil)
+          {username: user.username}
+        end
       end
     end
   end
