@@ -22,6 +22,7 @@ module Wordset
                             flagged: params[:vote][:flagged])
           v.user = @user
           v.save!
+          p.pushUpdate!
           v
         end
       end

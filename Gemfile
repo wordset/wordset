@@ -22,6 +22,7 @@ gem 'mongoid-serializer'
 gem 'aasm'
 gem 'validate_url'
 gem 'postmark-rails'
+gem 'pusher'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

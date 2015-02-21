@@ -60,6 +60,11 @@ class Proposal
 
   end
 
+  def pushUpdate!
+    Pusher['proposals'].trigger('push',
+      ProposalSerializer.new(self).to_json)
+  end
+
   # Accessor that we use to either access the word belongs_to
   # or we override it in child proposals
   def word_name
