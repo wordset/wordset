@@ -17,6 +17,7 @@ module Wordset
         post "/", :serializer => ActivitySerializer do
           authorize!
           p = Proposal.find(params[:activity][:proposal_id])
+          p.pushUpdate!
           if !p.open?
             throw "This proposal is closed."
           end

@@ -125,6 +125,7 @@ module Wordset
           authorize!
           prop = Proposal.where(user: current_user, state: "open", id: params[:id]).first
           prop.withdraw!
+          prop.pushUpdate!
           prop
         end
 
@@ -160,6 +161,7 @@ module Wordset
           end
           prop.reason = d[:reason]
           prop.save!
+          prop.pushUpdate!
           prop.finished_edit!
           prop
         end
