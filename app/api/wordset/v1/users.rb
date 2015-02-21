@@ -47,6 +47,7 @@ module Wordset
         desc "Check your session is authorized as a user"
         get '/authorized' do
           authorize!
+          true
         end
 
         params do

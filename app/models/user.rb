@@ -6,6 +6,8 @@ class User
   is_gravtastic
   has_many :proposals
   has_many :votes
+  has_many :messages
+  has_many :activities
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
