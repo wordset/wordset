@@ -1,6 +1,4 @@
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
-  config.action_mailer.default_url_options = { host: 'beta.wordset.org' }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -25,7 +23,7 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  config.action_mailer.default_url_options = { host: 'beta.wordset.org'}
+  config.action_mailer.default_url_options = { host: 'www.wordset.org'}
 
 
   # Compress JavaScripts and CSS.
