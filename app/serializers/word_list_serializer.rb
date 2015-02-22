@@ -6,6 +6,6 @@ class WordListSerializer < BaseSerializer
   end
 
   def results
-    object.words.map &:name
+    object.words
   end
 end

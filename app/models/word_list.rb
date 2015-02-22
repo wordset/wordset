@@ -1,7 +1,7 @@
 class WordList
   include Mongoid::Document
-  field :term
-  has_and_belongs_to_many :words, inverse_of: nil
+  field :term, type: String
+  field :words, type: Array
   index({term: 1}, {unique: true})
 
   def self.search(term)
@@ -9,7 +9,7 @@ class WordList
     if wl == nil
       wl = WordList.new(term: term)
       escaped = Regexp.escape(term)
-      wl.words = Word.limit(20).where({ :name => /^#{escaped}.*/i }).sort("word_length" => 1).to_a
+      wl.words = Word.limit(20).where({ :name => /^#{escaped}.*/i }).sort("word_length" => 1).map &:name
       wl.save
     end
     wl
