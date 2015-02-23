@@ -25,6 +25,8 @@ gem 'validate_url'
 gem 'postmark-rails'
 gem 'pusher'
 
+gem 'sitemap_generator'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 

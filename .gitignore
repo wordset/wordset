@@ -9,6 +9,7 @@
 /db/wordnet.json
 .DS_Store
 
+/public/sitemap*
 dump
 
 # Ignore all logfiles and tempfiles.
