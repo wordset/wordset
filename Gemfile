@@ -14,6 +14,7 @@ gem 'grape-swagger-rails', github: 'BrandyMint/grape-swagger-rails'
 gem 'grape-raketasks'
 
 gem 'rails_12factor', group: :production
+gem 'rack-ssl-enforcer'
 
 gem 'devise'
 

@@ -214,6 +214,7 @@ GEM
     rack-cors (0.3.1)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
+    rack-ssl-enforcer (0.2.8)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -347,6 +348,7 @@ DEPENDENCIES
   pusher
   quiet_assets
   rack-cors
+  rack-ssl-enforcer
   rails (= 4.2.0)
   rails_12factor
   rspec-rails

@@ -1,5 +1,7 @@
 Rails.application.configure do
 
+  config.middleware.use Rack::SslEnforcer
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
