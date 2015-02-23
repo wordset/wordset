@@ -7,5 +7,5 @@ if Rails.env.development?
   GrapeSwaggerRails.options.app_url = "http://localhost:3000"
   #GrapeSwaggerRails.options.api_key_name = "hcatlin:sx8F9GByHyXQdQZuE2Dw"
 else
-  GrapeSwaggerRails.options.app_url = "http://api.wordset.org"
+  GrapeSwaggerRails.options.app_url = "https://api.wordset.org"
 end
