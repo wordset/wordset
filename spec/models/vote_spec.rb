@@ -83,6 +83,13 @@ describe Vote do
     expect(@proposal.flagged_value).to eq(-10)
   end
 
+  it "should cancel a vote that has been withdrawn" do
+    vote = yae!(:user)
+    expect(@proposal.tally).to eq(1)
+    vote.withdraw!
+    expect(@proposal.tally).to eq(0)
+  end
+
   describe "flagging" do
     it "should count as a nay also" do
       flag!

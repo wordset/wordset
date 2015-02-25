@@ -19,6 +19,10 @@ class Vote
   # count anymore.
   field :usurped, type: Boolean, default: false, as: "u"
 
+  # If a vote is withdrawn, this should be
+  # set to true
+  field :withdrawn, type: Boolean, default: false, as: "w"
+
   before_create :calculate_value
   after_create :recalculate_points!
   after_create :create_activity!
@@ -44,6 +48,11 @@ class Vote
     VoteActivity.create(proposal: self.proposal, user: self.user, word: self.proposal.word, vote_value: self.value)
   end
 
+  def withdraw!
+    self.update_attributes(withdrawn: true)
+    run_tally
+  end
+
   private
 
   def calculate_value
@@ -59,7 +68,7 @@ class Vote
   end
 
   def check_uniqueness
-    if Vote.where(user: user, proposal: proposal, usurped: false).count != 0
+    if Vote.where(user: user, proposal: proposal, usurped: false, withdrawn: false).count != 0
       errors.add :user, "You can only vote once per proposal."
     end
   end
@@ -74,5 +83,7 @@ class Vote
   def recalculate_points!
     self.user.recalculate_points!
   end
+
+
 
 end

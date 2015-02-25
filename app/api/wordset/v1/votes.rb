@@ -25,6 +25,15 @@ module Wordset
           p.pushUpdate!
           v
         end
+
+        post '/:id/withdraw', serializer: ProposalSerializer do
+          authorize!
+          v = Vote.where(user: current_user, id: params[:id]).first
+          v.withdraw!
+          v.proposal
+        end
+
+
       end
 
     end
