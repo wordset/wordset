@@ -98,7 +98,7 @@ class Proposal
   end
 
   def recalculate_tally!
-    self.tally = votes.where(:usurped => false, :withdrawn => false).sum(:value)
+    self.tally = votes.where(:usurped => false, :withdrawn.in => [false, nil]).sum(:value)
     self.tally = 100 if self.tally > 100
     self.tally = -100 if self.tally < -100
     self.flagged_value = votes.where(flagged: true).sum(:value)

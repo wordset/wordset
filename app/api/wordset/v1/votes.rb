@@ -29,7 +29,9 @@ module Wordset
         post '/:id/withdraw', serializer: ProposalSerializer do
           authorize!
           v = Vote.where(user: current_user, id: params[:id]).first
-          v.withdraw!
+          if v.proposal.open? && !v.usurped?
+            v.withdraw!
+          end
           v.proposal
         end
 

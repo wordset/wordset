@@ -1,0 +1,3 @@
+class WithdrawVoteActivity < Activity
+
+end

@@ -50,6 +50,7 @@ class Vote
 
   def withdraw!
     self.update_attributes(withdrawn: true)
+    WithdrawVoteActivity.create(proposal: self.proposal, user: self.user, word: self.proposal.word)
     run_tally
   end
 
@@ -68,7 +69,7 @@ class Vote
   end
 
   def check_uniqueness
-    if Vote.where(user: user, proposal: proposal, usurped: false, withdrawn: false).count != 0
+    if Vote.where(user: user, proposal: proposal, usurped: false, :withdrawn.in => [false, nil]).count != 0
       errors.add :user, "You can only vote once per proposal."
     end
   end

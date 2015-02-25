@@ -84,10 +84,11 @@ describe Vote do
   end
 
   it "should cancel a vote that has been withdrawn" do
-    vote = yae!(:user)
-    expect(@proposal.tally).to eq(1)
+    yae!(:editor)
+    vote = nay!(:admin)
+    expect(@proposal.tally).to eq(-40)
     vote.withdraw!
-    expect(@proposal.tally).to eq(0)
+    expect(@proposal.tally).to eq(35)
   end
 
   describe "flagging" do
