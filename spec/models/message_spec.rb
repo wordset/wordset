@@ -11,7 +11,7 @@ describe Message do
     expect(message).to be_valid
     message.save
     message.reload
-    expect(message.class).to eq(Message)
+    expect(message.class).to eq(MessageSay)
     expect(message.text).to eq(text)
   end
 end

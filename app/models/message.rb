@@ -10,14 +10,10 @@ class Message
 
   field :text, type: String
 
-  validates :text,
-            :presence => true,
-            format: { with: /\A[^\n]+\Z/ }
-
   def self.parse(user, input, options = {})
     message = Message.new(user: user)
     args = input.split(" ")
-    if input[0..1] == "\\"
+    if input[0..0] == "/"
       action = args.first[1..-1]
       text = args[1..-1].join(" ")
       if action == "link" && text.length < 1
@@ -37,7 +33,7 @@ class Message
   def self.model_for_action(action)
     case action
     when "say"
-      Message
+      MessageSay
     when "link"
       MessageLink
     when "me"

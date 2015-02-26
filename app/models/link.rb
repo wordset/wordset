@@ -30,6 +30,20 @@ class Link
     rescue URI::InvalidURIError
       throw "Invalid url"
     end
+    link.save
     link
+  end
+
+  def uri
+    uri = URI(path)
+    if domain
+      uri.hostname = domain.host
+      uri.scheme = "https"
+    end
+    uri
+  end
+
+  def url
+    uri.to_s
   end
 end
