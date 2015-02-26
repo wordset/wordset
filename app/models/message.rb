@@ -7,4 +7,8 @@ class Message
   index({created_at: -1})
 
   field :text, type: String
+
+  validates :text,
+            :presence => true,
+            format: { with: /\A[^\n]+\Z/ }
 end
