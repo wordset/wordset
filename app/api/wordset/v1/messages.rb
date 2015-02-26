@@ -14,6 +14,7 @@ module Wordset
         params do
           requires :message, type: Hash do
             requires :text, type: String
+            optional :path, type: String
           end
         end
         post '/' do

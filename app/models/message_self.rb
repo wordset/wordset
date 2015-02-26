@@ -1,0 +1,2 @@
+class MessageSelf < Message
+end
