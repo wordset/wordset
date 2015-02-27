@@ -8,7 +8,9 @@ module Wordset
           optional :limit, type: Integer, default: 100
         end
         get '/', each_serializer: MessageSerializer do
-          Message.includes(:user).limit(params[:limit]).order({created_at: -1}).to_a
+          messages = Message.includes(:user).limit(params[:limit]).order({created_at: -1}).to_a
+          render messages,
+                 meta: { online: User.online}
         end
 
         params do
@@ -21,10 +23,12 @@ module Wordset
           authorize!
           message = Message.parse(@user, params[:message][:text], path: params[:message][:path])
           message.save!
-          serializer = MessageSerializer.new(message)
+          serializer = MessageSerializer.new(message, meta: { online: User.online})
           Pusher['messages'].trigger('push', serializer.to_json)
           render serializer
         end
+
+
       end
     end
   end

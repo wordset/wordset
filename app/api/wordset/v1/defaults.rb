@@ -9,6 +9,10 @@ module Wordset
         format :json
         formatter :json, Grape::Formatter::ActiveModelSerializers
 
+        before do
+          authenticate
+        end
+
         helpers do
           def permitted_params
             @permitted_params ||= declared(params, include_missing: false)
@@ -46,6 +50,7 @@ module Wordset
             if u.nil?
               return false
             end
+            u.update_attributes(last_seen_at: Time.now)
             @user = u
           end
 

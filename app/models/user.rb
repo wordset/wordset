@@ -39,6 +39,9 @@ class User
   field :current_sign_in_ip, type: String, as: "csii"
   field :last_sign_in_ip,    type: String, as: "lsii"
 
+  field :last_seen_at,       type: Time, as: "lsa"
+  index({:last_seen_at => -1})
+
   ## Confirmable
   #field :confirmation_token,   type: String
   #field :confirmed_at,         type: Time
@@ -82,6 +85,10 @@ class User
   def voted_proposal_ids
     #Mongoid::Sessions.default[:votes].find(user_id: current_user.id).select(proposal_id: 1).to_a
     self.votes.where(usurped: false).map &:proposal_id
+  end
+
+  def self.online
+    self.gt(last_seen_at: 10.minutes.ago).order(:last_seen_at.desc).pluck(:username)
   end
 
   private
