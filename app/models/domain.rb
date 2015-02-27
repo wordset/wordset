@@ -5,4 +5,13 @@ class Domain
   field :host, type: String
 
   has_many :links
+
+  def self.bootstrap
+    [
+      "en.wikipedia.org",
+      "www.nytimes.com",
+      "books.google.com"
+    ]
+  end
+
 end
