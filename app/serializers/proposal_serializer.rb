@@ -4,9 +4,18 @@ class ProposalSerializer < ActiveModel::Serializer
   has_one :user, embed_key: :to_param
   has_many :votes
   has_many :activities, serializer: ActivitySerializer
+  has_one :meaning
 
   def type
     object._type[7..-1]
+  end
+
+  def meaning
+    if object.is_a? ProposeMeaningChange
+      return object.meaning
+    else
+      return nil
+    end
   end
 
   def flagged
@@ -28,7 +37,6 @@ class ProposalSerializer < ActiveModel::Serializer
       h["original"] = object.original
       h["word_name"] = object.word.name
       if object.is_a? ProposeMeaningChange
-        h["meaning_id"] = object.meaning_id
         h["parent_id"] = object.proposal_id
       elsif object.is_a? ProposeNewMeaning
         h["pos"] = object.pos
