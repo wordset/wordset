@@ -2,6 +2,7 @@
 SitemapGenerator::Sitemap.default_host = "https://www.wordset.org"
 SitemapGenerator::Sitemap.public_path = 'tmp/'
 SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new
+SitemapGenerator::Sitemap.sitemaps_host = "https://www.wordset.org/__/proxy/data/"
 
 SitemapGenerator::Sitemap.create do
 
