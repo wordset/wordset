@@ -94,7 +94,7 @@ class User
   end
 
   def add_to_mailchimp
-    if Rails.env == "production"
+    if Rails.env == "production" && email_opt_in_at
       Mailchimp.lists.subscribe({id: WordsetListId, email: {email: self.email}, :double_optin => false})
     end
   end
