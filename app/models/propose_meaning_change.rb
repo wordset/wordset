@@ -13,6 +13,7 @@ class ProposeMeaningChange < Proposal
 
   before_create :set_before_create
   after_create :set_meaning_proposal
+  after_create :update_project_target
 
   def commit!
     meaning.def = self.def
@@ -20,6 +21,9 @@ class ProposeMeaningChange < Proposal
     meaning.accepted_proposal = self
     meaning.open_proposal = nil
     meaning.save
+    if project
+      project_target.complete!
+    end
     meaning
   end
 
@@ -37,7 +41,21 @@ class ProposeMeaningChange < Proposal
 
   def cleanup_proposal!
     meaning.update_attributes(open_proposal: nil)
+    if project
+      project_target.restart!
+    end
     super
   end
+
+  def project_target
+    ProjectTarget.where(meaning: meaning, project: project).first
+  end
+
+  def update_project_target
+    if project
+      project_target.open_proposal!
+    end
+  end
+
 
 end

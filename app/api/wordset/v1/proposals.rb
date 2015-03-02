@@ -60,9 +60,12 @@ module Wordset
 
             optional :def # Meaning
             optional :example # Meaning
+
             optional :meaning_id # MeaningChange
             optional :word_id # NewMeaning
             optional :pos # NewMeaning
+
+            optional :project_id # If associated with a project
           end
         end
         post '/', serializer: ProposalSerializer do
@@ -100,6 +103,7 @@ module Wordset
             prop.def = d[:def]
             prop.example = d[:example]
             prop.proposal = meaning.accepted_proposal || meaning.word.proposals.first
+            prop.project_id = d[:project_id]
             if prop.save
               meaning.open_proposal = prop
             end

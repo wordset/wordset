@@ -6,6 +6,7 @@ module Wordset
       mount Wordset::V1::Activities
       mount Wordset::V1::Auth
       mount Wordset::V1::Messages
+      mount Wordset::V1::Projects
       mount Wordset::V1::Proposals
       mount Wordset::V1::Users
       mount Wordset::V1::Votes
