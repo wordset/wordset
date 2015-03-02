@@ -9,6 +9,7 @@
 /db/wordnet.json
 .DS_Store
 
+/node_modules
 /public/sitemap*
 dump
 

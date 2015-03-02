@@ -5,6 +5,7 @@ class ProposalSerializer < ActiveModel::Serializer
   has_many :votes
   has_many :activities, serializer: ActivitySerializer
   has_one :meaning
+  has_one :project
 
   def type
     object._type[7..-1]
