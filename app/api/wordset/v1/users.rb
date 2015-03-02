@@ -36,6 +36,8 @@ module Wordset
           if user_params[:accept_tos]
             u.accept_tos_at = Time.now
             u.accept_tos_ip = env['REMOTE_ADDR']
+          end
+          if user_params[:email_opt_in]
             u.email_opt_in_at = Time.now
             u.email_opt_in_ip = env['REMOTE_ADDR']
           end

@@ -54,6 +54,7 @@ class User
   ## For Registration Only
   field :email_opt_in_at, type: Time
   field :email_opt_in_ip, type: String
+
   field :accept_tos_at,   type: Time
   field :accept_tos_ip,   type: String
   validates :accept_tos_at,
@@ -69,6 +70,7 @@ class User
   index points: 1
 
   before_save :ensure_auth_key
+  after_create :add_to_mailchimp
 
   def ensure_auth_key
     if auth_key.blank?
@@ -89,6 +91,10 @@ class User
 
   def self.online
     self.gt(last_seen_at: 10.minutes.ago).order(:last_seen_at.desc).pluck(:username)
+  end
+
+  def add_to_mailchimp
+    Mailchimp.lists.subscribe({id: WordsetListId, email: {email: self.email}, :double_optin => false})
   end
 
   private

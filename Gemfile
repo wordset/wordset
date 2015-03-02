@@ -17,6 +17,7 @@ gem 'rails_12factor', group: :production
 gem 'rack-ssl-enforcer'
 
 gem 'devise'
+gem "gibbon"
 
 gem 'active_model_serializers'#, github: "rails-api/active_model_serializers"
 gem 'mongoid-serializer'
