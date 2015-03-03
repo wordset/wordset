@@ -19,6 +19,10 @@ class Project
     self.project_targets.count
   end
 
+  def pending_targets
+    self.project_targets.where(state: "pending").count
+  end
+
   def fixed_targets
     self.project_targets.where(state: "fixed").count
   end
