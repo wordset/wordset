@@ -7,6 +7,9 @@ class ProposeMeaningChange < Proposal
   validates :meaning,
             :associated => true,
             :presence => true
+  validate :no_existing_proposal,
+           on: :save
+  validate :ensure_project_target_todo
 
   index({meaning_id: 1})
   index({_type: 1, meaning_id: 1})
@@ -57,5 +60,16 @@ class ProposeMeaningChange < Proposal
     end
   end
 
+  def no_existing_proposal
+    if meaning.open_proposal
+      self.errors.add :meaning, "already has an open proposal"
+    end
+  end
+
+  def ensure_project_target_todo
+    if project && !project_target.todo?
+      self.errors.add :project_target, "is either pending or fixed"
+    end
+  end
 
 end
