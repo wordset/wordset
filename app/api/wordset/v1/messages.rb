@@ -5,7 +5,7 @@ module Wordset
 
       resource :messages do
         params do
-          optional :limit, type: Integer, default: 100
+          optional :limit, type: Integer, default: 30
         end
         get '/', each_serializer: MessageSerializer do
           messages = Message.includes(:user).limit(params[:limit]).order({created_at: -1}).to_a
