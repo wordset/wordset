@@ -8,8 +8,9 @@ class ProposeMeaningChange < Proposal
             :associated => true,
             :presence => true
   validate :no_existing_proposal,
-           on: :save
-  validate :ensure_project_target_todo
+           on: :create
+  validate :ensure_project_target_todo,
+           on: :create
 
   index({meaning_id: 1})
   index({_type: 1, meaning_id: 1})
