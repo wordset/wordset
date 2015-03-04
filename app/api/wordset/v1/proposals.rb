@@ -6,14 +6,13 @@ module Wordset
       resource :proposals do
         params do
           optional :limit, default: 25, type: Integer
-          optional :needs_my_vote, type: Boolean, default: nil
           optional :random, type: Boolean, default: false
           optional :word_id
           optional :offset, default: 0, type: Integer
           optional :flagged
         end
         get '/', each_serializer: ProposalSerializer do
-          p = Proposal.includes(:user).includes(:activities)
+          p = Proposal
           if params[:word_id]
             p = p.where(word: Word.lookup(params[:word_id]))
           end
@@ -29,10 +28,6 @@ module Wordset
           elsif params[:flagged] == true
             p = p.where(state: "flagged")
           end
-          if params[:needs_my_vote] == true
-            authorize!
-            p = p.open.nin(id: current_user.voted_proposal_ids)
-          end
           count = p.count
           if params[:random] == true
             p = p.offset(rand(p.count))
@@ -40,15 +35,24 @@ module Wordset
             p = p.offset(params[:offset])
           end
           render p.limit(params[:limit])
+                 .includes(:user)
+                 .includes(:activities)
                  .sort({created_at: -1})
                  .to_a,
                  { meta: { total: count } }
         end
 
 
+        get '/next', serializer: ProposalSerializer do
+          authorize!
+          Proposal.open.nin(id: current_user.voted_proposal_ids).first
+        end
+
+
         get '/:id', serializer: ProposalSerializer do
           Proposal.find(params[:id])
         end
+
 
         params do
           requires :proposal, type: Hash do

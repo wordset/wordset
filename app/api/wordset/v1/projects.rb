@@ -12,9 +12,7 @@ module Wordset
           todos = Project.find(params[:id]).project_targets.todo
           todos.offset(rand(todos.count)).limit(1).first.meaning
         end
-
       end
-
     end
   end
 end

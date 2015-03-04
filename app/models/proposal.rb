@@ -26,9 +26,7 @@ class Proposal
   after_create :create_initial_activity!
 
   validates :user,
-            :presence => true,
-            :associated => true,
-            :unless => :wordnet?
+            :associated => true
 
   index({word_id: 1, state: 1})
   index({word_id: 1, created_at: -1})

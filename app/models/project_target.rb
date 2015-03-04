@@ -7,6 +7,10 @@ class ProjectTarget
 
   field :state, type: String
 
+  after_save do |target|
+    target.project.recalculate_counts!
+  end
+
   aasm :column => :state do
     state :todo
     state :pending
@@ -24,5 +28,4 @@ class ProjectTarget
       transitions from: :pending, to: :todo
     end
   end
-
 end

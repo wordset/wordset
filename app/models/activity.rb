@@ -15,6 +15,13 @@ class Activity
   index({created_at: -1})
 
   before_create :set_cached_fields
+  after_create :push
+
+  def push
+    #Pusher["activities"].trigger(
+    #  'push',
+    #  ActivitySerializer.new(self).to_json)
+  end
 
   def set_cached_fields
     if word
