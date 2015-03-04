@@ -2,6 +2,8 @@ class Word
   include Mongoid::Document
   include Mongoid::Timestamps
   include AnagramHelpers
+  include ProperNounDestroyer
+  include SoftRemove
 
   field :name
   field :word_length, type: Integer, as: "l"
@@ -17,10 +19,11 @@ class Word
             :length => { :minimum => 1 },
             :on => :create
 
-  index({:name => 1}, {:unique => true, drop_dups: true})
-  index({word_length: 1})
-  index({name: 1, word_length: 1})
-  index({alpha: 1})
+  index({:name => 1, removed_at: 1}, {:unique => true, drop_dups: true})
+  index({word_length: 1, removed_at: 1})
+  index({name: 1, word_length: 1, removed_at: 1})
+  index({alpha: 1, removed_at: 1})
+  index({name: 1, removed_at: 1})
 
   before_save do |d|
     d.word_length = d.name.length
