@@ -13,6 +13,7 @@ class Vote
   field :flagged, type: Boolean, as: "f", default: false
   index({proposal_id: 1, flagged: 1})
   field :yae, type: Boolean, as: "y", default: true
+  field :skip, type: Boolean, as: "s", default: false
 
   # If a vote has been usurped, that is a revision
   # was made on the proposal, so this doesn't
@@ -45,7 +46,9 @@ class Vote
   end
 
   def create_activity!
-    VoteActivity.create(proposal: self.proposal, user: self.user, word: self.proposal.word, vote_value: self.value)
+    if !self.skip
+      VoteActivity.create(proposal: self.proposal, user: self.user, word: self.proposal.word, vote_value: self.value)
+    end
   end
 
   def withdraw!
@@ -59,6 +62,8 @@ class Vote
   def calculate_value
     if yae?
       self.value = user.vote_value
+    elsif skip?
+      self.value = 0
     else
       self.value = user.vote_value*-1
     end

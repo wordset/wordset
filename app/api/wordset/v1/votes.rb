@@ -11,15 +11,26 @@ module Wordset
         params do
           requires :vote, type: Hash do
             requires :proposal_id
-            requires :yae, type: Boolean
-            optional :flagged, type: Boolean
+            requires :type, type: String
           end
         end
         post "/" do
           authorize!
           p = Proposal.find(params[:vote][:proposal_id])
-          v = p.votes.build(yae: params[:vote][:yae],
-                            flagged: params[:vote][:flagged])
+          yea = false
+          flagged = false
+          skip = false
+          case params[:vote][:type]
+          when "yea"
+            yea = true
+          when "flag"
+            flagged = true
+          when "skip"
+            skip = true
+          end
+          v = p.votes.build(yae: yea,
+                            flagged: flagged,
+                            skip: skip)
           v.user = @user
           v.save!
           p.pushUpdate!
