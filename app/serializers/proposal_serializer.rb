@@ -25,6 +25,9 @@ class ProposalSerializer < ActiveModel::Serializer
 
   def attributes
     h = super
+    if !object.note.blank?
+      h["note"] = object.note
+    end
     if object.is_a? ProposeNewWord
       h["meanings"] = object.embed_new_word_meanings.collect do |m|
         {def: m.def,
@@ -32,13 +35,15 @@ class ProposalSerializer < ActiveModel::Serializer
          pos: m.pos,
          reason: m.reason}
       end
+    elsif object.is_a? ProposeMeaningRemoval
+
     else
       h["def"] = object.def
       h["example"] = object.example
       h["original"] = object.original
       h["word_name"] = object.word.name
       if object.is_a? ProposeMeaningChange
-        h["parent_id"] = object.proposal_id
+
       elsif object.is_a? ProposeNewMeaning
         h["pos"] = object.pos
       end

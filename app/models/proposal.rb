@@ -19,6 +19,8 @@ class Proposal
   field :flagged_value, type: Integer, default: 0
   field :original, type: Hash
 
+  field :note, type: String, as: "note"
+
   field :edited_at, type: Time, default: lambda { Time.now }
 
   after_create :create_initial_activity!
