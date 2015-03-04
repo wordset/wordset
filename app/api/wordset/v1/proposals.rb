@@ -98,11 +98,14 @@ module Wordset
             prop.example = d[:example]
             prop.pos = d[:pos]
           when "MeaningChange"
-            meaning = Meaning.find(d[:meaning_id])
-            prop.meaning = meaning
             prop.def = d[:def]
             prop.example = d[:example]
-            prop.proposal = meaning.accepted_proposal || meaning.word.proposals.first
+          end
+
+          if prop.class.included_modules.include?(MeaningProposalLike)
+            meaning = Meaning.find(d[:meaning_id])
+            prop.meaning = meaning
+
             prop.project_id = d[:project_id]
             if prop.save
               meaning.open_proposal = prop
