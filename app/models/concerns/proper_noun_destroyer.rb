@@ -10,8 +10,9 @@ module ProperNounDestroyer
       count = 0
       saves = 0
       capitalized_words.each do |word|
-        if !word.entries.ne(pos: "noun").any?
-          word.entries.where(pos: "noun").first.meanings.each do |meaning|
+        entry = word.entries.where(pos: "noun").first
+        if entry
+          entry.meanings.each do |meaning|
             yield meaning
           end
         end
@@ -19,7 +20,7 @@ module ProperNounDestroyer
     end
 
     def capitalized_words
-      self.where(name: /\A[A-Z]/)
+      self.where(name: /\A[A-Z]/).includes(:entries)
     end
 
     def dated_meanings
