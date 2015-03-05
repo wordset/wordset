@@ -49,7 +49,7 @@ module Wordset
           if proposal.nil?
             render "No more proposals to vote on", status: "404"
           else
-            render ProposalSerializer.new(proposal).to_json
+            ProposalSerializer.new(proposal)
           end
         end
 
