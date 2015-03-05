@@ -8,6 +8,7 @@ module MeaningProposalLike
     base.belongs_to :meaning
     base.belongs_to :project
     base.field :original, type: Hash
+    base.field :word_name, type: String
 
     base.validates :meaning,
                    :presence => true
@@ -23,6 +24,7 @@ module MeaningProposalLike
 
   def set_before_create
     self.word = meaning.word
+    self.word_name = word.name
     self.original = {def: meaning.def,
                      example: meaning.example,
                      pos: meaning.entry.pos}

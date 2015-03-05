@@ -25,7 +25,8 @@ namespace :purge do
 
     Word.dated_meanings.each do |meaning|
       if meaning.word != nil
-        propose_meaning_removal(p, meaning, "This meaning has dates in it, and is considered likely to be a proper noun of some sort.")
+        removal = propose_meaning_removal(p, meaning, "This meaning has dates in it, and is considered likely to be a proper noun of some sort.")
+        removal.approve!
       end
     end
     Word.capitalized_nouns do |meaning|

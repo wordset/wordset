@@ -43,9 +43,14 @@ module Wordset
         end
 
 
-        get '/next', serializer: ProposalSerializer do
+        get '/next' do
           authorize!
-          Proposal.open.nin(id: current_user.voted_proposal_ids).first
+          proposal = Proposal.open.nin(id: current_user.voted_proposal_ids).first
+          if proposal.nil?
+            render "No more proposals to vote on", status: "404"
+          else
+            render ProposalSerializer.new(proposal).to_json
+          end
         end
 
 

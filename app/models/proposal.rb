@@ -76,8 +76,10 @@ class Proposal
     if valid?
       commit!
       create_final_activity!
-      user.recalculate_points!
-      user.save
+      if user
+        user.recalculate_points!
+        user.save
+      end
     end
   end
 
