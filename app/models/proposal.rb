@@ -118,11 +118,15 @@ class Proposal
   end
 
   def create_initial_activity!
-    NewProposalActivity.create(user: self.user, proposal: self, word: self.word)
+    if self.user
+      NewProposalActivity.create(user: self.user, proposal: self, word: self.word)
+    end
   end
 
   def create_final_activity!
-    ProposalClosedActivity.create(user: self.user, proposal: self, word: self.word, final_state: self.state)
+    if self.user
+      ProposalClosedActivity.create(user: self.user, proposal: self, word: self.word, final_state: self.state)
+    end
   end
 
 end
