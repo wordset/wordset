@@ -6,9 +6,12 @@ class ProjectTarget
   belongs_to :meaning
 
   field :state, type: String
+  index({project_id: 1})
+  index({project_id: 1, state: 1})
+  index({project_id: 1, meaning_id: 1})
 
   after_save do |target|
-    target.project.recalculate_counts!
+    #target.project.recalculate_counts!
   end
 
   aasm :column => :state do

@@ -2,7 +2,7 @@
 namespace :purge do
 
   def propose_meaning_removal(project, meaning, reason)
-    if meaning.open_proposal
+    if meaning.open_proposal_id
       if meaning.open_proposal.is_a? ProposeMeaningRemoval
         puts "dupe"
         return
@@ -12,16 +12,16 @@ namespace :purge do
     end
     project.add_target(meaning)
     puts meaning.word.name
-    ProposeMeaningRemoval.create(meaning: meaning,
-              word: meaning.word,
-              reason: reason,
-              project: project)
-
+    proposal = ProposeMeaningRemoval.new(meaning: meaning,
+                word: meaning.word,
+                reason: reason,
+                project: project)
+    proposal.save(validate: false)
+    proposal
   end
 
   task :proper_nouns => :environment do
-    p = Project.create(name: "Proper Noun Purge",
-                       description: "We are getting rid of all of the proper nouns that came into the system via Wordnet. We don't feel most of these are about language, but about reference, generally. The proposals have been automatically generated.")
+    p = Project.qhwew(name: "Proper Noun Purge").first
 
     Word.dated_meanings.each do |meaning|
       if meaning.word != nil
