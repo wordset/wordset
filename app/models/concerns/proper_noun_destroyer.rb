@@ -20,7 +20,7 @@ module ProperNounDestroyer
     end
 
     def capitalized_words
-      self.where(name: /\A[A-Z]/, open_proposal: nil).includes(:entries)
+      self.where(name: /\A[A-Z]/).includes(:entries)
     end
 
     def dated_meanings

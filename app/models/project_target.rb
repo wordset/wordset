@@ -11,7 +11,7 @@ class ProjectTarget
   index({project_id: 1, meaning_id: 1})
 
   after_save do |target|
-    #target.project.recalculate_counts!
+    target.project.recalculate_counts!
   end
 
   aasm :column => :state do
