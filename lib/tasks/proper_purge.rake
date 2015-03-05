@@ -21,7 +21,7 @@ namespace :purge do
   end
 
   task :proper_nouns => :environment do
-    p = Project.qhwew(name: "Proper Noun Purge").first
+    p = Project.where(name: "Proper Noun Purge").first
 
     Word.dated_meanings.each do |meaning|
       if meaning.word != nil
