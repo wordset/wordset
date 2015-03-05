@@ -24,7 +24,7 @@ class Project
     self.total_targets_count = self.project_targets.count
     self.pending_targets_count = self.project_targets.pending.count
     self.fixed_targets_count = self.project_targets.fixed.count
-    self.percentage_complete = ((fixed_targets_count/total_targets_count).to_f * 100)
+    self.percentage_complete = ((fixed_targets_count/total_targets_count.to_f) * 100).to_i
     save!
   end
 
