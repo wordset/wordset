@@ -18,9 +18,9 @@ class Activity
   after_create :push
 
   def push
-    #Pusher["activities"].trigger(
-    #  'push',
-    #  ActivitySerializer.new(self).to_json)
+    Pusher["activities"].trigger(
+     'push',
+     ActivitySerializer.new(self).to_json)
   end
 
   def set_cached_fields
