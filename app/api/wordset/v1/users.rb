@@ -5,8 +5,16 @@ module Wordset
 
       resource :users do
         desc "Top users"
+        params do
+          optional :user_id
+        end
         get '/' do
-          User.all.desc(:points)
+          u = User.all.desc(:points)
+          if params[:user_id]
+            requested_user = User.where(username: params[:user_id]).first
+            higher_than_requested_user = User.where(:points.gt => requested_user.points).count
+            u.limit(3).offset(higher_than_requested_user-1)
+          end
         end
 
         desc "Load user info"
