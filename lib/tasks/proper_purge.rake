@@ -35,4 +35,82 @@ namespace :purge do
       end
     end
   end
+
+  task :shit_list => :environment do
+    shit_list = [
+      "ancient port",
+      "United States",
+      "born in",
+      "city",
+      "genus",
+      "species",
+      "unit of",
+      "a republic",
+      "years ago",
+      "member of",
+      "hypertension",
+      "group of the",
+      "degree in",
+      "writer",
+      "British",
+      "English",
+      "enzyme",
+      "disease",
+      "trade name",
+      "agency",
+      "a state in",
+      "North America",
+      "Africa",
+      "doctor's degree",
+      "tissue",
+      "organization",
+      "river",
+      "mountain",
+      "Mountain",
+      "western",
+      "eastern",
+      "herb",
+      "flowers",
+      "division",
+      "shrub",
+      "fruit",
+      "founded by",
+      "system of beliefs",
+      "tree",
+      "the day",
+      "the year",
+      "town",
+      "language",
+      "philosopher"
+    ]
+    count = 0
+
+    user = User.where(username: "hcatlin").first
+
+    Project.last.proposals.open.each do |proposal|
+      definition = proposal.meaning.def
+      #puts "Definition! #{proposal.id}"
+      has_shit_word = (shit_list.detect do |m|
+        definition.include?(m)
+      end)
+      if has_shit_word
+        count += 1
+        puts count
+        #puts "shit: #{proposal.word_name} #{proposal.meaning.def}"
+        v = proposal.votes.build(yae: true,
+                                  flagged: false,
+                                  skip: false,
+                                  user: user)
+        if v.save == false
+          puts "!!!!!!!!!!!!!!!!!ERROR #{proposal.word_name}"
+          puts v.errors.messages.inspect
+        end
+        proposal.pushUpdate!
+      else
+        #puts "okay: #{proposal.word_name} #{proposal.meaning.def}"
+      end
+    end
+    puts count
+
+  end
 end
