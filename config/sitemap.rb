@@ -8,17 +8,13 @@ SitemapGenerator::Sitemap.create do
 
   Word.each do |word|
     add '/word/#{word.name}', :priority => 0.9, :changefreq => 'weekly'
-    add '/word/#{word.name}/proposals', :priority => 0.2, :changefreq => 'weekly'
+    #add '/word/#{word.name}/proposals', :priority => 0.2, :changefreq => 'weekly'
   end
 
-  add '/users', :priority => 0.5, :changefreq => 'daily'
-  add '/proposals', :priority => 0.3, :changefreq => 'hourly'
+  #add '/users', :priority => 0.5, :changefreq => 'daily'
+  #add '/proposals', :priority => 0.3, :changefreq => 'hourly'
 
-  User.each do |user|
-    add '/user/#{user.username}', :lastmod => user.updated_at
-  end
-
-  Proposal.each do |proposal|
-    add '/proposal/#{proposal.id}', :lastmod => proposal.updated_at
-  end
+  #User.each do |user|
+  #  add '/user/#{user.username}', :priority => 0.0, :lastmod => user.updated_at
+  #end
 end
