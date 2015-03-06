@@ -13,8 +13,12 @@ module Wordset
           if params[:user_id]
             requested_user = User.where(username: params[:user_id]).first
             higher_than_requested_user = User.where(:points.gt => requested_user.points).count
-            u.limit(3).offset(higher_than_requested_user-1)
+            u = u.limit(3)
+            if higher_than_requested_user > 0
+              u = u.offset(higher_than_requested_user-1)
+            end
           end
+          u
         end
 
         desc "Load user info"
