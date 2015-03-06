@@ -89,7 +89,7 @@ class User
     self.votes.where(usurped: false).map &:proposal_id
   end
 
-  def self.online
+  def self.online_usernames
     self.gt(last_seen_at: 10.minutes.ago).order(:last_seen_at.desc).pluck(:username)
   end
 
