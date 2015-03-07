@@ -30,11 +30,11 @@ class Vote
   after_save :run_tally
 
   validates :user,
-            presence: :true,
-            associated: :true
+            presence: :true#,
+            #associated: :true
   validates :proposal,
-            presence: :true,
-            associated: :true
+            presence: :true#,
+            #associated: :true
   validate  :check_uniqueness,
             on: :create
   validate  :check_proposal_open,
@@ -80,8 +80,7 @@ class Vote
   end
 
   def check_proposal_open
-    if proposal.open?
-    else
+    if !proposal.open?
       errors.add :proposal, "Sorry, voting has ended on this proposal."
     end
   end

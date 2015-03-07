@@ -81,13 +81,14 @@ namespace :purge do
       "the year",
       "town",
       "language",
-      "philosopher"
+      "philosopher",
+      "America"
     ]
     count = 0
 
     user = User.where(username: "hcatlin").first
 
-    Project.last.proposals.open.each do |proposal|
+    Project.last.proposals.open.where(tally: 0).each do |proposal|
       definition = proposal.meaning.def
       #puts "Definition! #{proposal.id}"
       has_shit_word = (shit_list.detect do |m|
@@ -98,14 +99,16 @@ namespace :purge do
         puts count
         #puts "shit: #{proposal.word_name} #{proposal.meaning.def}"
         v = proposal.votes.build(yae: true,
-                                  flagged: false,
-                                  skip: false,
-                                  user: user)
+                                 flagged: false,
+                                 skip: false)
+        v.user = user
         if v.save == false
           puts "!!!!!!!!!!!!!!!!!ERROR #{proposal.word_name}"
           puts v.errors.messages.inspect
+        else
+          proposal.pushUpdate!
         end
-        proposal.pushUpdate!
+
       else
         #puts "okay: #{proposal.word_name} #{proposal.meaning.def}"
       end
