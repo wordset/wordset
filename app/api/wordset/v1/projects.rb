@@ -4,6 +4,11 @@ module Wordset
       include Wordset::V1::Defaults
 
       resource :projects do
+        # TODO: Make this use real logic!
+        get '/current', serializer: ProjectSerializer do
+          Project.find("54f8b2783537310003000000")
+        end
+
         get '/:id', serializer: ProjectSerializer do
           Project.find(params[:id])
         end
