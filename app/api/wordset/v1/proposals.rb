@@ -48,9 +48,10 @@ module Wordset
         end
         get '/next' do
           authorize!
-          previous_votes = current_user.voted_proposal_ids
-          (previous_votes << params[:proposal_id]) if params[:proposal_id]
-          proposal = Proposal.open.nin(id:  previous_votes).ne(user: current_user).order(points: 1).first
+
+          proposal = Proposal.open.
+                      not.in(vote_user_ids: current_user.id).
+                      order(points: 1).first
           if proposal.nil?
             render "No more proposals to vote on", status: "404"
           else
