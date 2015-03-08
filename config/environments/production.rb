@@ -25,7 +25,8 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
-  config.action_mailer.default_url_options = { host: 'www.wordset.org'}
+  config.action_mailer.default_url_options = { host: 'www.wordset.org',
+                                               protocol: 'https'}
 
 
   # Compress JavaScripts and CSS.
