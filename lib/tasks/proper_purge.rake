@@ -84,7 +84,27 @@ namespace :purge do
       "philosopher",
       "America",
       "capital of",
-
+      "national park",
+      "battle",
+      "sea",
+      " war ",
+      "name of",
+      "an area",
+      "resident of",
+      "god",
+      "physicist",
+      "family of",
+      "fungi",
+      "fungus",
+      "bacteria",
+      "leader of",
+      "wife of ",
+      "native",
+      "monetary unit",
+      "a law",
+      "physics",
+      "missionary",
+      "Christian"
     ]
     count = 0
 
