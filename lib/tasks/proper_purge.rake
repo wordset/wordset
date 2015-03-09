@@ -104,7 +104,14 @@ namespace :purge do
       "a law",
       "physics",
       "missionary",
-      "Christian"
+      "Christian",
+      "writings of",
+      "book that",
+      "book of",
+      "a book",
+      "the largest",
+      "Pacific Ocean",
+      "island"
     ]
     count = 0
 
@@ -112,7 +119,7 @@ namespace :purge do
     limit = 1000
     limit = ENV["LIMIT"].to_i if ENV["LIMIT"]
 
-    Project.last.proposals.open.limit().each do |proposal|
+    Project.last.proposals.open.each do |proposal|
       if proposal.meaning == nil
         puts proposal.inspect
         proposal.approve!
