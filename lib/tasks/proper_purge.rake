@@ -111,7 +111,9 @@ namespace :purge do
       "a book",
       "the largest",
       "Pacific Ocean",
-      "island"
+      "island",
+      "breed",
+      "works"
     ]
     count = 0
 
