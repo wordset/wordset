@@ -19,6 +19,11 @@ class Proposal
   field :flagged_value, type: Integer, default: 0
   field :original, type: Hash
 
+  field :vote_user_ids, type: Array
+
+  # Having a note is special, it means that the
+  # system did something, and it disables certain
+  # normal events, like pusher, etc.
   field :note, type: String, as: "note"
 
   field :edited_at, type: Time, default: lambda { Time.now }
@@ -32,6 +37,7 @@ class Proposal
   index({word_id: 1, created_at: -1})
   index({user_id: 1})
   index({created_at: -1})
+  index({vote_user_ids: 1, state: 1})
   index({_type: 1})
   index({state: 1})
   index({state: 1, created_at: -1, _id: 1})
@@ -62,8 +68,10 @@ class Proposal
   end
 
   def pushUpdate!
-    Pusher['proposals'].trigger('push',
-      ProposalSerializer.new(self).to_json)
+    if note.blank?
+      Pusher['proposals'].trigger('push',
+        ProposalSerializer.new(self).to_json)
+    end
   end
 
   # Accessor that we use to either access the word belongs_to
@@ -101,7 +109,9 @@ class Proposal
   end
 
   def recalculate_tally!
-    self.tally = votes.where(:usurped => false, :withdrawn.in => [false, nil]).sum(:value)
+    vote_list = votes.where(:usurped => false, :withdrawn.in => [false, nil])
+    self.vote_user_ids = votes.map &:user_id
+    self.tally = vote_list.sum(:value)
     self.tally = 100 if self.tally > 100
     self.tally = -100 if self.tally < -100
     self.flagged_value = votes.where(flagged: true).sum(:value)
@@ -114,6 +124,7 @@ class Proposal
         reject!
       end
     end
+
     self.save
   end
 
@@ -124,7 +135,7 @@ class Proposal
   end
 
   def create_final_activity!
-    if self.user
+    if note.blank?
       ProposalClosedActivity.create(user: self.user, proposal: self, word: self.word, final_state: self.state)
     end
   end

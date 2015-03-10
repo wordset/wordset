@@ -82,35 +82,59 @@ namespace :purge do
       "town",
       "language",
       "philosopher",
-      "America"
+      "America",
+      "capital of",
+      "national park",
+      "battle",
+      "sea",
+      " war ",
+      "name of",
+      "an area",
+      "resident of",
+      "god",
+      "physicist",
+      "family of",
+      "fungi",
+      "fungus",
+      "bacteria",
+      "leader of",
+      "wife of ",
+      "native",
+      "monetary unit",
+      "a law",
+      "physics",
+      "missionary",
+      "Christian",
+      "writings of",
+      "book that",
+      "book of",
+      "a book",
+      "the largest",
+      "Pacific Ocean",
+      "island",
+      "breed",
+      "works"
     ]
     count = 0
 
-    user = User.where(username: "hcatlin").first
+    #user = User.where(username: "hcatlin").first
+    limit = 1000
+    limit = ENV["LIMIT"].to_i if ENV["LIMIT"]
 
-    Project.last.proposals.open.where(tally: 0).each do |proposal|
-      definition = proposal.meaning.def
-      #puts "Definition! #{proposal.id}"
-      has_shit_word = (shit_list.detect do |m|
-        definition.include?(m)
-      end)
-      if has_shit_word
-        count += 1
-        puts count
-        #puts "shit: #{proposal.word_name} #{proposal.meaning.def}"
-        v = proposal.votes.build(yae: true,
-                                 flagged: false,
-                                 skip: false)
-        v.user = user
-        if v.save == false
-          puts "!!!!!!!!!!!!!!!!!ERROR #{proposal.word_name}"
-          puts v.errors.messages.inspect
-        else
-          proposal.pushUpdate!
-        end
-
+    Project.last.proposals.open.each do |proposal|
+      if proposal.meaning == nil
+        puts proposal.inspect
+        proposal.approve!
       else
-        #puts "okay: #{proposal.word_name} #{proposal.meaning.def}"
+        definition = proposal.meaning.def
+        #puts "Definition! #{proposal.id}"
+        has_shit_word = (shit_list.detect do |m|
+          definition.include?(m)
+        end)
+        if has_shit_word
+          proposal.note = "This was automatically closed, following the rules of the project that it was associated with."
+          proposal.approve!
+        end
       end
     end
     puts count
