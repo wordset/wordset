@@ -9,7 +9,7 @@ module Wordset
           optional :user_id
         end
         get '/' do
-          u = User.all.desc(:points)
+          u = User.all.order(:points => -1, :last_seen_at => -1)
           if params[:user_id]
             requested_user = User.where(username: params[:user_id]).first
             higher_than_requested_user = User.where(:points.gt => requested_user.points).count
