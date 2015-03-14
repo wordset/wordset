@@ -47,13 +47,13 @@ class Vote
 
   def create_activity!
     if !self.skip
-      VoteActivity.create(proposal: self.proposal, user: self.user, word: self.proposal.word, vote_value: self.value)
+      VoteActivity.create(proposal: self.proposal, user: self.user, vote_value: self.value)
     end
   end
 
   def withdraw!
     self.update_attributes(withdrawn: true)
-    WithdrawVoteActivity.create(proposal: self.proposal, user: self.user, word: self.proposal.word)
+    WithdrawVoteActivity.create(proposal: self.proposal, user: self.user)
     run_tally
   end
 

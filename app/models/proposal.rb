@@ -97,8 +97,7 @@ class Proposal
       v.update_attributes(usurped: true)
     end
     EditProposalActivity.create(user: self.user,
-                                proposal: self,
-                                word: self.word)
+                                proposal: self)
     recalculate_tally!
   end
 
@@ -128,7 +127,7 @@ class Proposal
 
   def create_initial_activity!
     if self.user
-      NewProposalActivity.create(user: self.user, proposal: self, word: self.word)
+      NewProposalActivity.create(user: self.user, proposal: self)
     end
   end
 
