@@ -18,7 +18,7 @@ module ProposalActivity
   end
 
   def notify_proposal_owner
-    notify!(self.proposal.user)
+    notify!(self.proposal.user) if self.proposal.user
   end
 
   def word=(word)

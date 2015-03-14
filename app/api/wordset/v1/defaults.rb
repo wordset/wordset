@@ -46,7 +46,7 @@ module Wordset
               return false
             end
             u = User.where(username: username, auth_key: key).first
-            puts u.inspect
+            #puts u.inspect
             if u.nil?
               return false
             end

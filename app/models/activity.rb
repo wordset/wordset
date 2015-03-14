@@ -17,8 +17,11 @@ class Activity
 
   def push
     Pusher["activities"].trigger(
-     'push',
-     ActivitySerializer.new(self).to_json)
+     'push', self.serializer.to_json)
+  end
+
+  def serializer
+    ActivitySerializer.new(self)
   end
 
   def set_cached_user
