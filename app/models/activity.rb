@@ -6,6 +6,8 @@ class Activity
   index({user_id: 1})
   field :username, type: String
 
+  has_many :notifications
+
   index({type: 1})
 
   index({created_at: -1})
