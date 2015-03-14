@@ -36,7 +36,6 @@ module Wordset
           end
           render p.limit(params[:limit])
                  .includes(:user)
-                 .includes(:activities)
                  .sort({created_at: -1})
                  .to_a,
                  { meta: { total: count } }

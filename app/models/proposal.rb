@@ -9,8 +9,6 @@ class Proposal
 
   has_many :votes,
             dependent: :destroy
-  has_many :activities,
-            dependent: :destroy
 
   field :state, type: String, as: "s"
   field :reason, type: String, as: "r"
@@ -138,6 +136,10 @@ class Proposal
     if note.blank? && !flagged?
       ProposalClosedActivity.create(user: self.user, proposal: self, final_state: self.state)
     end
+  end
+
+  def activities
+    Activity.where(proposal_id: self.id)
   end
 
 end
