@@ -21,4 +21,11 @@ describe Activity do
     a = @proposal.activities.last
     expect(a.final_state).to eq("accepted")
   end
+
+  it "should not create an activity when flagged" do
+    @proposal.flag!
+    a = @proposal.activities.last
+    expect(a.class).to_not eq(ProposalClosedActivity)
+  end
+
 end

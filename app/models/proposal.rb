@@ -135,8 +135,8 @@ class Proposal
   end
 
   def create_final_activity!
-    if note.blank?
-      ProposalClosedActivity.create(user: self.user, proposal: self, word: self.word, final_state: self.state)
+    if note.blank? && !flagged?
+      ProposalClosedActivity.create(user: self.user, proposal: self, final_state: self.state)
     end
   end
 
