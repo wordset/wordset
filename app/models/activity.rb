@@ -35,12 +35,4 @@ class Activity
     true
   end
 
-  def calculate_percentage_edited
-    # total = Word.count
-    # Word.proposals.count > 1
-    #   return true
-    # end
-    # (number/total)*100
-  end
-
 end
