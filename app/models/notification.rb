@@ -12,7 +12,7 @@ class Notification
   after_create :send_push_notification
 
   def send_push_notification
-    Pusher[user.username].trigger('notify', self.to_json)
+    Pusher[user.username + '_channel'].trigger('notify', self.to_json)
   end
 
   def to_json
