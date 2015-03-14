@@ -28,4 +28,8 @@ class Activity
     true
   end
 
+  def notify!(user)
+    notifications.create(user: user)
+  end
+
 end

@@ -17,6 +17,10 @@ module ProposalActivity
     true
   end
 
+  def notify_proposal_owner
+    notify!(self.proposal.user)
+  end
+
   def word=(word)
 
   end
