@@ -7,12 +7,12 @@ describe Activity do
 
   it "should create vote activity" do
     Vote.create(proposal: @proposal, user: create(:user), yae: true)
-    a = Activity.where(proposal: @proposal).last
+    a = Activity.where(proposal_id: @proposal.id).last
     expect(a.class).to eq(VoteActivity)
   end
 
   it "should create initial activity when created" do
-    a = Activity.where(proposal: @proposal).first
+    a = Activity.where(proposal_id: @proposal.id).first
     expect(a.class).to eq(NewProposalActivity)
   end
 
