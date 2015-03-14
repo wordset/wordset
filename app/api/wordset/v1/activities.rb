@@ -23,8 +23,7 @@ module Wordset
           end
           a = ProposalCommentActivity.new(comment: params[:activity][:comment],
                                          user: current_user,
-                                         proposal: p,
-                                         word: p.word)
+                                         proposal: p)
           a.save!
           p.pushUpdate!
           a
