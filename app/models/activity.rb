@@ -5,16 +5,12 @@ class Activity
   belongs_to :user
   index({user_id: 1})
   field :username, type: String
-  belongs_to :word
-  index({word_id: 1})
-  field :word_name, type: String
-  belongs_to :proposal
-  index({proposal_id: 1})
+
   index({type: 1})
 
   index({created_at: -1})
 
-  before_create :set_cached_fields
+  before_create :set_cached_user
   after_create :push
 
   def push
@@ -23,12 +19,7 @@ class Activity
      ActivitySerializer.new(self).to_json)
   end
 
-  def set_cached_fields
-    if word
-      self.word_name = word.name
-    elsif proposal
-      self.word_name = proposal.word_name
-    end
+  def set_cached_user
     if user
       self.username = user.username
     end
