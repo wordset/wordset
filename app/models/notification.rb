@@ -33,7 +33,7 @@ class Notification
     state :email_clicked
 
     event :ack do
-      transitions from: :unseen, to: :seen
+      transitions from: [:unseen, :seen], to: :seen
     end
 
     event :send_email, before: :process_email do

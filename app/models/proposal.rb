@@ -105,13 +105,17 @@ class Proposal
     create_final_activity!
   end
 
-  def recalculate_tally!
+  def recalculate_tally
     vote_list = votes.where(:usurped => false, :withdrawn.in => [false, nil])
     self.vote_user_ids = votes.map &:user_id
     self.tally = vote_list.sum(:value)
     self.tally = 100 if self.tally > 100
     self.tally = -100 if self.tally < -100
     self.flagged_value = votes.where(flagged: true).sum(:value)
+  end
+
+  def recalculate_tally!
+    recalculate_tally
     if self.open?
       if self.flagged_value <= -50
         flag!
@@ -121,7 +125,6 @@ class Proposal
         reject!
       end
     end
-
     self.save
   end
 
