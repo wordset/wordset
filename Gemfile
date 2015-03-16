@@ -76,6 +76,9 @@ group :development, :test do
   gem "faker"
   #gem "poltergeist"
   gem "rspec-rails"
+  gem 'spring-commands-rspec'
+  gem 'guard-rspec'
+  gem 'rb-fsevent' if `uname` =~ /Darwin/
   #gem "rubocop"
   #gem "shoulda-matchers"
   #gem "spring-commands-rspec"
