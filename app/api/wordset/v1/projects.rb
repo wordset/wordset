@@ -6,7 +6,7 @@ module Wordset
       resource :projects do
         # TODO: Make this use real logic!
         get '/current', serializer: ProjectSerializer do
-          Project.find("54f8b2783537310003000000")
+          Project.find("54f4fd486461370003000000")
         end
 
         get '/:id', serializer: ProjectSerializer do
