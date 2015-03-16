@@ -39,4 +39,16 @@ describe ProposeMeaningRemoval do
     expect(Entry.count).to eq(1)
     expect(Word.count).to eq(1)
   end
+
+
+  it "should create a new word if the meaning has been deleted" do
+    @p.approve!
+    @new_p = ProposeNewWord.new(name: @word, user: @user)
+    @new_p.embed_new_word_meanings.build(pos: "adj",
+                                    def: "To be secretly submissive",
+                                    example: "I thought the boss was a little subbery",
+                                    reason: "Fifty Shades of Grey")
+    expect(@new_p).to be_valid
+  end
+  
 end
