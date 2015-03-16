@@ -10,14 +10,37 @@ namespace :purge do
       meaning.open_proposal.note = "This was withdrawn, due to conflicting with automated tagging."
       meaning.open_proposal.withdraw!
     end
+    othertarget= ProjectTarget.where(meaning: meaning, :state.ne => "fixed", :project_id.ne => project.id)
+    if othertarget.any?
+      puts "was in another project"
+      puts othertarget.destroy
+    end
     project.add_target(meaning)
     puts meaning.word.name
     proposal = ProposeMeaningRemoval.new(meaning: meaning,
                 word: meaning.word,
                 reason: reason,
-                project: project)
+                project: project,
+                note: "This was automatically accepted due to overwhelming evidence of being a biological classification.")
     proposal.save(validate: false)
+    proposal.approve!
     proposal
+  end
+
+  task :biology => :environment do
+    p = Project.where(name: "Biology Classification Cleanse").first_or_create
+    ["family", "genus", "order"].each do |prefix|
+      regexp = Regexp.new("\\A#{prefix} [A-Z]+")
+      puts regexp
+      Word.where(name: regexp).each do |word|
+        entry = word.entries.where(pos: "noun").first
+        if entry
+          entry.meanings.each do |meaning|
+            propose_meaning_removal(p, meaning, "This seems like a biology term")
+          end
+        end
+      end
+    end
   end
 
   task :proper_nouns => :environment do
