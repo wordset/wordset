@@ -20,20 +20,22 @@ describe ProposeNewWord do
       expect(@p).to be_valid
     end
 
-    it "should work with pre-existing pos" do
+    it "Should work with pre-existing pos" do
       word = create(:word)
       @p.name = word.name
       expect(@p).to_not be_valid
     end
 
     it "shouldn't commit if invalid" do
+      @p.save!
       count = Word.count
       @p.name = ""
       @p.commit_proposal!
       expect(Word.count).to eq(count)
     end
 
-    it "should create the word if approved" do
+    it "should create the word if approved!" do
+      @p.save!
       expect(Word.where(name: @name).count).to eq(0)
       expect(Meaning.count).to eq(0)
       @p.approve!
@@ -47,7 +49,6 @@ describe ProposeNewWord do
                                       example: "I thought the boss was a little AWESOME")
       expect(@p).to_not be_valid
     end
-
   end
 
 end

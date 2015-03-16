@@ -15,6 +15,8 @@ class Vote
   field :yae, type: Boolean, as: "y", default: true
   field :skip, type: Boolean, as: "s", default: false
 
+  field :autovote, type: Boolean, as: "av", default: false
+
   # If a vote has been usurped, that is a revision
   # was made on the proposal, so this doesn't
   # count anymore.
@@ -46,7 +48,7 @@ class Vote
   end
 
   def create_activity!
-    if !self.skip
+    if !self.skip && !self.autovote
       VoteActivity.create(proposal: self.proposal, user: self.user, vote_value: self.value)
     end
   end

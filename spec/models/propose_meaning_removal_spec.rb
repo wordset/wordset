@@ -9,10 +9,10 @@ describe ProposeMeaningRemoval do
     @word = create(:word)
     @meaning = @word.entries.first.meanings.first
     @entry = @meaning.entry
-    @p = ProposeMeaningRemoval.new(user: @user,
-                                   word: @word,
-                                   meaning: @meaning,
-                                   reason: "This violates some rule or something")
+    @p = ProposeMeaningRemoval.create(user: @user,
+                                       word: @word,
+                                       meaning: @meaning,
+                                       reason: "This violates some rule or something")
   end
 
   it "should remove meanings and words if approved" do
@@ -21,6 +21,7 @@ describe ProposeMeaningRemoval do
     expect(Word.count).to eq(1)
     expect(@meaning.removed_at).to eq(nil)
     @p.approve!
+    @meaning.reload
     expect(@meaning.removed_at).to_not eq(nil)
     expect(Meaning.count).to eq(0)
     expect(Entry.count).to eq(0)
