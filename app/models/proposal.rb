@@ -26,6 +26,7 @@ class Proposal
 
   field :edited_at, type: Time, default: lambda { Time.now }
 
+  after_create :vote_on_it!
   after_create :create_initial_activity!
 
   validates :user,
@@ -72,6 +73,12 @@ class Proposal
     end
   end
 
+  def vote_on_it!
+    if self.user
+      Vote.create(proposal: self, user: user, yae: true, autovote: true)
+    end
+  end
+
   # Accessor that we use to either access the word belongs_to
   # or we override it in child proposals
   def word_name
@@ -93,7 +100,7 @@ class Proposal
   # you want to reset everything.
   def finished_edit!
     self.edited_at = Time.now
-    self.votes.each do |v|
+    self.votes.where(:autovote.ne => true).each do |v|
       v.update_attributes(usurped: true)
     end
     EditProposalActivity.create(user: self.user,

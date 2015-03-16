@@ -27,6 +27,7 @@ describe ProposeNewWord do
     end
 
     it "shouldn't commit if invalid" do
+      @p.save!
       count = Word.count
       @p.name = ""
       @p.commit_proposal!
@@ -34,6 +35,7 @@ describe ProposeNewWord do
     end
 
     it "should create the word if approved!" do
+      @p.save!
       expect(Word.where(name: @name).count).to eq(0)
       expect(Meaning.count).to eq(0)
       @p.approve!
