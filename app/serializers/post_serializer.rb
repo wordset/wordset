@@ -1,3 +1,7 @@
 class PostSerializer < BaseSerializer
-  attributes :title, :slug, :text, :published_at
+  attributes :id, :title, :text, :published_at
+
+  def id
+    object.slug
+  end
 end
