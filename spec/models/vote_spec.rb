@@ -1,27 +1,10 @@
 require 'rails_helper'
 
 describe Vote do
+  include VotingSpecHelper
 
   before(:each) do
     @proposal = create(:open_proposal)
-  end
-
-  def vote!(yae, flagged, rank)
-    u = create(:user)
-    allow(u).to receive(:rank_id) { rank }
-    Vote.create(proposal: @proposal, user: u, yae: yae, flagged: flagged)
-  end
-
-  def yae!(rank = :user)
-    vote!(true, false, rank)
-  end
-
-  def nay!(rank = :user)
-    vote!(false, false, rank)
-  end
-
-  def flag!(rank = :user)
-    vote!(false, true, rank)
   end
 
   it "should be valid" do
@@ -70,7 +53,7 @@ describe Vote do
   end
 
   it "should allow editing and restart the vote" do
-    vote = yae!(:user)
+    vote = yae!
     flag!(:contributor)
     expect(@proposal.tally).to eq(-8)
     expect(@proposal.flagged_value).to eq(-10)
@@ -86,10 +69,11 @@ describe Vote do
 
   it "should cancel a vote that has been withdrawn" do
     yae!(:editor)
+    expect(@proposal.tally).to eq(46)
     vote = nay!(:admin)
-    expect(@proposal.tally).to eq(-39)
+    expect(@proposal.tally).to eq(-4)
     vote.withdraw!
-    expect(@proposal.tally).to eq(36)
+    expect(@proposal.tally).to eq(46)
   end
 
   describe "flagging" do
@@ -99,7 +83,7 @@ describe Vote do
     end
     it "should mark as flagged after enough flag votes" do
       flag!(:senior_editor)
-      expect(@proposal.tally).to eq(-49)
+      expect(@proposal.tally).to eq(-54)
       expect(@proposal.flagged?).to eq(true)
     end
 
@@ -108,8 +92,8 @@ describe Vote do
       yae!(:contributor)
       yae!(:contributor)
       flag!(:senior_editor)
-      expect(@proposal.tally).to eq(6)
-      expect(@proposal.flagged_value).to eq(-50)
+      expect(@proposal.tally).to eq(11)
+      expect(@proposal.flagged_value).to eq(-55)
       expect(@proposal.flagged?).to eq(true)
     end
   end
