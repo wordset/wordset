@@ -35,4 +35,8 @@ class Activity
     notifications.create(user: user)
   end
 
+  def notify_user!
+    notify!(self.user)
+  end
+
 end

@@ -145,6 +145,7 @@ class Proposal
     if note.blank? && !flagged?
       ProposalClosedActivity.create(user: self.user, proposal: self, final_state: self.state)
     end
+    self.votes.each &:proposal_just_closed! #Make sure we trigger recalculating votes
   end
 
   def activities

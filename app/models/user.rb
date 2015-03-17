@@ -2,7 +2,7 @@ class User
   include Mongoid::Document
   include Gravtastic
   include Mongoid::Timestamps
-  include Ranks # This is all the stuff with user rank names and points
+  include TrustLevel # This is all the stuff with user trust_level names and points
   is_gravtastic
   has_many :proposals
   has_many :votes
