@@ -1,6 +1,6 @@
-# Wordset Data
+# Wordset API
 
-Wordset data is the Rails back-end for [Wordset](https://www.wordset.org). Wordset is a collaborative, structured dictionary.
+Wordset API is the Rails/Grape API back-end for [Wordset](https://www.wordset.org). Wordset is a collaborative, structured dictionary.
 
 To get it working locally, you will also need to clone and set up the Ember front-end, [Wordset UI](http://github.com/wordset/wordset-ui).
 
