@@ -15,6 +15,9 @@ class Vote
   field :yae, type: Boolean, as: "y", default: true
   field :skip, type: Boolean, as: "s", default: false
 
+  field :trust_points, type: Integer, as: "tp", default: 0
+  index({user_id: 1, trust_points: 1})
+
   field :autovote, type: Boolean, as: "av", default: false
 
   # If a vote has been usurped, that is a revision
@@ -29,7 +32,10 @@ class Vote
   before_create :calculate_value
   after_create :recalculate_points!
   after_create :create_activity!
+
+  before_save :calculate_trust_points
   after_save :run_tally
+
 
   validates :user,
             presence: :true#,
@@ -59,6 +65,12 @@ class Vote
     run_tally
   end
 
+  def proposal_just_closed!
+    calculate_trust_points
+    self.save!
+    user.save!
+  end
+
   private
 
   def calculate_value
@@ -73,6 +85,27 @@ class Vote
 
   def run_tally
     proposal.recalculate_tally!
+  end
+
+  def calculate_trust_points
+    if !proposal.open?
+      if with_majority?
+        self.trust_points = 1
+      else
+        self.trust_points = -3
+      end
+    else
+      self.trust_points = 0
+    end
+  end
+
+  def with_majority?
+    if proposal.accepted? && self.yae?
+      return true
+    elsif proposal.rejected? && !self.yae?
+      return true
+    end
+    false
   end
 
   def check_uniqueness
@@ -90,7 +123,4 @@ class Vote
   def recalculate_points!
     self.user.recalculate_points!
   end
-
-
-
 end
