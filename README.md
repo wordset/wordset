@@ -9,9 +9,11 @@ To get it working locally, you will also need to clone and set up the Ember fron
 We use the latest version of Ruby, 2.1.5.
 We recommend using RVM to manage Ruby versions.
 
+This project requires MongoDB. On OS X with Homebrew, this is as easy as `brew install mongo`, but see [Mongo Installation Instructions](http://docs.mongodb.org/manual/installation/) for more information on your platform.
+
 ## Installation
 
-* `git clone git@github.com:wordset/wordset-data.git` this repository
+* `git clone https://github.com/wordset/wordset-api.git` this repository
 * change into the new directory
 * `bundle install`
 
