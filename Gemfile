@@ -78,7 +78,7 @@ group :development, :test do
   gem "rspec-rails"
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
-  gem 'rb-fsevent' if `uname` =~ /Darwin/
+  #gem 'rb-fsevent' if `uname` =~ /Darwin/
   #gem "rubocop"
   #gem "shoulda-matchers"
   #gem "spring-commands-rspec"

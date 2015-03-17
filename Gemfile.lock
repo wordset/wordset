@@ -482,7 +482,6 @@ DEPENDENCIES
   rack-ssl-enforcer
   rails (= 4.2.0)
   rails_12factor
-  rb-fsevent
   rspec-rails
   sass-rails (~> 5.0)
   sitemap_generator
