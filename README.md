@@ -11,7 +11,7 @@ We recommend using RVM to manage Ruby versions.
 
 ## Installation
 
-* `git clone <repository-url>` this repository
+* `git clone git@github.com:wordset/wordset-data.git` this repository
 * change into the new directory
 * `bundle install`
 
