@@ -57,7 +57,8 @@ group :development, :test do
   gem "pry-rails"
   gem "pry-stack_explorer"
   gem "pry-theme"
-  gem 'mongoid-tree'
+
+  gem 'airborne'
 
   #gem "capybara"
   #gem "capybara-screenshot"
@@ -74,6 +75,7 @@ group :development, :test do
   #gem "shoulda-matchers"
   #gem "spring-commands-rspec"
   gem 'mongoid-rspec'
+  gem 'mongoid-tree'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
