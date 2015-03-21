@@ -2,6 +2,8 @@
 
 Wordset API is the Rails/Grape API back-end for [Wordset](https://www.wordset.org). Wordset is a collaborative, structured dictionary.
 
+[![Travis CI](https://travis-ci.org/wordset/wordset-api.png?branch=master)](https://travis-ci.org/wordset/wordset-api)
+
 To get it working locally, you will also need to clone and set up the Ember front-end, [Wordset UI](http://github.com/wordset/wordset-ui).
 
 ## Prerequisites
