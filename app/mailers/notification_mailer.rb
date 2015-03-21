@@ -1,5 +1,5 @@
 class NotificationMailer < ApplicationMailer
-  default from: 'notifications@wordset.org'
+  #default from: 'notifications@wordset.org'
 
   def run_all(notifications)
     notifications.each do |n|
