@@ -20,6 +20,12 @@ module Wordset
           error!({:error_code => 404, :error_message => "Invalid email or password"}, 401)
         end
       end
+
+      desc "Check your session is authorized as a user"
+      get '/authorized' do
+        authorize!
+        true
+      end
     end
   end
 end
