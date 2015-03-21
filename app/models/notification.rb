@@ -57,13 +57,19 @@ class Notification
   end
 
   def self.send_emails
+    sent_count = 0
+    unsub_count = 0
     Notification.needs_emailing.each do |n|
       if n.user.unsubscribed
         n.no_email_allowed!
+        unsub_count += 1
       else
         n.send_email!
+        sent_count += 1
       end
     end
+
+    puts "Sent: #{sent_count}, Unsubscribed Email Ignores: #{unsub_count}"
   end
 
   def send_push_notification
