@@ -87,6 +87,11 @@ module Wordset
                                  reset_password_sent_at: nil)
           {username: user.username}
         end
+
+        get '/:id/unsubscribe' do
+          User.find(params[:id]).update_attributes(unsubscribed: true)
+          render text: "Sorry to see you go! Email us if you want to be added back in!"
+        end
       end
     end
   end

@@ -1,5 +1,96 @@
 <html>
+  <head>
+    <style>
+      body {
+        background: #ECECEC;
+        font-family: "Avenir Next", sans-serif;
+        margin: 0px;
+      }
+      header, footer {
+        padding: 20px;
+        text-align: center;
+      }
+      section {
+        background: #FFF;
+        border-radius: 2px;
+        max-width: 600px;
+        margin: auto;
+        padding: 20px 20px 40px;
+      }
+      h1 {
+        font-weight: 500;
+      }
+      a {
+        color: #81C14B;
+        text-decoration: underline;
+        -webkit-transition: all 0.3s ease;
+           -moz-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+             -o-transition: all 0.3s ease;
+                transition: all 0.3s ease;
+      }
+      a:hover {
+        color: #68a138;
+      }
+      a .logo {
+        background-size: 270px;
+        color: #6B6054;
+        display: inline-block;
+        font-size: 30px;
+        height: 50px;
+        text-transform: uppercase;
+        width: 270px;
+      }
+      button {
+        background: #81C14B;
+        border: 0;
+        border-radius: 2px;
+        box-shadow: inset 0px 1px 1px #a9d584, 0px 1px 1px #DDD;
+        color: #FFF;
+        cursor: pointer;
+        display: block;
+        font-size: 18px;
+        margin: 40px auto 0px;
+        padding: 10px 20px;
+        text-shadow: 0px 1px 0px #68a138;
+        text-decoration: none;
+        -webkit-transition: all 0.3s ease;
+           -moz-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+             -o-transition: all 0.3s ease;
+                transition: all 0.3s ease;
+      }
+      button:hover {
+        background: #68a138;
+      }
+      .links {
+        margin-bottom: 20px;
+      }
+      .links a:not(:last-of-type) {
+        margin-right: 20px;
+      }
+    </style>
+  </head>
   <body>
-    <%= yield %>
+    <header>
+      <a href="http://wordset.org"><img class="logo" src="https://www.wordset.org/assets/images/full-logo-d86b9c4cc39db7811704cb1860c23842.png" alt="Wordset"/></a>
+    </header>
+    <section>
+      <%= yield %>
+      <p>
+        Love and Language,<br/>
+        Hampton and Michael (co-founders)
+      </p>
+    </section>
+    <footer>
+      <div class="links">
+        <a href="https://twitter.com/thewordset">Twitter</a>
+        <a href="https://facebook.com/wordset">Facebook</a>
+        <a href="https://github.com/wordset">GitHub</a>
+      </div>
+    <% if @user %>
+    <a href="<%= api_link("/users/#{@user.id}/unsubscribe") %>">Unsubsribe</a>
+    <% end %>
+    </footer>
   </body>
 </html>
