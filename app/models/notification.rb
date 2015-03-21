@@ -20,7 +20,7 @@ class Notification
   after_create :send_push_notification
   before_save :check_successful_status
 
-  scope :needs_emailing, -> { where(state: "unseen", :created_at.lt => 1.hour.ago) }
+  scope :needs_emailing, -> { where(state: "unseen", :created_at.lt => 15.minutes.ago) }
 
   index({state: 1, created_at: 1})
   index({user_id: 1})
