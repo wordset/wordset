@@ -50,6 +50,7 @@ group :development do
   gem "meta_request"
   gem "quiet_assets"
   gem "letter_opener"
+  gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
@@ -76,9 +77,6 @@ group :development, :test do
   #gem "spring-commands-rspec"
   gem 'mongoid-rspec'
   gem 'mongoid-tree'
-
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

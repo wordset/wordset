@@ -75,7 +75,7 @@ module Wordset
             optional :def # Meaning
             optional :example # Meaning
 
-            optional :meaning_id # MeaningChange
+            optional :meaning_id # MeaningChange / #MeaningRemoval
             optional :word_id # NewMeaning
             optional :pos # NewMeaning
 
@@ -88,18 +88,7 @@ module Wordset
           prop = nil
           case d[:type]
           when "NewWord"
-            prop = ProposeNewWord.new
-          when "NewMeaning"
-            prop = ProposeNewMeaning.new
-          when "MeaningChange"
-            prop = ProposeMeaningChange.new
-          end
-          prop.reason = d[:reason]
-          prop.user = current_user
-
-          case d[:type]
-          when "NewWord"
-            prop.name = d[:word_name]
+            prop = ProposeNewWord.new(name: d[:word_name])
             d[:meanings].each do |meaning|
               prop.embed_new_word_meanings.build(def: meaning[:def],
                                             pos: meaning[:pos],
@@ -107,18 +96,26 @@ module Wordset
                                             reason: meaning[:reason])
             end
           when "NewMeaning"
-            prop.word = Word.lookup(d[:word_id])
-            prop.def = d[:def]
-            prop.example = d[:example]
-            prop.pos = d[:pos]
+            prop = ProposeNewMeaning.new(word: Word.lookup(d[:word_id]),
+                                         pos: d[:pos])
           when "MeaningChange"
+            prop = ProposeMeaningChange.new
+          when "MeaningRemoval"
+            prop = ProposeMeaningRemoval.new(meaning: d[:meaning_id])
+          end
+          prop.reason = d[:reason]
+          prop.user = current_user
+
+          modules = prop.class.included_modules
+
+          if modules.include?(MeaningLike)
             prop.def = d[:def]
             prop.example = d[:example]
           end
-
-          if prop.class.included_modules.include?(MeaningProposalLike)
+          if modules.include?(MeaningProposalLike)
             meaning = Meaning.find(d[:meaning_id])
             prop.meaning = meaning
+
 
             prop.project_id = d[:project_id]
             if prop.save
