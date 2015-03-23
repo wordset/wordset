@@ -28,6 +28,13 @@ module Wordset
           authorize!
           true
         end
+
+        desc "pusher configuration options"
+        get '/pusher_configuration' do
+          {key: PusherFake.configuration.key,
+           connection: PusherFake.configuration.to_options({})
+          }
+        end
       end
     end
   end
