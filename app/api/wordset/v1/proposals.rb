@@ -35,7 +35,7 @@ module Wordset
             p = p.offset(params[:offset])
           end
           render p.limit(params[:limit])
-                 .includes(:user)
+                 .includes(:user, :votes)
                  .sort({created_at: -1})
                  .to_a,
                  { meta: { total: count } }

@@ -1,8 +1,16 @@
+
 require 'pusher'
 
-if Rails.env == "production"
-  Pusher.url = ENV["PUSHER_URL"]
-else
-  Pusher.url = "http://e8039c23fe140e473468:ec8d8cf1d07d87aa8496@api.pusherapp.com/apps/108005"
+if Rails.env != "production"
+  require 'pusher-fake/support/base'
+  PusherFake.configure do |configuration|
+    configuration.logger  = Rails.logger
+    configuration.verbose = true
+  end
+  config = PusherFake.configuration
+  ENV["PUSHER_URL"] = "http://PUSHER_API_KEY:PUSHER_API_SECRET@#{config.web_options[:host]}:#{config.web_options[:port]}/PUSHER_APP_ID"
+  puts ENV["PUSHER_URL"]
 end
+
+Pusher.url = ENV["PUSHER_URL"]
 Pusher.logger = Rails.logger
