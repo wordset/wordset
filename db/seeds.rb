@@ -108,6 +108,6 @@ end
 end
 
 50.times do
-  Message.create(user: User.offset(rand(User.count)).first,
-                 text: Faker::Hacker.say_something_smart)
+  MessageSay.create(user: User.offset(rand(User.count)).first,
+                    text: Faker::Hacker.say_something_smart)
 end
