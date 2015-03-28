@@ -1,5 +1,5 @@
 namespace :cron do
-  task :run => :send_notifications do
+  task :run => [:send_notifications] do
 
   end
 
