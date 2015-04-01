@@ -58,12 +58,6 @@ module Wordset
           u
         end
 
-        desc "Check your session is authorized as a user"
-        get '/authorized' do
-          authorize!
-          true
-        end
-
         params do
           requires :email, type: String
         end
@@ -92,6 +86,11 @@ module Wordset
                                  reset_password_token: nil,
                                  reset_password_sent_at: nil)
           {username: user.username}
+        end
+
+        get '/:id/unsubscribe' do
+          User.find(params[:id]).update_attributes(unsubscribed: true)
+          render text: "Sorry to see you go! Email us if you want to be added back in!"
         end
       end
     end

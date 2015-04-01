@@ -29,17 +29,17 @@ module TrustLevel
     senior_contributor: {
       name: "Senior Contributor",
       vote_value: 15,
-      min_trust: 250
+      min_trust: 500
     },
     junior_member: {
       name: "Junior Member",
       vote_value: 20,
-      min_trust: 500,
+      min_trust: 1_000,
     },
     member: {
       name: "Member",
       vote_value: 25,
-      min_trust: 1_000,
+      min_trust: 5_000,
     },
     senior_member: {
       name: "Senior Member",

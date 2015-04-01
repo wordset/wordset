@@ -22,7 +22,7 @@ class User
                        length: { minimum: 3, maximum: 16 },
                        uniqueness: true
 
-
+  field :unsubscribed, type: Boolean, default: false
 
   ## Database authenticatable
   field :email,              type: String, default: ""

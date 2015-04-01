@@ -26,9 +26,8 @@ class ProposeNewWord < Proposal
     word
   end
 
-  # OVERRIDE
-  def word_name
-    name
+  def cache_word_name!
+    self.word_name = name
   end
 
   def validate_unique_name

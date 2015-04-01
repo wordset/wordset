@@ -92,7 +92,7 @@ class Vote
       if with_majority?
         self.trust_points = 1
       else
-        self.trust_points = -3
+        self.trust_points = -1
       end
     else
       self.trust_points = 0

@@ -16,6 +16,7 @@ class Proposal
   field :tally, type: Integer, default: 0
   field :flagged_value, type: Integer, default: 0
   field :original, type: Hash
+  field :word_name, type: String, as: "w", default: ""
 
   field :vote_user_ids, type: Array
 
@@ -26,8 +27,11 @@ class Proposal
 
   field :edited_at, type: Time, default: lambda { Time.now }
 
+  before_create :cache_word_name!
+
   after_create :vote_on_it!
   after_create :create_initial_activity!
+
 
   validates :user,
             :associated => true
@@ -77,12 +81,6 @@ class Proposal
     if self.user
       Vote.create(proposal: self, user: user, yae: true, autovote: true)
     end
-  end
-
-  # Accessor that we use to either access the word belongs_to
-  # or we override it in child proposals
-  def word_name
-    word.name
   end
 
   def commit_proposal!
@@ -150,6 +148,12 @@ class Proposal
 
   def activities
     Activity.where(proposal_id: self.id)
+  end
+
+  def cache_word_name!
+    if word
+      self.word_name = word.name
+    end
   end
 
 end
