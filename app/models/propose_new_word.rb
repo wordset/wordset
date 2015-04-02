@@ -15,12 +15,13 @@ class ProposeNewWord < Proposal
            on: :create
 
   def commit!
-    word = Word.new(name: name)
+    word = Word.new
     embed_new_word_meanings.each do |meaning|
       meaning = word.add_meaning(meaning.pos, meaning.def, meaning.example)
       meaning.accepted_proposal = self
     end
     word.save!
+    Seq.create(lang: self.lang, text: name, word: word)
     self.word = word
     WordList.destroy_all
     word
@@ -31,7 +32,7 @@ class ProposeNewWord < Proposal
   end
 
   def validate_unique_name
-    if !wordnet? && Word.where(name: self.name).any?
+    if !wordnet? && Seq.where(text: self.name).any?
       self.errors.add :name, "already exists"
     end
     if ProposeNewWord.where(name: self.name, state: "open").any?

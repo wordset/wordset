@@ -38,6 +38,8 @@ RSpec.configure do |config|
   config.before(:suite) do
     #DatabaseCleaner.orm = "mongoid"
     DatabaseCleaner.strategy = :truncation
+
+    require 'pusher-fake/support/base'
   end
 
   config.before(:each) do

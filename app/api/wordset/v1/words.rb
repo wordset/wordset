@@ -19,9 +19,6 @@ module Wordset
         get '/:name' do
           Word.lookup(params[:name])
         end
-
-
-
       end
     end
   end

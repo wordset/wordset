@@ -267,6 +267,8 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.3.0)
       launchy (~> 2.2)
+    levenshtein-ffi (1.1.0)
+      ffi (~> 1.9)
     listen (2.9.0)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -494,6 +496,7 @@ DEPENDENCIES
   gravtastic
   guard-rspec
   letter_opener
+  levenshtein-ffi
   meta_request
   mongoid
   mongoid-rspec

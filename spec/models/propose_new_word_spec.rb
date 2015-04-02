@@ -36,10 +36,10 @@ describe ProposeNewWord do
 
     it "should create the word if approved!" do
       @p.save!
-      expect(Word.where(name: @name).count).to eq(0)
+      expect(Seq.where(text: @name).count).to eq(0)
       expect(Meaning.count).to eq(0)
       @p.approve!
-      expect(Word.where(name: @name).count).to eq(1)
+      expect(Seq.where(text: @name).count).to eq(1)
       expect(Meaning.count).to eq(1)
     end
 

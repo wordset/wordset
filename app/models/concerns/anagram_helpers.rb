@@ -9,24 +9,24 @@ module AnagramHelpers
   class_methods do
     def randogram()
       meaning = Meaning.limit(1).offset(rand(Meaning.count)).first
-      anagram = anagram_of(meaning.word.name).shuffle.first
-      [meaning.word.name, anagram.join(" "), meaning.def]
+      anagram = anagram_of(meaning.word.text).shuffle.first
+      [meaning.word.text, anagram.join(" "), meaning.def]
     end
 
     def simple_anagrams_of(input)
       # search for simple anagrams
-      names = all_alpha_matches(input)
+      texts = all_alpha_matches(input)
       # Get rid of exact matches, even with
       # spaces, quotes, capitalization, etc.
-      names.reject! do |name|
-        clean_letters(name) == clean_letters(input)
+      texts.reject! do |text|
+        clean_letters(text) == clean_letters(input)
       end
-      names
+      texts
     end
 
     # returns all sorted alpha matches
     def all_alpha_matches(input)
-      where(alpha: sort_letters(input)).pluck :name
+      where(alpha: sort_letters(input)).pluck :text
     end
 
     def anagram_of(input)
@@ -79,12 +79,12 @@ module AnagramHelpers
       input.downcase.gsub(/[^a-z]/,"")
     end
 
-    def sort_letters(name)
-      clean_letters(name).chars.sort.join
+    def sort_letters(text)
+      clean_letters(text).chars.sort.join
     end
   end
 
   def calculate_alpha!
-    self.alpha = Word.sort_letters(name)
+    self.alpha = Word.sort_letters(text)
   end
 end

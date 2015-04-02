@@ -6,6 +6,7 @@ class Proposal
   belongs_to :word
   belongs_to :user
   belongs_to :project
+  belongs_to :lang
 
   has_many :votes,
             dependent: :destroy
