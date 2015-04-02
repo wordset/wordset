@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/wordset/wordset.png?label=ready&title=Ready)](https://waffle.io/wordset/wordset)
 # Wordset API
 
 Wordset API is the Rails/Grape API back-end for [Wordset](https://www.wordset.org). Wordset is a collaborative, structured dictionary.
