@@ -26,6 +26,11 @@ module Wordset
             Rails.logger
           end
 
+          def current_lang
+            # TODO: Update for lang detection
+            @lang ||= Lang.first
+          end
+
           def authorize!
             authenticate
             error!('401 Unauthorized', 401) unless current_user
