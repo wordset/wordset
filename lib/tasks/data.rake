@@ -1,6 +1,6 @@
 
 namespace :data do
-  task :run => [:clean,
+  task :run => [
                 :seqs,
                 :clean_words,
                 :lang_proposals]
@@ -9,8 +9,8 @@ namespace :data do
 
   task :seqs => :environment do
     l = Lang.create(code: "en", name: "English")
-    count = Word.count
-    Word.each do |word|
+    count = Word.count - 50_000
+    Word.offset(50_000).each do |word|
       count -= 1
       puts count
       word.seqs.create(text: word["name"], lang: l)
