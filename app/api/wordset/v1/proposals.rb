@@ -105,6 +105,7 @@ module Wordset
           end
           prop.reason = d[:reason]
           prop.user = current_user
+          prop.lang = current_lang
 
           modules = prop.class.included_modules
 
