@@ -15,7 +15,7 @@ class Word
             :on => :create
 
   def self.lookup(name)
-    Word.where(name: name).first
+    Seq.where(text: name).first.word
   end
 
   def name

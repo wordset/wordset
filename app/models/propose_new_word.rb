@@ -15,12 +15,13 @@ class ProposeNewWord < Proposal
            on: :create
 
   def commit!
-    word = Word.new(name: name)
+    word = Word.new
     embed_new_word_meanings.each do |meaning|
       meaning = word.add_meaning(meaning.pos, meaning.def, meaning.example)
       meaning.accepted_proposal = self
     end
     word.save!
+    Seq.create(lang: self.lang, text: name, word: word)
     self.word = word
     WordList.destroy_all
     word
