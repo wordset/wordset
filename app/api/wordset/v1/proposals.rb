@@ -129,7 +129,7 @@ module Wordset
 
 
         get '/new-word-status/:word' do
-          word = Word.where(name: params[:word]).first
+          word = Seq.where(text: params[:word], :word_id.ne => nil).first
           if word
             return {word_id: word.name, can: false}
           end
