@@ -11,7 +11,7 @@ class Seq
 
   field :alpha, as: "a"
   field :word_length, type: Integer, as: "l"
-  index({text: 1, language_id: 1})
+  index({text: 1, lang_id: 1}, {unique: true})
   index({word_length: 1})
   index({alpha: 1})
 
