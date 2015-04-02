@@ -28,6 +28,8 @@ gem 'pusher'
 gem 'sitemap_generator'
 gem 'fog'
 
+gem 'levenshtein-ffi', :require => 'levenshtein'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
