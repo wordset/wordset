@@ -2,7 +2,6 @@ class Word
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  include ProperNounDestroyer
   include SoftRemove
 
   has_many :seqs, autosave: true
