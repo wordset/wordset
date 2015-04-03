@@ -4,12 +4,14 @@ describe ProposeNewMeaning do
   before do
     @user = create(:user)
     @word = create(:word)
+    @lang = create(:lang)
   end
 
   describe "Valid New Meaning Proposal" do
     before :each do
       @p = ProposeNewMeaning.new(word: @word,
                                  user: @user,
+                                 lang: @lang,
                                  pos: "adj",
                                  def: "To be secretly submissive",
                                  example: "I thought the boss was a little subbery")

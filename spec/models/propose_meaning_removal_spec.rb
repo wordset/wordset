@@ -3,6 +3,7 @@ require 'rails_helper'
 describe ProposeMeaningRemoval do
   before do
     @user = create(:user)
+    @lang = create(:lang)
   end
 
   before :each do
@@ -10,9 +11,10 @@ describe ProposeMeaningRemoval do
     @meaning = @word.entries.first.meanings.first
     @entry = @meaning.entry
     @p = ProposeMeaningRemoval.create(user: @user,
-                                       word: @word,
-                                       meaning: @meaning,
-                                       reason: "This violates some rule or something")
+                                      lang: @lang,
+                                      word: @word,
+                                      meaning: @meaning,
+                                      reason: "This violates some rule or something")
   end
 
   it "should remove meanings and words if approved" do
@@ -43,12 +45,12 @@ describe ProposeMeaningRemoval do
 
   it "should create a new word if the meaning has been deleted" do
     @p.approve!
-    @new_p = ProposeNewWord.new(name: @word, user: @user)
+    @new_p = ProposeNewWord.new(name: @word, user: @user, lang: @lang)
     @new_p.embed_new_word_meanings.build(pos: "adj",
                                     def: "To be secretly submissive",
                                     example: "I thought the boss was a little subbery",
                                     reason: "Fifty Shades of Grey")
     expect(@new_p).to be_valid
   end
-  
+
 end

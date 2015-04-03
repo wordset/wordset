@@ -3,12 +3,13 @@ require 'rails_helper'
 describe ProposeNewWord do
   before do
     @user = create(:user)
+    @lang = create(:lang)
   end
 
   describe "Valid New Proposal" do
     before :each do
       @name = "subbery"
-      @p = ProposeNewWord.new(name: @name, user: @user)
+      @p = ProposeNewWord.new(name: @name, user: @user, lang: @lang)
       expect(@p).to_not be_valid
       @p.embed_new_word_meanings.build(pos: "adj",
                                       def: "To be secretly submissive",

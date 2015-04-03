@@ -36,6 +36,8 @@ class Proposal
 
   validates :user,
             :associated => true
+  validates :lang,
+            :presence => true
 
   index({word_id: 1, state: 1})
   index({word_id: 1, created_at: -1})

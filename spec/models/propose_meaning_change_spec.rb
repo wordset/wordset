@@ -5,6 +5,7 @@ describe ProposeMeaningChange do
   before do
     @user = create(:user)
     @meaning = create(:meaning)
+    @lang = create(:lang)
   end
 
   describe "Valid New Meaning Proposal" do
@@ -13,6 +14,7 @@ describe ProposeMeaningChange do
       @p = ProposeMeaningChange.new(user: @user,
                                     meaning: @meaning,
                                     def: @def,
+                                    lang: @lang,
                                     example: "I thought the boss was a little subbery")
     end
 
