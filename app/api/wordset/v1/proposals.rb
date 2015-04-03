@@ -129,11 +129,11 @@ module Wordset
 
 
         get '/new-word-status/:word' do
-          word = Seq.where(text: params[:word], :word_id.ne => nil).first
-          if word
-            return {word_id: word.name, can: false}
+          seq = Seq.where(text: params[:word], :word_id.ne => nil).first
+          if seq
+            return {word_id: seq.text, can: false}
           end
-          prop = ProposeNewWord.where(name: params[:word]).open.first
+          prop = ProposeNewWord.where(name: seq.text).open.first
           if prop
             return {proposal_id: prop.id, can: false}
           end
