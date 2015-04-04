@@ -133,7 +133,7 @@ module Wordset
           if seq
             return {word_id: seq.text, can: false}
           end
-          prop = ProposeNewWord.where(name: seq.text).open.first
+          prop = ProposeNewWord.where(name: params[:word]).open.first
           if prop
             return {proposal_id: prop.id, can: false}
           end
