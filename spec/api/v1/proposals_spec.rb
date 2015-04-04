@@ -23,5 +23,12 @@ describe Wordset::V1 do
       expect(p.meaning).to eq(meaning)
       expect(p.user).to eq(user)
     end
+
+    describe "Inline word validator" do
+      it "should say 'ok' if the word doesn't exist" do
+        get("/api/v1/proposals/new-word-status/sushie")
+        expect_json(can: true)
+      end
+    end
   end
 end
