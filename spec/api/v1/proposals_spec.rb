@@ -25,9 +25,25 @@ describe Wordset::V1 do
     end
 
     describe "Inline word validator" do
+      def check_status(seq)
+        get("/api/v1/proposals/new-word-status/#{seq}")
+      end
+
       it "should say 'ok' if the word doesn't exist" do
-        get("/api/v1/proposals/new-word-status/sushie")
+        check_status("sushieee")
         expect_json(can: true)
+      end
+
+      it "should tell you that there is an open proposal" do
+        new_word_proposal = create(:propose_new_word)
+        check_status(new_word_proposal.name)
+        expect_json(proposal_id: new_word_proposal.id.to_s, can: false)
+      end
+
+      it "should tell you if a word exists" do
+        word = create(:word)
+        check_status(word.seqs.first.text)
+        expect_json(can: false, word_id: word.name)
       end
     end
   end

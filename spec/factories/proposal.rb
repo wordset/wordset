@@ -13,4 +13,20 @@ FactoryGirl.define do
       state "rejected"
     end
   end
+
+  factory :embed_new_word_meaning do
+    pos "noun"
+    self.def { Faker::Lorem.sentence }
+    self.example { Faker::Lorem.sentence }
+    self.reason { Faker::Lorem.sentence }
+  end
+
+  factory :propose_new_word do
+    user
+    lang { Lang.first || create(:lang) }
+    name { Faker::Lorem.word + "newmeaningproposal" }
+    before(:create) do |proposal, evaluator|
+      create_list(:embed_new_word_meaning, 1, propose_new_word: proposal)
+    end
+  end
 end
