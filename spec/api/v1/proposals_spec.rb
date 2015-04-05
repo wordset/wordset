@@ -7,8 +7,7 @@ describe Wordset::V1 do
 
     it "should return its index list" do
       get("/api/v1/proposals")
-      data = JSON.parse(response.body)
-      expect(data.keys.first).to eq("proposals")
+      expect_json_types(proposals: :array)
     end
 
     it "should allow you to propose a removal" do
