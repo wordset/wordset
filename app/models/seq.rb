@@ -21,9 +21,19 @@ class Seq
     d.word_length = d.text.length
   end
 
+  def self.lookup(key)
+    lang_code, *text = key.split(":")
+    lang = Lang.where(code: lang_code).first
+    Seq.where(lang: lang, text: text.join(":")).first
+  end
+
   def seq_uniqueness
     if Seq.where(:lang => lang, text: self.text).any?
       errors.add(:text, "is not unique")
     end
+  end
+
+  def key
+    "#{lang.code}:#{text}"
   end
 end

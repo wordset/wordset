@@ -12,12 +12,8 @@ module Wordsets
           if params[:meaning_id]
             [Meaning.find(params[:meaning_id]).word]
           else
-            Wordset.limit(1).offset(rand(Wordsetcount))
+            Wordset.limit(1).offset(rand(Wordset.count))
           end
-        end
-
-        get '/:name' do
-          Wordset.lookup(params[:name])
         end
       end
     end

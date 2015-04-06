@@ -27,6 +27,10 @@ class Meaning
     entry.wordset
   end
 
+  def wordset_id
+    entry.wordset_id
+  end
+
   def wordnet?
     wordnet_import?
   end
