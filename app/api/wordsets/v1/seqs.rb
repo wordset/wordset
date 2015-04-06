@@ -4,8 +4,8 @@ module Wordsets
       include Wordsets::V1::Defaults
 
       resource :seqs do
-        get '/:id' do
-          Seq.lookup(params[:id])
+        get '/:lang/:id' do
+          Seq.lookup(params[:lang], params[:id])
         end
       end
     end
