@@ -1,7 +1,7 @@
 
 namespace :data do
   task :run => [:clean,
-                :rename
+                :rename]
 
   task :clean => ["db:mongoid:remove_undefined_indexes", "db:mongoid:create_indexes"]
 
