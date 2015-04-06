@@ -1,7 +1,7 @@
 module Wordsets
   module V1
-    class Wordsets < Grape::API
-      include Wordset::V1::Defaults
+    class WordsetsAPI < Grape::API
+      include Wordsets::V1::Defaults
 
       resource :wordsets do
 

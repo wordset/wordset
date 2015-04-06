@@ -1,19 +1,19 @@
 module Wordsets
   module V1
     class Base < Grape::API
-      include Wordset::V1::Defaults
+      include Wordsets::V1::Defaults
 
-      mount Wordset::V1::Activities
-      mount Wordset::V1::Auth
-      mount Wordset::V1::Messages
-      mount Wordset::V1::Notifications
-      mount Wordset::V1::Posts
-      mount Wordset::V1::Projects
-      mount Wordset::V1::Proposals
-      mount Wordset::V1::Users
-      mount Wordset::V1::Votes
-      mount Wordset::V1::Wordsets
-      mount Wordset::V1::WordLists
+      mount Wordsets::V1::Activities
+      mount Wordsets::V1::Auth
+      mount Wordsets::V1::Messages
+      mount Wordsets::V1::Notifications
+      mount Wordsets::V1::Posts
+      mount Wordsets::V1::Projects
+      mount Wordsets::V1::Proposals
+      mount Wordsets::V1::Users
+      mount Wordsets::V1::Votes
+      mount Wordsets::V1::WordsetsAPI
+      mount Wordsets::V1::WordLists
 
 
       add_swagger_documentation(

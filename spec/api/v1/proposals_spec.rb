@@ -1,7 +1,7 @@
 
 require 'rails_helper'
 
-describe Wordset::V1 do
+describe Wordsets::V1 do
   describe Proposal do
     include LoginHelper
 

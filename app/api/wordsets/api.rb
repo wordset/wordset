@@ -2,6 +2,6 @@
 module Wordsets
   class API < Grape::API
     use Appsignal::Grape::Middleware
-    mount Wordset::V1::Base
+    mount Wordsets::V1::Base
   end
 end

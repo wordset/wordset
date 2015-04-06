@@ -1,7 +1,7 @@
 
 require 'rails_helper'
 
-describe Wordset::V1 do
+describe Wordsets::V1 do
   describe WordList do
     it "should load the starter list" do
       create_list :word, 100

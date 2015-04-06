@@ -1,4 +1,4 @@
-class Word
+class Wordset
   include Mongoid::Document
   include Mongoid::Timestamps
   store_in collection: "words"
