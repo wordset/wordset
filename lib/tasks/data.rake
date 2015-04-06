@@ -9,7 +9,7 @@ namespace :data do
     Entry.all.rename(:word_id => :wordset_id)
     Proposal.all.rename(:word_id => :wordset_id)
     Seq.all.rename(:word_id => :wordset_id)
-    Proposal.where(type: "ProposeNewWord").update_all(type: "ProposeNewWordSet")
+    Proposal.where(_type: "ProposeNewWord").update_all(_type: "ProposeNewWordset")
   end
 
 end

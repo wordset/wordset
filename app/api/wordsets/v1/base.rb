@@ -14,7 +14,6 @@ module Wordsets
       mount Wordsets::V1::Seqs
       mount Wordsets::V1::Users
       mount Wordsets::V1::Votes
-      mount Wordsets::V1::WordsetsAPI
       mount Wordsets::V1::WordLists
 
 

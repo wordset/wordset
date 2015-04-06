@@ -21,10 +21,10 @@ class Seq
     d.word_length = d.text.length
   end
 
-  def self.lookup(lang_code, key)
-    #lang_code, *text = key.split(":")
+  def self.lookup(key)
+    lang_code, *text = key.split("-")
     lang = Lang.where(code: lang_code).first
-    Seq.where(lang: lang, text: key).first
+    Seq.where(lang: lang, text: text.join("-")).first
   end
 
   def seq_uniqueness
@@ -34,6 +34,6 @@ class Seq
   end
 
   def key
-    "#{lang.code}/#{text}"
+    "#{lang.code}-#{text}"
   end
 end

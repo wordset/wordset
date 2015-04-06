@@ -1,4 +1,4 @@
 class WordsetSerializer < BaseSerializer
-  attributes :id
+  attributes :id, :name
   has_many :entries, serializer: EntrySerializer
 end

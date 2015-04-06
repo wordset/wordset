@@ -1,5 +1,6 @@
 class SeqSerializer < BaseSerializer
-  attributes :id
+  attributes :id, :text
+  has_one :lang, embed_key: :code
   has_one :wordset
 
   def id

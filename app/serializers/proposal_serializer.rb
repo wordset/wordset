@@ -2,6 +2,7 @@ class ProposalSerializer < ActiveModel::Serializer
   attributes :id, :wordset_id, :state, :created_at, :wordnet,
              :user_id, :reason, :type, :tally, :flagged, :word_name
   has_one :user, embed_key: :to_param
+  has_one :lang, embed_key: :code
   has_many :votes
   has_many :activities, serializer: ActivitySerializer
   has_one :meaning
