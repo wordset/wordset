@@ -1,4 +1,4 @@
-class ProposeNewWord < Proposal
+class ProposeNewWordset< Proposal
   embeds_many :embed_new_word_meanings
 
   field :name, type: String
@@ -15,16 +15,16 @@ class ProposeNewWord < Proposal
            on: :create
 
   def commit!
-    word = Word.new
+    wordset = Wordset.new
     embed_new_word_meanings.each do |meaning|
       meaning = word.add_meaning(meaning.pos, meaning.def, meaning.example)
       meaning.accepted_proposal = self
     end
-    word.save!
-    Seq.create(lang: self.lang, text: name, word: word)
-    self.word = word
+    wordset.save!
+    Seq.create(lang: self.lang, text: name, wordset: wordset)
+    self.wordset = wordset
     WordList.destroy_all
-    word
+    wordset
   end
 
   def cache_word_name!
@@ -35,7 +35,7 @@ class ProposeNewWord < Proposal
     if !wordnet? && Seq.where(text: self.name).any?
       self.errors.add :name, "already exists"
     end
-    if ProposeNewWord.where(name: self.name, state: "open").any?
+    if ProposeNewWordsetwhere(name: self.name, state: "open").any?
       self.errors.add :name, "already has a proposal open"
     end
   end

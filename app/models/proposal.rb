@@ -3,7 +3,7 @@ class Proposal
   include Mongoid::Timestamps
   include AASM
 
-  belongs_to :word
+  belongs_to :wordset
   belongs_to :user
   belongs_to :project
   belongs_to :lang
@@ -39,8 +39,8 @@ class Proposal
   validates :lang,
             :presence => true
 
-  index({word_id: 1, state: 1})
-  index({word_id: 1, created_at: -1})
+  index({wordset_id: 1, state: 1})
+  index({wordset_id: 1, created_at: -1})
   index({user_id: 1})
   index({created_at: -1})
   index({vote_user_ids: 1, state: 1})
@@ -155,7 +155,7 @@ class Proposal
 
   def cache_word_name!
     if word
-      self.word_name = word.name
+      self.word_name = wordset.name
     end
   end
 

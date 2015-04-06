@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :propose_new_meaning do
     user
-    word
+    wordset
     lang { Lang.first || create(:lang) }
     pos "noun"
     self.def "The sport of jsaialai"
@@ -21,7 +21,7 @@ FactoryGirl.define do
     self.reason { Faker::Lorem.sentence }
   end
 
-  factory :propose_new_word do
+  factory :propose_new_wordset do
     user
     lang { Lang.first || create(:lang) }
     name { Faker::Lorem.word + "newmeaningproposal" }

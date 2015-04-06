@@ -1,5 +1,5 @@
 class ProposalSerializer < ActiveModel::Serializer
-  attributes :id, :word_id, :state, :created_at, :wordnet,
+  attributes :id, :wordset_id, :state, :created_at, :wordnet,
              :user_id, :reason, :type, :tally, :flagged, :word_name
   has_one :user, embed_key: :to_param
   has_many :votes
@@ -29,7 +29,7 @@ class ProposalSerializer < ActiveModel::Serializer
     if !object.note.blank?
       h["note"] = object.note
     end
-    if object.is_a? ProposeNewWord
+    if object.is_a? ProposeNewWordset
       h["meanings"] = object.embed_new_word_meanings.collect do |m|
         {def: m.def,
          example: m.example,

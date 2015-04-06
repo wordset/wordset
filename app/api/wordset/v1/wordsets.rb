@@ -3,7 +3,7 @@ module Wordset
     class Words < Grape::API
       include Wordset::V1::Defaults
 
-      resource :words do
+      resource :wordsets do
 
         params do
           optional :meaning_id, type: String
@@ -12,12 +12,12 @@ module Wordset
           if params[:meaning_id]
             [Meaning.find(params[:meaning_id]).word]
           else
-            Word.limit(1).offset(rand(Word.count))
+            Wordset.limit(1).offset(rand(Wordsetcount))
           end
         end
 
         get '/:name' do
-          Word.lookup(params[:name])
+          Wordset.lookup(params[:name])
         end
       end
     end

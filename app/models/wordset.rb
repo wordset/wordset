@@ -1,6 +1,7 @@
 class Word
   include Mongoid::Document
   include Mongoid::Timestamps
+  store_in collection: "words"
 
   include SoftRemove
 

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe ProposeNewMeaning do
   before do
     @user = create(:user)
-    @word = create(:word)
+    @word = create(:wordset)
     @lang = create(:lang)
   end
 

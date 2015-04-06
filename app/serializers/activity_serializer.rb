@@ -13,7 +13,7 @@ class ActivitySerializer < ActiveModel::Serializer
     h = super
     modules = object.class.included_modules
     if modules.include?(ProposalActivity)
-      h[:word_id] = object.word_name
+      h[:word_name] = object.word_name
       h[:proposal_id] = object.proposal.id
     end
     if object.is_a? ProposalClosedActivity

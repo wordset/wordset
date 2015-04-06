@@ -4,7 +4,7 @@ class Seq
   include AnagramHelpers
 
   belongs_to :lang
-  belongs_to :word
+  belongs_to :wordset
   field :text, as: "t"
 
   validates :text, :format => { with: /\A[a-zA-Z][a-zA-Z\d\/\-' .]*\z/ } #'

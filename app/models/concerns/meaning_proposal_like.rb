@@ -23,7 +23,7 @@ module MeaningProposalLike
   end
 
   def set_before_create
-    self.word = meaning.word
+    self.wordset = meaning.wordset
     self.word_name = word.name
     self.original = {def: meaning.def,
                      example: meaning.example,

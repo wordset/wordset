@@ -12,7 +12,7 @@ module Wordset
       mount Wordset::V1::Proposals
       mount Wordset::V1::Users
       mount Wordset::V1::Votes
-      mount Wordset::V1::Words
+      mount Wordset::V1::Wordsets
       mount Wordset::V1::WordLists
 
 

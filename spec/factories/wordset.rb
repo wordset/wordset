@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :word do
+  factory :wordset do
     before(:create) do |word, evaluator|
       create_list(:entry, 1, word: word)
       create_list(:seq, 1, word: word)
