@@ -17,7 +17,7 @@ class ProposeNewWordset< Proposal
   def commit!
     wordset = Wordset.new
     embed_new_word_meanings.each do |meaning|
-      meaning = word.add_meaning(meaning.pos, meaning.def, meaning.example)
+      meaning = wordset.add_meaning(meaning.pos, meaning.def, meaning.example)
       meaning.accepted_proposal = self
     end
     wordset.save!
@@ -32,10 +32,10 @@ class ProposeNewWordset< Proposal
   end
 
   def validate_unique_name
-    if !wordnet? && Seq.where(text: self.name).any?
+    if !wordnet? && Seq.where(text: self.name, lang: self.lang, :wordset_id.ne => nil).any?
       self.errors.add :name, "already exists"
     end
-    if ProposeNewWordsetwhere(name: self.name, state: "open").any?
+    if ProposeNewWordset.where(name: self.name, lang: self.lang, state: "open").any?
       self.errors.add :name, "already has a proposal open"
     end
   end

@@ -19,6 +19,10 @@ class Wordset
     seq = Seq.where(text: name).first.try(:word)
   end
 
+  set_callback :remove, :after do |wordset|
+    wordset.seqs.update_all(wordset_id: nil)
+  end
+
   def name
     seqs.first.text
   end

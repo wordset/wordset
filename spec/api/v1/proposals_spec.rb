@@ -42,7 +42,7 @@ describe Wordsets::V1 do
       it "should tell you if a word exists" do
         word = create(:wordset)
         check_status(word.seqs.first.text)
-        expect_json(can: false, word_id: word.name)
+        expect_json(can: false, seq_id: word.name)
       end
     end
   end

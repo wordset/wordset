@@ -42,8 +42,8 @@ class ProposalSerializer < ActiveModel::Serializer
     end
     if modules.include?(MeaningProposalLike)
       h["original"] = object.original
-      h["word_name"] = object.word_name || object.word.name
-      (h["word_id"] = object.word.name) if object.word
+      h["word_name"] = object.word_name || object.wordset.name
+      (h["word_id"] = object.wordset.id) if object.wordset
     end
     if modules.include?(MeaningLike)
       h["def"] = object.def

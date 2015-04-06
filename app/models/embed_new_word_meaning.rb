@@ -1,5 +1,5 @@
 # This class is only used to embed Meanings in a ProposeNewWordsetProposal
-class EmbedNewWordseteaning
+class EmbedNewWordMeaning
   include Mongoid::Document
   include MeaningLike
   include PosLike
@@ -12,6 +12,6 @@ class EmbedNewWordseteaning
             :presence => true
 
   def wordnet?
-    propose_new_word.wordnet?
+    propose_new_wordset.wordnet?
   end
 end

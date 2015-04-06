@@ -154,7 +154,7 @@ class Proposal
   end
 
   def cache_word_name!
-    if word
+    if wordset
       self.word_name = wordset.name
     end
   end
