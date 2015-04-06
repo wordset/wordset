@@ -26,7 +26,7 @@ FactoryGirl.define do
     lang { Lang.first || create(:lang) }
     name { Faker::Lorem.word + "newmeaningproposal" }
     before(:create) do |proposal, evaluator|
-      create_list(:embed_new_word_meaning, 1, propose_new_word: proposal)
+      create_list(:embed_new_word_meaning, 1, propose_new_wordset: proposal)
     end
   end
 end

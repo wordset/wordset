@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ProposeNewWordsetdo
+describe ProposeNewWordset do
   before do
     @user = create(:user)
     @lang = create(:lang)
@@ -9,7 +9,7 @@ describe ProposeNewWordsetdo
   describe "Valid New Proposal" do
     before :each do
       @name = "subbery"
-      @p = ProposeNewWordsetnew(name: @name, user: @user, lang: @lang)
+      @p = ProposeNewWordset.new(name: @name, user: @user, lang: @lang)
       expect(@p).to_not be_valid
       @p.embed_new_word_meanings.build(pos: "adj",
                                       def: "To be secretly submissive",
@@ -29,10 +29,10 @@ describe ProposeNewWordsetdo
 
     it "shouldn't commit if invalid" do
       @p.save!
-      count = Wordsetcount
+      count = Wordset.count
       @p.name = ""
       @p.commit_proposal!
-      expect(Wordsetcount).to eq(count)
+      expect(Wordset.count).to eq(count)
     end
 
     it "should create the word if approved!" do

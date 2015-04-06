@@ -3,13 +3,13 @@ require 'rails_helper'
 describe ProposeNewMeaning do
   before do
     @user = create(:user)
-    @word = create(:wordset)
+    @wordset = create(:wordset)
     @lang = create(:lang)
   end
 
   describe "Valid New Meaning Proposal" do
     before :each do
-      @p = ProposeNewMeaning.new(word: @word,
+      @p = ProposeNewMeaning.new(wordset: @wordset,
                                  user: @user,
                                  lang: @lang,
                                  pos: "adj",
@@ -23,10 +23,10 @@ describe ProposeNewMeaning do
 
     it "should create a new entry" do
       @p.save
-      entry_count = @word.entries.count
+      entry_count = @wordset.entries.count
       meaning_count = Meaning.count
       @p.approve!
-      expect(@word.entries.count).to eq(entry_count + 1)
+      expect(@wordset.entries.count).to eq(entry_count + 1)
       expect(Meaning.count).to eq(meaning_count + 1)
     end
 
