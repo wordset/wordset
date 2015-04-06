@@ -1,4 +1,4 @@
-module Wordset
+module Wordsets
   module V1
     class Notifications < Grape::API
       include Wordset::V1::Defaults

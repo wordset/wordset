@@ -1,4 +1,4 @@
-module Wordset
+module Wordsets
   module V1
     class Users < Grape::API
       include Wordset::V1::Defaults
