@@ -9,11 +9,14 @@ class Wordset
   has_many :entries, autosave: true, dependent: :destroy
   has_many :proposals, dependent: :destroy
   has_many :activities, dependent: :destroy
+  belongs_to :lang
 
   validates :entries,
             :associated => true,
             :length => { :minimum => 1 },
             :on => :create
+  validates :lang,
+            :presence => true
 
   def self.lookup(name)
     seq = Seq.where(text: name).first.try(:word)
