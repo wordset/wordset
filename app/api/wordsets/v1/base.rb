@@ -15,6 +15,7 @@ module Wordsets
       mount Wordsets::V1::Users
       mount Wordsets::V1::Votes
       mount Wordsets::V1::WordLists
+      mount Wordsets::V1::WordsetsApi
 
 
       add_swagger_documentation(
