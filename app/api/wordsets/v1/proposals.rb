@@ -94,7 +94,7 @@ module Wordsets
                                             reason: meaning[:reason])
             end
           when "NewMeaning"
-            prop = ProposeNewMeaning.new(word: Wordset.find(d[:wordset_id]),
+            prop = ProposeNewMeaning.new(wordset: Wordset.find(d[:wordset_id]),
                                          pos: d[:pos])
           when "MeaningChange"
             prop = ProposeMeaningChange.new
