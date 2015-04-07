@@ -4,7 +4,7 @@ FactoryGirl.define do
       create_list(:entry, 1, wordset: wordset)
       create_list(:seq, 1, wordset: wordset)
     end
-
+    lang { Lang.first || create(:lang) }
   end
 
   factory :word_list do
