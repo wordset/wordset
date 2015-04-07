@@ -20,6 +20,7 @@ class ProposeNewWordset< Proposal
       meaning = wordset.add_meaning(meaning.pos, meaning.def, meaning.example)
       meaning.accepted_proposal = self
     end
+    wordset.lang = self.lang
     wordset.save!
     Seq.create(lang: self.lang, text: name, wordset: wordset)
     self.wordset = wordset
