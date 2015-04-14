@@ -6,9 +6,8 @@ SitemapGenerator::Sitemap.sitemaps_host = "https://www.wordset.org/__/proxy/data
 
 SitemapGenerator::Sitemap.create do
 
-  Wordseteach do |word|
-    add '/word/#{word.name}', :priority => 0.5, :changefreq => 'weekly'
-    #add '/word/#{word.name}/proposals', :priority => 0.2, :changefreq => 'weekly'
+  Wordset.all.includes(:seqs).each do |word|
+    add '/en/#{word.name}', :priority => 0.5, :changefreq => 'weekly'
   end
 
   Post.published.each do |post|
