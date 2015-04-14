@@ -3,7 +3,7 @@ FactoryGirl.define do
     user
     wordset
     lang { Lang.first || create(:lang) }
-    pos "noun"
+    speech_part { SpeechPart.first || create(:speech_part) }
     self.def "The sport of jsaialai"
     self.example "I love playing jsaialai."
     factory :open_proposal do
@@ -15,7 +15,7 @@ FactoryGirl.define do
   end
 
   factory :embed_new_word_meaning do
-    pos "noun"
+    speech_part { SpeechPart.first || create(:speech_part) }
     self.def { Faker::Lorem.sentence }
     self.example { Faker::Lorem.sentence }
     self.reason { Faker::Lorem.sentence }

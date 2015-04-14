@@ -5,6 +5,7 @@ describe ProposeNewMeaning do
     @user = create(:user)
     @wordset = create(:wordset)
     @lang = create(:lang)
+    @speech_part = create(:speech_part)
   end
 
   describe "Valid New Meaning Proposal" do
@@ -12,7 +13,7 @@ describe ProposeNewMeaning do
       @p = ProposeNewMeaning.new(wordset: @wordset,
                                  user: @user,
                                  lang: @lang,
-                                 pos: "adj",
+                                 speech_part: @speech_part,
                                  def: "To be secretly submissive",
                                  example: "I thought the boss was a little subbery")
     end
@@ -21,21 +22,11 @@ describe ProposeNewMeaning do
       expect(@p).to be_valid
     end
 
-    it "should create a new entry" do
+    it "should create a new meaning" do
       @p.save
-      entry_count = @wordset.entries.count
-      meaning_count = Meaning.count
+      meaning_count = @wordset.meanings.count
       @p.approve!
-      expect(@wordset.entries.count).to eq(entry_count + 1)
-      expect(Meaning.count).to eq(meaning_count + 1)
-    end
-
-    it "Should work if it's the same entry too" do
-      @p.pos = "noun"
-      @p.save
-      entry_count = Entry.count
-      @p.approve!
-      expect(Entry.count).to eq(entry_count)
+      expect(@wordset.meanings.count).to eq(meaning_count + 1)
     end
 
     it "shouldn't commit if invalid" do
