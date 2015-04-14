@@ -12,7 +12,7 @@ describe ProposeNewWordset do
       @p = ProposeNewWordset.new(name: @name, user: @user, lang: @lang)
       @speech_part = SpeechPart.first || create(:speech_part)
       expect(@p).to_not be_valid
-      @p.embed_new_word_meanings.build(speech_part: @speech_part,
+      @p.embed_new_word_meanings.build(pos: @speech_part.code,
                                       def: "To be secretly submissive",
                                       example: "I thought the boss was a little subbery",
                                       reason: "Fifty Shades of Grey")
@@ -46,7 +46,7 @@ describe ProposeNewWordset do
     end
 
     it "should break with one bad meaning" do
-      @p.embed_new_word_meanings.build(speech_part: @speech_part,
+      @p.embed_new_word_meanings.build(pos: @speech_part.code,
                                       def: "To be secretly AWESOME",
                                       example: "I thought the boss was a little AWESOME")
       expect(@p).to_not be_valid

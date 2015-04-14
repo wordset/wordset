@@ -32,7 +32,7 @@ describe ProposeMeaningRemoval do
   it "should create a new word if the meaning has been deleted" do
     @p.approve!
     @new_p = ProposeNewWordset.new(name: @wordset.name, user: @user, lang: @lang)
-    @new_p.embed_new_word_meanings.build(speech_part: @speech_part,
+    @new_p.embed_new_word_meanings.build(pos: @speech_part.code,
                                          def: "To be secretly submissive",
                                          example: "I thought the boss was a little subbery",
                                          reason: "Fifty Shades of Grey")

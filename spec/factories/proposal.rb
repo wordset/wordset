@@ -15,7 +15,7 @@ FactoryGirl.define do
   end
 
   factory :embed_new_word_meaning do
-    speech_part { SpeechPart.first || create(:speech_part) }
+    pos { (SpeechPart.first || create(:speech_part)).code }
     self.def { Faker::Lorem.sentence }
     self.example { Faker::Lorem.sentence }
     self.reason { Faker::Lorem.sentence }
