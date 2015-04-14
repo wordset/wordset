@@ -4,31 +4,24 @@ class Meaning
   include SoftRemove
   field :wordnet_import, type: Boolean, default: false
 
-  belongs_to :entry
   belongs_to :open_proposal, class_name: "Proposal"
   belongs_to :accepted_proposal, class_name: "Proposal" # last accepted proposal
+  belongs_to :speech_part
+  belongs_to :wordset
 
   has_many :proposals, inverse_of: :meaning, class_name: "ProposeMeaningChange"
   has_many :project_targets
 
-  validates :entry,
-            :presence => true
-
-  index({entry_id: 1})
-  index({removed_at: 1, entry_id: 1})
+  index({removed_at: 1})
 
   set_callback :remove, :after do |meaning|
-    if meaning.entry.meanings.count == 0
-      meaning.entry.remove!
+    if meaning.wordset.meanings.count == 0
+      meaning.wordset.remove!
     end
   end
 
-  def wordset
-    entry.wordset
-  end
-
   def wordset_id
-    entry.wordset_id
+    wordset.id
   end
 
   def wordnet?
