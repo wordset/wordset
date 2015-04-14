@@ -1,6 +1,6 @@
-# 
-# class Entry
-#   include Mongoid::Document
+
+class Entry
+  include Mongoid::Document
 #   include PosLike
 #   include SoftRemove
 #
@@ -29,4 +29,4 @@
 #   def self.pos
 #     %w(adv adj verb noun prep pronoun conj intj)
 #   end
-# end
+end

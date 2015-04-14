@@ -13,6 +13,7 @@ class Meaning
   has_many :project_targets
 
   index({removed_at: 1})
+  index({entry_id: 1})
 
   set_callback :remove, :after do |meaning|
     if meaning.wordset.meanings.count == 0
