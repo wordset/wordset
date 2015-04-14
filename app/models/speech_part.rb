@@ -1,7 +1,7 @@
 class SpeechPart
   include Mongoid::Document
 
-  embedded_in :lang
+  belongs_to :lang
 
   has_many :meanings
 

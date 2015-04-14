@@ -1,7 +1,7 @@
 class Lang
   include Mongoid::Document
 
-  embeds_many :speech_parts
+  has_many :speech_parts
 
   field :code
   field :name
