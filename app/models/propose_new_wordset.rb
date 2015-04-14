@@ -17,7 +17,7 @@ class ProposeNewWordset< Proposal
   def commit!
     wordset = Wordset.new
     embed_new_word_meanings.each do |meaning|
-      meaning = wordset.add_meaning(meaning.pos, meaning.def, meaning.example)
+      meaning = wordset.add_meaning(meaning.speech_part, meaning.def, meaning.example)
       meaning.accepted_proposal = self
     end
     wordset.lang = self.lang

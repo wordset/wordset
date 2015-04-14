@@ -5,7 +5,7 @@ class ProposeNewMeaning < Proposal
   before_create :set_original
 
   def commit!
-    meaning = wordset.add_meaning(pos, self.def, example)
+    meaning = wordset.add_meaning(speech_part, self.def, example)
     meaning.accepted_proposal_id = self.id
     wordset.save!
     meaning.save!
