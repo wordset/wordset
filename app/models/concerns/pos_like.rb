@@ -7,8 +7,4 @@ module PosLike
                    :presence => true
   end
 
-  class_methods do
-    
-  end
-
 end
