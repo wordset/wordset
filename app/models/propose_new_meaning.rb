@@ -13,15 +13,12 @@ class ProposeNewMeaning < Proposal
   end
 
   def set_original
-    entry = wordset.entries.where(pos: pos).first
-    if entry.nil?
-      self.original = {}
-    else
-      meanings = entry.meanings.collect do |meaning|
-        { def: meaning.def, example: meaning.example }
-      end
-      self.original = { meanings: meanings }
+    meanings = wordset.meanings.where(speech_part: speech_part)
+
+    data = meanings.collect do |meaning|
+      { def: meaning.def, example: meaning.example }
     end
+    self.original = { meanings: data }
   end
 
 end
