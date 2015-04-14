@@ -23,8 +23,12 @@ class Meaning
     end
   end
 
-  def word
-    entry.word
+  def wordset
+    entry.wordset
+  end
+
+  def wordset_id
+    entry.wordset_id
   end
 
   def wordnet?

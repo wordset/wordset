@@ -1,7 +1,7 @@
-module Wordset
+module Wordsets
   module V1
     class WordLists < Grape::API
-      include Wordset::V1::Defaults
+      include Wordsets::V1::Defaults
       resource :word_lists do
         desc 'List of common starter lists'
         get '/' do

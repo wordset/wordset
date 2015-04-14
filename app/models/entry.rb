@@ -7,9 +7,9 @@ class Entry
   has_many :meanings,
             autosave: true,
             dependent: :destroy
-  belongs_to :word
+  belongs_to :wordset
 
-  validates :word,
+  validates :wordset,
             :presence => true
 
   validates :meanings,
@@ -17,12 +17,12 @@ class Entry
             :length => { :minimum => 1 },
             :on => :create
 
-  index({word_id: 1})
+  index({wordset_id: 1})
   index({pos: 1})
 
   set_callback :remove, :after do |entry|
-    if entry.word.entries.count == 0
-      entry.word.remove!
+    if entry.wordset.entries.count == 0
+      entry.wordset.remove!
     end
   end
 

@@ -10,4 +10,5 @@ class Lang
 
   has_many :seqs
   has_many :proposals
+  has_many :wordsets
 end

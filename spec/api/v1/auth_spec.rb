@@ -1,7 +1,7 @@
 
 require 'rails_helper'
 
-describe Wordset::V1::Auth do
+describe Wordsets::V1::Auth do
   include LoginHelper
 
   it "should allow a user to login" do
