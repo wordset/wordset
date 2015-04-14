@@ -1,7 +1,7 @@
-module Wordset
+module Wordsets
   module V1
     class Messages < Grape::API
-      include Wordset::V1::Defaults
+      include Wordsets::V1::Defaults
 
       resource :messages do
         params do

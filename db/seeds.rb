@@ -54,17 +54,17 @@ puts "Users all generated"
 # through and creating proposals and then voting so that they get
 # accepted, we can increase the diversity of our data pretty quickly.
 
-puts "Creating New Word Proposals"
+puts "Creating New WordsetProposals"
 
 def create_proposal(user)
   meanings = Array.new(rand(3) + 1).map do
-    EmbedNewWordMeaning.new(pos: Entry.pos.sample,
+    EmbedNewWordseteaning.new(pos: Entry.pos.sample,
                             def: Faker::Lorem.sentence,
                             example: Faker::Hacker.say_something_smart,
                             reason: Faker::Hacker.say_something_smart)
   end
 
-  p = ProposeNewWord.new(embed_new_word_meanings: meanings,
+  p = ProposeNewWordsetnew(embed_new_word_meanings: meanings,
                          user: user,
                          reason: Faker::Hacker.say_something_smart)
 

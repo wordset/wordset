@@ -1,7 +1,7 @@
-module Wordset
+module Wordsets
   module V1
     class Projects < Grape::API
-      include Wordset::V1::Defaults
+      include Wordsets::V1::Defaults
 
       resource :projects do
         # TODO: Make this use real logic!

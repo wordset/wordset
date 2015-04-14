@@ -5,15 +5,15 @@ class ProposeNewMeaning < Proposal
   before_create :set_original
 
   def commit!
-    meaning = word.add_meaning(pos, self.def, example)
+    meaning = wordset.add_meaning(pos, self.def, example)
     meaning.accepted_proposal_id = self.id
-    word.save!
+    wordset.save!
     meaning.save!
     meaning
   end
 
   def set_original
-    entry = word.entries.where(pos: pos).first
+    entry = wordset.entries.where(pos: pos).first
     if entry.nil?
       self.original = {}
     else

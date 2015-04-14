@@ -1,20 +1,20 @@
-module Wordset
+module Wordsets
   module V1
     class Proposals < Grape::API
-      include Wordset::V1::Defaults
+      include Wordsets::V1::Defaults
 
       resource :proposals do
         params do
           optional :limit, default: 25, type: Integer
           optional :random, type: Boolean, default: false
-          optional :word_id
+          optional :wordset_id
           optional :offset, default: 0, type: Integer
           optional :flagged
         end
         get '/', each_serializer: ProposalSerializer do
           p = Proposal
-          if params[:word_id]
-            p = p.where(word: Word.lookup(params[:word_id]))
+          if params[:wordset_id]
+            p = p.where(wordset: Wordset.find(params[:wordset_id]))
           end
           if params[:user_id]
             user = User.where(username: params[:user_id]).first
@@ -69,9 +69,7 @@ module Wordset
             requires :type, type: String
             optional :reason, type: String
 
-            optional :meanings # NewWord
-            optional :name # NewWord
-
+            optional :meanings # NewWordset            optional :name # NewWordset
             optional :def # Meaning
             optional :example # Meaning
 
@@ -87,8 +85,8 @@ module Wordset
           d = params[:proposal]
           prop = nil
           case d[:type]
-          when "NewWord"
-            prop = ProposeNewWord.new(name: d[:word_name])
+          when "NewWordset"
+            prop = ProposeNewWordset.new(name: d[:word_name])
             d[:meanings].each do |meaning|
               prop.embed_new_word_meanings.build(def: meaning[:def],
                                             pos: meaning[:pos],
@@ -96,7 +94,7 @@ module Wordset
                                             reason: meaning[:reason])
             end
           when "NewMeaning"
-            prop = ProposeNewMeaning.new(word: Word.lookup(d[:word_id]),
+            prop = ProposeNewMeaning.new(wordset: Wordset.find(d[:wordset_id]),
                                          pos: d[:pos])
           when "MeaningChange"
             prop = ProposeMeaningChange.new
@@ -117,7 +115,6 @@ module Wordset
             meaning = Meaning.find(d[:meaning_id])
             prop.meaning = meaning
 
-
             prop.project_id = d[:project_id]
             if prop.save
               meaning.open_proposal = prop
@@ -129,11 +126,11 @@ module Wordset
 
 
         get '/new-word-status/:word' do
-          seq = Seq.where(text: params[:word], :word_id.ne => nil).first
+          seq = Seq.where(text: params[:word], :wordset_id.ne => nil).first
           if seq
-            return {word_id: seq.text, can: false}
+            return {seq_id: seq.text, can: false}
           end
-          prop = ProposeNewWord.where(name: params[:word]).open.first
+          prop = ProposeNewWordset.where(name: params[:word]).open.first
           if prop
             return {proposal_id: prop.id, can: false}
           end
@@ -151,8 +148,7 @@ module Wordset
         params do
           requires :proposal, type: Hash do
             optional :reason, type: String
-            optional :meanings, type: Array # NewWord
-
+            optional :meanings, type: Array # NewWordset
             optional :def # Meaning
             optional :example # Meaning
             optional :pos # NewMeaning
@@ -166,7 +162,7 @@ module Wordset
             prop.def = d[:def]
             prop.example = d[:example]
             prop.pos = d[:pos]
-          elsif prop.class == ProposeNewWord
+          elsif prop.class == ProposeNewWordset
             prop.embed_new_word_meanings.each &:destroy
             d[:meanings].each do |meaning|
               prop.embed_new_word_meanings.build(def: meaning[:def],
