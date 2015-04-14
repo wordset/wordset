@@ -1,6 +1,9 @@
 class ProposeNewMeaning < Proposal
   include MeaningLike
-  include PosLike
+
+  belongs_to :speech_part
+  validates  :speech_part,
+             :presence => true
 
   before_create :set_original
 
