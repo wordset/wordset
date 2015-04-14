@@ -3,9 +3,11 @@ class SpeechPart
 
   embedded_in :lang
 
+  has_many :meanings
+
   field :code, type: String
   field :name, type: String
 
-  add_index({code: 1})
+  index({code: 1})
 
 end
