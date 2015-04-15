@@ -42,6 +42,7 @@ class Proposal
   index({wordset_id: 1, state: 1})
   index({wordset_id: 1, created_at: -1})
   index({user_id: 1})
+  index({user_id: 1, state: 1})
   index({created_at: -1})
   index({vote_user_ids: 1, state: 1})
   index({_type: 1})
@@ -115,7 +116,7 @@ class Proposal
 
   def recalculate_tally
     vote_list = votes.where(:usurped => false, :withdrawn.in => [false, nil])
-    self.vote_user_ids = votes.map &:user_id
+    self.vote_user_ids = votes.pluck :user_id
     self.tally = vote_list.sum(:value)
     self.tally = 100 if self.tally > 100
     self.tally = -100 if self.tally < -100
