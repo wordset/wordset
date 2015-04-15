@@ -3,7 +3,7 @@ class Proposal
   include Mongoid::Timestamps
   include AASM
 
-  belongs_to :word
+  belongs_to :wordset
   belongs_to :user
   belongs_to :project
   belongs_to :lang
@@ -39,9 +39,10 @@ class Proposal
   validates :lang,
             :presence => true
 
-  index({word_id: 1, state: 1})
-  index({word_id: 1, created_at: -1})
+  index({wordset_id: 1, state: 1})
+  index({wordset_id: 1, created_at: -1})
   index({user_id: 1})
+  index({user_id: 1, state: 1})
   index({created_at: -1})
   index({vote_user_ids: 1, state: 1})
   index({_type: 1})
@@ -115,7 +116,7 @@ class Proposal
 
   def recalculate_tally
     vote_list = votes.where(:usurped => false, :withdrawn.in => [false, nil])
-    self.vote_user_ids = votes.map &:user_id
+    self.vote_user_ids = votes.pluck :user_id
     self.tally = vote_list.sum(:value)
     self.tally = 100 if self.tally > 100
     self.tally = -100 if self.tally < -100
@@ -154,8 +155,8 @@ class Proposal
   end
 
   def cache_word_name!
-    if word
-      self.word_name = word.name
+    if wordset
+      self.word_name = wordset.name
     end
   end
 

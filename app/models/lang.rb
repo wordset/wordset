@@ -1,6 +1,8 @@
 class Lang
   include Mongoid::Document
 
+  has_many :speech_parts
+
   field :code
   field :name
 
@@ -8,4 +10,5 @@ class Lang
 
   has_many :seqs
   has_many :proposals
+  has_many :wordsets
 end

@@ -1,11 +1,11 @@
 class MeaningSerializer < BaseSerializer
-  attributes :id, :def, :example, :has_proposal, :open_proposal_id, :word_id
-
-  def word_id
-    object.word.name
-  end
+  attributes :id, :def, :example, :has_proposal, :open_proposal_id, :wordset_id, :pos
 
   def has_proposal
     !object.open_proposal_id.nil?
+  end
+
+  def pos
+    object.speech_part.code
   end
 end

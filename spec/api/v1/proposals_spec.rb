@@ -1,7 +1,7 @@
 
 require 'rails_helper'
 
-describe Wordset::V1 do
+describe Wordsets::V1 do
   describe Proposal do
     include LoginHelper
 
@@ -34,15 +34,15 @@ describe Wordset::V1 do
       end
 
       it "should tell you that there is an open proposal" do
-        new_word_proposal = create(:propose_new_word)
+        new_word_proposal = create(:propose_new_wordset)
         check_status(new_word_proposal.name)
         expect_json(proposal_id: new_word_proposal.id.to_s, can: false)
       end
 
       it "should tell you if a word exists" do
-        word = create(:word)
+        word = create(:wordset)
         check_status(word.seqs.first.text)
-        expect_json(can: false, word_id: word.name)
+        expect_json(can: false, seq_id: word.name)
       end
     end
   end

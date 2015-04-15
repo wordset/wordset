@@ -85,6 +85,6 @@ module AnagramHelpers
   end
 
   def calculate_alpha!
-    self.alpha = Word.sort_letters(text)
+    self.alpha = Wordset.sort_letters(text)
   end
 end

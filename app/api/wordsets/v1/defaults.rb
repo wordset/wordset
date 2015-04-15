@@ -1,4 +1,4 @@
-module Wordset
+module Wordsets
   module V1
     module Defaults
       extend ActiveSupport::Concern

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe ProposeNewWord do
+describe ProposeNewWordset do
   before do
     @user = create(:user)
     @lang = create(:lang)
@@ -9,9 +9,10 @@ describe ProposeNewWord do
   describe "Valid New Proposal" do
     before :each do
       @name = "subbery"
-      @p = ProposeNewWord.new(name: @name, user: @user, lang: @lang)
+      @p = ProposeNewWordset.new(name: @name, user: @user, lang: @lang)
+      @speech_part = SpeechPart.first || create(:speech_part)
       expect(@p).to_not be_valid
-      @p.embed_new_word_meanings.build(pos: "adj",
+      @p.embed_new_word_meanings.build(pos: @speech_part.code,
                                       def: "To be secretly submissive",
                                       example: "I thought the boss was a little subbery",
                                       reason: "Fifty Shades of Grey")
@@ -22,17 +23,17 @@ describe ProposeNewWord do
     end
 
     it "Should work with pre-existing pos" do
-      word = create(:word)
+      word = create(:wordset)
       @p.name = word.name
       expect(@p).to_not be_valid
     end
 
     it "shouldn't commit if invalid" do
       @p.save!
-      count = Word.count
+      count = Wordset.count
       @p.name = ""
       @p.commit_proposal!
-      expect(Word.count).to eq(count)
+      expect(Wordset.count).to eq(count)
     end
 
     it "should create the word if approved!" do
@@ -45,7 +46,7 @@ describe ProposeNewWord do
     end
 
     it "should break with one bad meaning" do
-      @p.embed_new_word_meanings.build(pos: "BADPOS",
+      @p.embed_new_word_meanings.build(pos: @speech_part.code,
                                       def: "To be secretly AWESOME",
                                       example: "I thought the boss was a little AWESOME")
       expect(@p).to_not be_valid

@@ -4,7 +4,7 @@ class Seq
   include AnagramHelpers
 
   belongs_to :lang
-  belongs_to :word
+  belongs_to :wordset
   field :text, as: "t"
 
   validates :text, :format => { with: /\A[a-zA-Z][a-zA-Z\d\/\-' .]*\z/ } #'
@@ -21,9 +21,19 @@ class Seq
     d.word_length = d.text.length
   end
 
+  def self.lookup(key)
+    lang_code, *text = key.split("-")
+    lang = Lang.where(code: lang_code).first
+    Seq.where(lang: lang, text: text.join("-"), :wordset_id.ne => nil).first
+  end
+
   def seq_uniqueness
     if Seq.where(:lang => lang, text: self.text).any?
       errors.add(:text, "is not unique")
     end
+  end
+
+  def key
+    "#{lang.code}-#{text}"
   end
 end
