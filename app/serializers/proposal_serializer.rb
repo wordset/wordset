@@ -39,7 +39,7 @@ class ProposalSerializer < ActiveModel::Serializer
       end
     end
     if object.is_a? ProposeNewMeaning
-      h["pos"] = object.pos
+      h["pos"] = object.speech_part.code
     end
     if modules.include?(MeaningProposalLike)
       h["original"] = object.original
