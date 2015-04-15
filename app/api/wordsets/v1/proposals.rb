@@ -85,7 +85,7 @@ module Wordsets
           d = params[:proposal]
           prop = nil
           if d[:pos]
-            part = current_lang.speech_parts.where(code: d[:pos])
+            part = current_lang.speech_parts.where(code: d[:pos]).first
           end
           case d[:type]
           when "NewWordset"
