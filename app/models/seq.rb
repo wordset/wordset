@@ -24,7 +24,7 @@ class Seq
   def self.lookup(key)
     lang_code, *text = key.split("-")
     lang = Lang.where(code: lang_code).first
-    Seq.where(lang: lang, text: text.join("-")).first
+    Seq.where(lang: lang, text: text.join("-"), :wordset_id.ne => nil).first
   end
 
   def seq_uniqueness
