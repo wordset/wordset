@@ -27,8 +27,17 @@ module Wordsets
           end
 
           def current_lang
-            # TODO: Update for lang detection
-            @lang ||= Lang.first
+            return @lang if @lang
+            lang_code = params[:lang_id] || params[:lang]
+            if lang_code.nil?
+              ActiveSupport::Deprecation.warn("Should pass in lang explicitly")
+              lang_code = "en"
+            end
+            @lang = Lang.where(code: lang_code).first
+            if @lang.nil?
+              raise "Invalid lang"
+            end
+            @lang
           end
 
           def authorize!
