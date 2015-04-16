@@ -163,7 +163,7 @@ module Wordsets
             prop.example = d[:example]
             prop.pos = d[:pos]
           elsif prop.class == ProposeNewWordset
-            prop.embed_new_word_meanings.each &:destroy
+            prop.embed_new_word_meanings = []
             d[:meanings].each do |meaning|
               prop.embed_new_word_meanings.build(def: meaning[:def],
                                             pos: meaning[:pos],
