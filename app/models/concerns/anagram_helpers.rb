@@ -4,6 +4,7 @@ module AnagramHelpers
   included do |base|
     base.field :alpha, type: String, as: "a"
     base.before_create :calculate_alpha!
+    base.index({alpha: 1})
   end
 
   class_methods do

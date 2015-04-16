@@ -7,8 +7,6 @@ module MeaningProposalLike
     base.after_create  :update_project_target
     base.belongs_to :meaning
     base.belongs_to :project
-    base.field :original, type: Hash
-    base.field :word_name, type: String
 
     base.validates :meaning,
                    :presence => true
