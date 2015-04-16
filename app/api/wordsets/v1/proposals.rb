@@ -74,7 +74,7 @@ module Wordsets
             optional :example # Meaning
 
             optional :meaning_id # MeaningChange / #MeaningRemoval
-            optional :word_id # NewMeaning
+            optional :wordset_id # NewMeaning
             optional :pos # NewMeaning
 
             optional :project_id # If associated with a project
@@ -84,6 +84,9 @@ module Wordsets
           authorize!
           d = params[:proposal]
           prop = nil
+          if d[:pos]
+            part = current_lang.speech_parts.where(code: d[:pos]).first
+          end
           case d[:type]
           when "NewWordset"
             prop = ProposeNewWordset.new(name: d[:word_name])
@@ -95,7 +98,7 @@ module Wordsets
             end
           when "NewMeaning"
             prop = ProposeNewMeaning.new(wordset: Wordset.find(d[:wordset_id]),
-                                         pos: d[:pos])
+                                         speech_part: part)
           when "MeaningChange"
             prop = ProposeMeaningChange.new
           when "MeaningRemoval"
@@ -126,6 +129,7 @@ module Wordsets
 
 
         get '/new-word-status/:word' do
+          #TODO: Make langauge sensitive
           seq = Seq.where(text: params[:word], :wordset_id.ne => nil).first
           if seq
             return {seq_id: seq.text, can: false}
@@ -158,10 +162,13 @@ module Wordsets
           authorize!
           prop = current_user.proposals.where(state: "open").find(params[:id])
           d = params[:proposal]
+          if d[:pos]
+            part = current_lang.speech_parts.where(code: d[:pos])
+          end
           if prop.class == ProposeNewMeaning
             prop.def = d[:def]
             prop.example = d[:example]
-            prop.pos = d[:pos]
+            prop.speech_part = part
           elsif prop.class == ProposeNewWordset
             prop.embed_new_word_meanings = []
             d[:meanings].each do |meaning|

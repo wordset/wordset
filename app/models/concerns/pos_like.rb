@@ -2,8 +2,9 @@ module PosLike
   extend ActiveSupport::Concern
 
   included do |base|
-    base.field :pos, type: String
-    base.validates :pos,
-                   :inclusion => {in: Proc.new { Entry.pos } }
+    base.belongs_to :speech_part
+    base.validates :speech_part,
+                   :presence => true
   end
+
 end

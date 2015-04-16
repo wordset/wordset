@@ -2,7 +2,8 @@
 class EmbedNewWordMeaning
   include Mongoid::Document
   include MeaningLike
-  include PosLike
+  field :pos, type: String
+
   embedded_in :propose_new_wordset
 
   field :reason, type: String
