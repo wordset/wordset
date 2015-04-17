@@ -5,4 +5,5 @@ Rails.application.routes.draw do
 
   get "/auth/:provider/callback" => "auth#callback"
 
+  post "/auth/facebook/setup" => "auth#facebook_setup", as: :facebook_setup
 end

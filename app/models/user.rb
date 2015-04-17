@@ -101,6 +101,11 @@ class User
     end
   end
 
+  def generate_random_password
+    self.password = Devise.friendly_token
+    self.password_confirmation = self.password
+  end
+
   private
 
   def generate_auth_key
