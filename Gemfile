@@ -19,6 +19,7 @@ gem 'rack-ssl-enforcer'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'omniauth-github', :github => 'intridea/omniauth-github'
+gem 'omniauth-google-oauth2'
 
 
 gem 'active_model_serializers'#, github: "rails-api/active_model_serializers"

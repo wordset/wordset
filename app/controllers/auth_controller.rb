@@ -7,7 +7,7 @@ class AuthController < ApplicationController
     token = cred["token"]
     identity = provider.find_with_token(token)
     if identity.nil?
-      if data["info"]["verified"] && (user = User.where(email: data["info"]["email"]).first)
+      if (user = User.where(email: data["info"]["email"]).first)
         identity = user.identities.find_or_initialize_by(identity_provider: provider)
       else
         identity = provider.identities.build
@@ -33,6 +33,7 @@ class AuthController < ApplicationController
       info = data["info"]
       extra = data["extra"]["raw_info"]
       user = identity.build_user(email: info["email"],
+                                 username: params[:username],
                                  confirmed_at: Time.now,
                                  confirmation_token: provider.name,
                                  identity_image_url: info["image"])
@@ -46,14 +47,14 @@ class AuthController < ApplicationController
       end
 
       if provider.name == "facebook"
-        user.username = params[:username]
+
       elsif provider.name == "github"
-        user.username = info["nickname"]
         user.site_url = extra["blog"]
         user.location = extra["location"]
       end
       user.generate_random_password!
       user.save!
+      identity.save!
     end
 
     render json: {username: user.username, auth_key: user.auth_key}
