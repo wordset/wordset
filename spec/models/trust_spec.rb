@@ -42,8 +42,9 @@ RSpec.describe User, type: :model do
         expect(@user.trust_points).to be > starting_trust
       end
       expect(@user.notifications.count).to eq(notification_count + 1)
-      last_activity = @user.activities.last
-      expect(last_activity.class).to eq(UserPromotionActivity)
+      expect(@user.trust_level_name).to eq("Junior Contributor")
+      activity_classes = @user.activities.map &:class
+      expect(activity_classes).to include(UserPromotionActivity)
     end
   end
 
