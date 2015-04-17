@@ -12,7 +12,6 @@ class AuthController < ApplicationController
 
   def facebook_callback(data, provider)
     cred = data["credentials"]
-    pry
     token = cred["token"]
     identity = provider.find_with_token(token)
     if identity.nil?
