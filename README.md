@@ -20,6 +20,20 @@ This project requires MongoDB. On OS X with Homebrew, this is as easy as `brew i
 * change into the new directory
 * `bundle install`
 
+## Env Setup
+
+Create a file called `.env` in the root of the project folder. To be fully functional,
+it needs all of these fields filled out. Defaults are included here.
+
+````
+API_HOST=http://localhost:3000
+UI_HOST=http://localhost:4200
+FACEBOOK_APP_ID={{YOUR ID}}
+FACEBOOK_SECRET={{YOUR SECRET}}
+GITHUB_ID={{YOUR ID}}
+GITHUB_SECRET={{YOUR SECRET}}
+````
+
 ## Running / Development
 
 * `rails server`
