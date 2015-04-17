@@ -17,6 +17,9 @@ gem 'rails_12factor', group: :production
 gem 'rack-ssl-enforcer'
 
 gem 'devise'
+gem 'omniauth-facebook'
+gem 'omniauth-github', :github => 'intridea/omniauth-github'
+
 
 gem 'active_model_serializers'#, github: "rails-api/active_model_serializers"
 gem 'mongoid-serializer'

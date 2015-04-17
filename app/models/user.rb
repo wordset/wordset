@@ -9,6 +9,7 @@ class User
   has_many :messages
   has_many :activities
   has_many :notifications
+  has_many :identities
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
