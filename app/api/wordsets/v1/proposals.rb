@@ -69,7 +69,8 @@ module Wordsets
             requires :type, type: String
             optional :reason, type: String
 
-            optional :meanings # NewWordset            optional :name # NewWordset
+            optional :meanings # NewWordset
+            optional :name # NewWordset
             optional :def # Meaning
             optional :example # Meaning
 
