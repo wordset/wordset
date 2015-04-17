@@ -45,5 +45,69 @@ describe Wordsets::V1 do
         expect_json(can: false, seq_id: word.name)
       end
     end
+
+    describe ProposeNewWordset do
+      before do
+        @lang = create(:lang)
+        @speech_part = SpeechPart.first
+        @user = create(:user)
+      end
+
+      def post_new_word_proposal(options = {})
+        attributes = options.reverse_merge({
+          type: "NewWordset",
+          lang_id: @lang.code,
+          word_name: Faker::Lorem.words(2).join("-"),
+          meanings: [
+            { pos: @speech_part.code,
+              def: "Hello there, governer.",
+              example: "This isn't a real word",
+              reason: "http://en.wikipedia.org/w/Hackney"
+             }
+          ]
+        })
+        post_as(@user, "/api/v1/proposals", {proposal: attributes})
+      end
+
+      def create_new_word_proposal(options = {})
+        post_new_word_proposal(options)
+        expect(response).to be_successful
+        expect_json_types(proposal: :object)
+        data = JSON.parse(response.body)
+        Proposal.find(data["proposal"]["id"])
+      end
+
+      it "should get created" do
+        create_new_word_proposal
+      end
+
+      it "should allow editing with multiple meanings" do
+        meanings = [
+          { pos: @speech_part.code,
+            def: "Hello there, governer.",
+            example: "This isn't a real word",
+            reason: "http://en.wikipedia.org/w/Hackney"
+          },
+          { pos: @speech_part.code,
+            def: "Second meaning, man!",
+            example: "Second meaning, man!",
+            reason: "http://en.wikipedia.org/w/Hackney"
+           }
+        ]
+        proposal = create_new_word_proposal(meanings: meanings)
+        new_def = "Hello there, governe"
+        meanings[0][:def] = new_def
+        do_as(:put,
+          @user,
+          "/api/v1/proposals/#{proposal.id}",
+          proposal: {
+            meanings: meanings
+          })
+        expect(response).to be_successful
+        proposal.reload
+        expect(proposal.embed_new_word_meanings.count).to eq(2)
+        expect(proposal.embed_new_word_meanings.first.def).to eq(new_def)
+      end
+    end
   end
 end

@@ -11,11 +11,9 @@ class Seq
   validates :lang, presence: true
   validate :seq_uniqueness, on: :create
 
-  field :alpha, as: "a"
   field :word_length, type: Integer, as: "l"
   index({text: 1, lang_id: 1}, {unique: true})
   index({word_length: 1})
-  index({alpha: 1})
 
   before_save do |d|
     d.word_length = d.text.length
