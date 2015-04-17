@@ -28,8 +28,10 @@ it needs all of these fields filled out. Defaults are included here.
 ````
 API_HOST=http://localhost:3000
 UI_HOST=http://localhost:4200
-FACEBOOK_APP_ID=1662090090678867
-FACEBOOK_SECRET=69a6f5e9a58a428fe595a8a4e2020779
+FACEBOOK_APP_ID={{YOUR ID}}
+FACEBOOK_SECRET={{YOUR SECRET}}
+GITHUB_ID={{YOUR ID}}
+GITHUB_SECRET={{YOUR SECRET}}
 ````
 
 ## Running / Development
