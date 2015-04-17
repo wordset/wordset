@@ -11,6 +11,6 @@ class Identity
   belongs_to :user
 
   def expired?
-    expires_at < Time.now
+    !expires_at.nil? && (expires_at < Time.now)
   end
 end
