@@ -61,6 +61,7 @@ group :development, :test do
   gem "pry-stack_explorer"
   gem "pry-theme"
 
+  gem 'dotenv-rails'
   gem "codeclimate-test-reporter", require: nil
 
   gem 'airborne'
