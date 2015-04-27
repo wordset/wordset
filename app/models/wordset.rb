@@ -38,8 +38,8 @@ class Wordset
     end
   end
 
-  def add_meaning(speech_part, definition, example)
-    self.meanings.build(def: definition, example: example, speech_part: speech_part)
+  def add_meaning(speech_part, definition, example, labels)
+    self.meanings.build(def: definition, example: example, speech_part: speech_part, labels: labels)
   end
 
   deprecate :name=

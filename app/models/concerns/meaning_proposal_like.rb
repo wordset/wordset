@@ -25,7 +25,8 @@ module MeaningProposalLike
     self.word_name = wordset.name
     self.original = {def: meaning.def,
                      example: meaning.example,
-                     pos: meaning.speech_part.code}
+                     pos: meaning.speech_part.code,
+                     labels: (meaning.labels.map &:id) }
   end
 
   def set_proposal
