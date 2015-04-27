@@ -1,5 +1,6 @@
 class LangSerializer < BaseSerializer
   attributes :id, :name, :parts
+  has_many :labels, serializer: LabelSerializer
 
   def id
     object.code

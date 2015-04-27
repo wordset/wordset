@@ -49,6 +49,7 @@ class ProposalSerializer < ActiveModel::Serializer
     if modules.include?(MeaningLike)
       h["def"] = object.def
       h["example"] = object.example
+      h["labels"] = object.label_ids
     end
     h
   end
