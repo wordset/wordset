@@ -59,8 +59,6 @@ describe ProposeNewWordset do
                                        example: "I totally ajiousrojsijoijed this morning",
                                        reason: "my experience dsafsfs afads ",
                                        label_ids: [@label.id])
-      puts e.inspect
-      puts e.valid?
       @p.save!
       @p.approve!
       expect(Meaning.count).to eq(2)
