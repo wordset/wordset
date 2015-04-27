@@ -6,6 +6,7 @@ describe ProposeNewMeaning do
     @wordset = create(:wordset)
     @lang = create(:lang)
     @speech_part = create(:speech_part)
+    @label = create(:label)
   end
 
   describe "Valid New Meaning Proposal" do
@@ -35,6 +36,15 @@ describe ProposeNewMeaning do
       @p.approve!
       expect(Meaning.count).to eq(count)
     end
+
+    it "should apply label to new meaning" do
+      @p.labels << @label
+      @p.save
+      @p.approve!
+      expect(Meaning.last.labels.count).to eq(1)
+      expect(Meaning.last.labels.first.id).to eq(@label.id)
+    end
+    
   end
 
 end

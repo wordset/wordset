@@ -4,6 +4,7 @@ describe ProposeNewWordset do
   before do
     @user = create(:user)
     @lang = create(:lang)
+    @label = create(:label)
   end
 
   describe "Valid New Proposal" do
@@ -22,7 +23,7 @@ describe ProposeNewWordset do
       expect(@p).to be_valid
     end
 
-    it "Should work with pre-existing pos" do
+    it "should work with pre-existing pos" do
       word = create(:wordset)
       @p.name = word.name
       expect(@p).to_not be_valid
@@ -45,11 +46,25 @@ describe ProposeNewWordset do
       expect(Meaning.count).to eq(1)
     end
 
-    it "should break with one bad meaning" do
+    it "should break without having a reason" do
       @p.embed_new_word_meanings.build(pos: @speech_part.code,
                                       def: "To be secretly AWESOME",
                                       example: "I thought the boss was a little AWESOME")
       expect(@p).to_not be_valid
+    end
+
+    it "should apply labels to new words" do
+      e = @p.embed_new_word_meanings.build(pos: @speech_part.code,
+                                       def: "To black out from excitement",
+                                       example: "I totally ajiousrojsijoijed this morning",
+                                       reason: "my experience dsafsfs afads ",
+                                       label_ids: [@label.id])
+      puts e.inspect
+      puts e.valid?
+      @p.save!
+      @p.approve!
+      expect(Meaning.count).to eq(2)
+      expect(Meaning.last.labels.first.id).to eq(@label.id)
     end
   end
 
