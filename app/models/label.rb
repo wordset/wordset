@@ -2,9 +2,9 @@ class Label
   include Mongoid::Document
 
   belongs_to :lang
-  belongs_to :label
 
-  has_many :labels
+  belongs_to :parent, :class_name => "Label"
+  has_many :children, :class_name => "Label", inverse_of: "parent"
 
   has_and_belongs_to_many :speech_parts
 
