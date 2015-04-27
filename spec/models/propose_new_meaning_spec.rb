@@ -39,12 +39,13 @@ describe ProposeNewMeaning do
 
     it "should apply label to new meaning" do
       @p.labels << @label
-      @p.save
+      @p.save!
       @p.approve!
-      expect(Meaning.last.labels.count).to eq(1)
-      expect(Meaning.last.labels.first.id).to eq(@label.id)
+      meaning = Meaning.where(accepted_proposal_id: @p.id).first
+      expect(meaning.labels.count).to eq(1)
+      expect(meaning.labels.first.id).to eq(@label.id)
     end
-    
+
   end
 
 end

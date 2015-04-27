@@ -109,5 +109,39 @@ describe Wordsets::V1 do
         expect(proposal.embed_new_word_meanings.first.def).to eq(new_def)
       end
     end
+
+    describe ProposeMeaningChange do
+      before do
+        @lang = create(:lang)
+        @user = create(:user)
+        @label = create(:label)
+      end
+
+      before :each do
+        @meaning = create(:meaning)
+      end
+
+      it "should be able to propose a meaning change" do
+        post_as(@user, "/api/v1/proposals", {
+          proposal: {
+            type: "MeaningChange",
+            def: "Nunsdfs fdnu ofsdn fdsa funsaio",
+            example: "YIOiasof sd fjsa fjksadl jsa",
+            meaning_id: @meaning.id,
+            label_ids: [@label.id]
+          }
+        })
+        p = Proposal.last
+        data = JSON.parse(response.body)
+        expect_json_types(proposal: :object)
+        expect(data["proposal"]["labels"]).to eq([@label.id.to_s])
+
+        p.approve!
+
+        get("/api/v1/seqs/#{@lang.code}-#{@meaning.wordset.seqs.first.text}")
+        seq_data = JSON.parse(response.body)
+        seq_data["meanings"][0]["label_ids"]
+      end
+    end
   end
 end
