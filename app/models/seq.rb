@@ -2,6 +2,7 @@ class Seq
   include Mongoid::Document
   include Mongoid::Timestamps
   include AnagramHelpers
+  include Labeled
 
   belongs_to :lang
   belongs_to :wordset
