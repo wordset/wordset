@@ -74,6 +74,8 @@ module Wordsets
             optional :def # Meaning
             optional :example # Meaning
 
+            optional :label_ids # Meaning
+
             optional :meaning_id # MeaningChange / #MeaningRemoval
             optional :wordset_id # NewMeaning
             optional :pos # NewMeaning
@@ -114,6 +116,7 @@ module Wordsets
           if modules.include?(MeaningLike)
             prop.def = d[:def]
             prop.example = d[:example]
+            prop.label_ids = d[:label_ids]
           end
           if modules.include?(MeaningProposalLike)
             meaning = Meaning.find(d[:meaning_id])
