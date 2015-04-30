@@ -97,7 +97,8 @@ module Wordsets
               prop.embed_new_word_meanings.build(def: meaning[:def],
                                             pos: meaning[:pos],
                                             example: meaning[:example],
-                                            reason: meaning[:reason])
+                                            reason: meaning[:reason],
+                                            label_ids: meaning[:label_ids])
             end
           when "NewMeaning"
             prop = ProposeNewMeaning.new(wordset: Wordset.find(d[:wordset_id]),
@@ -178,7 +179,8 @@ module Wordsets
               prop.embed_new_word_meanings.build(def: meaning[:def],
                                             pos: meaning[:pos],
                                             example: meaning[:example],
-                                            reason: meaning[:reason])
+                                            reason: meaning[:reason],
+                                            label_ids: meaning[:label_ids])
             end
           end
 
