@@ -35,7 +35,8 @@ class ProposalSerializer < ActiveModel::Serializer
         {def: m.def,
          example: m.example,
          pos: m.pos,
-         reason: m.reason}
+         reason: m.reason,
+         label_ids: m.label_ids}
       end
     end
     if object.is_a? ProposeNewMeaning
