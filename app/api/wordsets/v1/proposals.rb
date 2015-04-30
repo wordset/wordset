@@ -160,6 +160,7 @@ module Wordsets
             optional :def # Meaning
             optional :example # Meaning
             optional :pos # NewMeaning
+            optional :label_ids #Meaning
           end
         end
         put '/:id', serializer: ProposalSerializer  do
@@ -170,8 +171,6 @@ module Wordsets
             part = current_lang.speech_parts.where(code: d[:pos])
           end
           if prop.class == ProposeNewMeaning
-            prop.def = d[:def]
-            prop.example = d[:example]
             prop.speech_part = part
           elsif prop.class == ProposeNewWordset
             prop.embed_new_word_meanings = []
@@ -181,10 +180,16 @@ module Wordsets
                                             example: meaning[:example],
                                             reason: meaning[:reason])
             end
-          elsif prop.class == ProposeMeaningChange
+          end
+
+          modules = prop.class.included_modules
+
+          if modules.include?(MeaningLike)
             prop.def = d[:def]
             prop.example = d[:example]
+            prop.label_ids = d[:label_ids]
           end
+
           prop.reason = d[:reason]
           prop.save!
           prop.pushUpdate!
