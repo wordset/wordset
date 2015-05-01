@@ -13,6 +13,11 @@ namespace :data do
     en.labels.create(name: "offensive", parent: informal, for_seq: false)
     en.labels.create(name: "archaic")
     en.labels.create(name: "idiom", for_seq: false)
+    en.labels.create(name: "formal")
+    technical = en.labels.create(name: "technical")
+    en.labels.create(name: "medical", parent: technical)
+    en.labels.create(name: "legal", parent: technical)
+    en.labels.create(name: "scientific", parent: technical)
 
     dialects = {
       "American" => [ "US", "Canada", "AAVE"],
