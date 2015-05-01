@@ -169,7 +169,7 @@ module Wordsets
           prop = current_user.proposals.where(state: "open").find(params[:id])
           d = params[:proposal]
           if d[:pos]
-            part = current_lang.speech_parts.where(code: d[:pos])
+            part = prop.lang.speech_parts.where(code: d[:pos]).first
           end
           if prop.class == ProposeNewMeaning
             prop.speech_part = part
