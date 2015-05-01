@@ -134,7 +134,7 @@ describe Wordsets::V1 do
         p = Proposal.last
         data = JSON.parse(response.body)
         expect_json_types(proposal: :object)
-        expect(data["proposal"]["labels"]).to eq([@label.id.to_s])
+        expect(data["proposal"]["label_ids"]).to eq([@label.id.to_s])
 
         p.approve!
 
