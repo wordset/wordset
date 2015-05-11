@@ -8,18 +8,19 @@
   <% word_name = proposal.try(:word_name) %>
   <% if activity.is_a? ProposalClosedActivity %>
     <% if activity.final_state == "accepted" %>
-      <%= link_to "Your proposal for #{word_name} was accepted!",
-                  ui_link("proposal/#{proposal.id}"),
-                  :style => "background: #eaf0eb;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none;" %>
+      <a href="<% ui_link("proposal/#{proposal.id}") %>" style="background: #eaf0eb;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none; width: 100%;">
+        Your proposal for <span style="font-weight: 600;"><%= word_name %></span> was accepted!
+      </a>
     <% else %>
-      <%= link_to "Your proposal for #{word_name} was rejected.",
-                ui_link("proposal/#{proposal.id}"),
-                :style => "background: #fadfdd;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none;" %>
+      <a href="<% ui_link("proposal/#{proposal.id}") %>" style="background: #fadfdd;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none; width: 100%;">
+        Your proposal for <span style="font-weight: 600;"><%= word_name %></span> was rejected.
+      </a>
 
     <% end %>
   <% elsif activity.is_a? ProposalCommentActivity %>
-    <%= link_to "User commented on your proposal for #{word_name}",
-              ui_link("proposal/#{proposal.id}"),
-              :style => "background: #F3F3F3;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none;" %>
+    <a href="<% ui_link("proposal/#{proposal.id}") %>" style="background: #F3F3F3;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none; width: 100%;">
+      <%= activity.user.username%> commented on your proposal for <span style="font-weight: 600;"><%= word_name %></span>.
+    </a>
+    
   <% end %>
 <% end %>
