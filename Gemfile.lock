@@ -15,14 +15,6 @@ GIT
       omniauth-oauth2 (>= 1.1.1, < 2.0)
 
 GIT
-  remote: git://github.com/madglory/grape-appsignal.git
-  revision: 7b3a899f0daec2feb8eda495bf738ccada8d1cf7
-  specs:
-    grape-appsignal (0.4.1)
-      appsignal (~> 0.9)
-      grape (~> 0.8)
-
-GIT
   remote: git://github.com/tim-vandecasteele/grape-swagger.git
   revision: c9fb720bc9e191dd4faa47237425a33edb899552
   specs:
@@ -329,6 +321,10 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
     netrc (0.10.2)
+    newrelic-grape (2.0.0)
+      grape
+      newrelic_rpm
+    newrelic_rpm (3.12.0.288)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     notiffany (0.0.6)
@@ -533,7 +529,6 @@ DEPENDENCIES
   gibbon
   grape (= 0.9.0)
   grape-active_model_serializers
-  grape-appsignal!
   grape-raketasks
   grape-swagger!
   grape-swagger-rails!
@@ -546,6 +541,7 @@ DEPENDENCIES
   mongoid-rspec
   mongoid-serializer
   mongoid-tree
+  newrelic-grape
   omniauth-facebook
   omniauth-github!
   omniauth-google-oauth2

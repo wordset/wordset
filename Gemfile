@@ -38,7 +38,7 @@ gem 'levenshtein-ffi', :require => 'levenshtein'
 gem 'sass-rails', '~> 5.0'
 
 gem 'appsignal'
-gem 'grape-appsignal', github: 'madglory/grape-appsignal'
+gem 'newrelic-grape'
 
 gem "rack-cors", require: "rack/cors"
 gem 'gravtastic'
