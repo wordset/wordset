@@ -38,7 +38,7 @@ class Notification
       transitions from: [:unseen, :seen], to: :seen
     end
 
-    event :send_email, before: :process_email do
+    event :send_email do
       transitions from: :unseen, to: :email_sent
     end
 
@@ -59,13 +59,14 @@ class Notification
   def self.send_emails
     sent_count = 0
     unsub_count = 0
-    Notification.needs_emailing.each do |n|
-      if n.user.unsubscribed
-        n.no_email_allowed!
+    Notification.needs_emailing.group_by(&:user).each do |user, list|
+      if user.unsubscribed
+        list.each &:no_email_allowed!
         unsub_count += 1
       else
-        n.send_email!
-        sent_count += 1
+        NotificationMailer.run_all(user, list)
+        list.each &:send_email!
+        sent_count += list.size
       end
     end
 
@@ -78,10 +79,6 @@ class Notification
 
   def to_json
     NotificationSerializer.new(self).to_json
-  end
-
-  def process_email
-    NotificationMailer.single(self).deliver
   end
 
 end

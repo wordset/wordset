@@ -1,0 +1,25 @@
+<h1>Notification Digest</h1>
+
+<p>Since you've been away, people have been busy voting and commenting on your proposals. Here's some of the activity you may have missed.</p>
+
+<% @notifications.each do |notification| %>
+  <% activity = notification.activity %>
+  <% proposal = activity.try(:proposal) %>
+  <% word_name = proposal.try(:word_name) %>
+  <% if activity.is_a? ProposalClosedActivity %>
+    <% if activity.final_state == "accepted" %>
+      <%= link_to "Your proposal for #{word_name} was accepted!",
+                  ui_link("proposal/#{proposal.id}"),
+                  :style => "background: #eaf0eb;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none;" %>
+    <% else %>
+      <%= link_to "Your proposal for #{word_name} was rejected.",
+                ui_link("proposal/#{proposal.id}"),
+                :style => "background: #fadfdd;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none;" %>
+
+    <% end %>
+  <% elsif activity.is_a? ProposalCommentActivity %>
+    <%= link_to "User commented on your proposal for #{word_name}",
+              ui_link("proposal/#{proposal.id}"),
+              :style => "background: #F3F3F3;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none;" %>
+  <% end %>
+<% end %>
