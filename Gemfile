@@ -37,15 +37,16 @@ gem 'levenshtein-ffi', :require => 'levenshtein'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
-gem 'appsignal'
-gem 'grape-appsignal', github: 'madglory/grape-appsignal'
+gem 'newrelic_rpm', '~> 3.8'
+gem 'newrelic-grape'
+gem 'newrelic_moped', '~> 0'
 
 gem "rack-cors", require: "rack/cors"
 gem 'gravtastic'
 
 gem 'bson'
 
-gem 'thin'
+gem "passenger"
 
 group :production do
   gem "gibbon"

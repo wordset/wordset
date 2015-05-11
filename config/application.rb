@@ -23,8 +23,12 @@ module Wordsets
 
     config.middleware.use Rack::Cors do
       allow do
-        origins "*"
-        resource "*", headers: :any, methods: [:get, :post, :put, :delete, :options]
+        if Rails.env.development?
+          origins "localhost"
+        else
+          origins "www.wordset.org", "wordset.org"
+        end
+        resource "/api/*", headers: :any, methods: [:get, :post, :put, :delete, :options]
       end
     end
 
