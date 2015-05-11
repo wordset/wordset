@@ -45,7 +45,7 @@ gem 'gravtastic'
 
 gem 'bson'
 
-gem 'thin'
+gem "passenger"
 
 group :production do
   gem "gibbon"
