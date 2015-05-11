@@ -26,7 +26,7 @@ module Wordsets
         if Rails.env.development?
           origins "localhost"
         else
-          origins "wordset.org"
+          origins "www.wordset.org", "wordset.org"
         end
         resource "/api/*", headers: :any, methods: [:get, :post, :put, :delete, :options]
       end
