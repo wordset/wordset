@@ -39,6 +39,7 @@ gem 'sass-rails', '~> 5.0'
 
 gem 'newrelic_rpm', '~> 3.8'
 gem 'newrelic-grape'
+gem 'newrelic_moped', '~> 0'
 
 gem "rack-cors", require: "rack/cors"
 gem 'gravtastic'
