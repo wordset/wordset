@@ -352,6 +352,9 @@ GEM
     optionable (0.2.0)
     origin (2.1.1)
     orm_adapter (0.5.0)
+    passenger (5.0.7)
+      rack
+      rake (>= 0.8.1)
     postmark (1.5.0)
       json
       rake
@@ -545,6 +548,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-github!
   omniauth-google-oauth2
+  passenger
   postmark-rails
   pry-nav
   pry-rails
@@ -562,6 +566,5 @@ DEPENDENCIES
   sitemap_generator
   spring
   spring-commands-rspec
-  thin
   validate_url
   web-console (~> 2.0)
