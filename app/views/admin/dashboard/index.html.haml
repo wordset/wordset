@@ -1,1 +1,17 @@
-Hi
+
+
+%section.stats
+  %h1 Key Stats
+  - [Wordset, User, Meaning, Proposal, Vote, Activity, Message, ProposalClosedActivity].each do |klass|
+    - name = klass.to_s.pluralize
+    .stat
+      .name= name
+      .number= klass.count
+    .stat
+      .name New #{name}, Last 7 days
+      .number= klass.where(:created_at.gt => 7.days.ago).count
+      .previous= klass.where(:created_at.gt => 14.days.ago, :created_at.lt => 7.days.ago).count
+    .stat
+      .name New #{name}, Last 30 days
+      .number= klass.where(:created_at.gt => 30.days.ago).count
+      .previous= klass.where(:created_at.gt => 60.days.ago, :created_at.lt => 30.days.ago).count
