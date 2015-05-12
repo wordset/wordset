@@ -36,6 +36,7 @@ gem 'levenshtein-ffi', :require => 'levenshtein'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+gem 'haml'
 
 gem 'newrelic_rpm', '~> 3.8'
 gem 'newrelic-grape'

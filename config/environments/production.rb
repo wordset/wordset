@@ -30,8 +30,8 @@ Rails.application.configure do
 
 
   # Compress JavaScripts and CSS.
-  #config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
+  config.assets.js_compressor = :uglifier
+  config.assets.css_compressor = :sass
 
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings = { :api_token => "e80a08dc-3307-4f1d-ad14-0077412e5380" }
