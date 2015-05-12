@@ -9,7 +9,7 @@ module LinkHelper
   end
 
   def bare_ui_link(path)
-    File.join(root_url, path)
+    File.join(ui_host, path)
   end
 
   def api_link(path)
@@ -21,6 +21,14 @@ module LinkHelper
       "https://api.wordset.org"
     else
       "http://localhost:3000"
+    end
+  end
+
+  def ui_host
+    if Rails.env == "production"
+      "https://www.wordset.org"
+    else
+      "http://localhost:4200"
     end
   end
 end

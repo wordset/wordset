@@ -8,4 +8,9 @@
   %body
     %header
       %h1 Adminium
+      .nav
+        .item= link_to "Dashboard", admin_dashboard_path()
+        .item= link_to "Blog", admin_posts_path()
+    - if flash[:notice]
+      .notice= flash[:notice]
     = yield

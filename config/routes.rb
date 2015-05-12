@@ -2,7 +2,13 @@ Rails.application.routes.draw do
   devise_for :admins
 
   namespace :admin do
-    get "/" => "dashboard#index"
+    get "/" => "dashboard#index", as: :dashboard
+
+    resources :posts do
+      member do
+        post "publish"
+      end
+    end
   end
 
   root :to => redirect("/docs"), only_path: false

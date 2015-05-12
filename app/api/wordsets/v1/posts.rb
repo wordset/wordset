@@ -5,7 +5,10 @@ module Wordsets
 
       resource :posts do
         get ':slug' do
-          Post.where(slug: params[:slug]).first
+          post = Post.where(slug: params[:slug], state: 'published').first
+          # Treat it like an ID if it doesn't exist or isn't published
+          post ||= Post.find(params[:slug])
+          post
         end
       end
     end
