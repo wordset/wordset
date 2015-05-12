@@ -1,6 +1,6 @@
 class ProposalSerializer < ActiveModel::Serializer
   attributes :id, :wordset_id, :state, :created_at, :wordnet,
-             :user_id, :reason, :type, :tally, :flagged, :word_name
+             :user_id, :reason, :type, :tally, :flagged, :word_name, :original
   has_one :user, embed_key: :to_param
   has_one :lang, embed_key: :code
   has_many :votes
@@ -43,7 +43,6 @@ class ProposalSerializer < ActiveModel::Serializer
       h["pos"] = object.speech_part.code
     end
     if modules.include?(MeaningProposalLike)
-      h["original"] = object.original
       h["word_name"] = object.word_name || object.wordset.name
       (h["wordset_id"] = object.wordset.id) if object.wordset
     end
