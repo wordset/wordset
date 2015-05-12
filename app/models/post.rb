@@ -6,6 +6,7 @@ class Post
 
   field :title, type: String
   field :slug, type: String
+  field :author_name, type: String
   field :text, type: String
   field :published_at, type: Time
 
