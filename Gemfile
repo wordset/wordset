@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
+ruby '2.2.2'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -17,6 +17,10 @@ gem 'rails_12factor', group: :production
 gem 'rack-ssl-enforcer'
 
 gem 'devise'
+gem 'omniauth-facebook'
+gem 'omniauth-github', :github => 'intridea/omniauth-github'
+gem 'omniauth-google-oauth2'
+
 
 gem 'active_model_serializers'#, github: "rails-api/active_model_serializers"
 gem 'mongoid-serializer'
@@ -28,18 +32,21 @@ gem 'pusher'
 gem 'sitemap_generator'
 gem 'fog'
 
+gem 'levenshtein-ffi', :require => 'levenshtein'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
-gem 'appsignal'
-gem 'grape-appsignal', github: 'madglory/grape-appsignal'
+gem 'newrelic_rpm', '~> 3.8'
+gem 'newrelic-grape'
+gem 'newrelic_moped', '~> 0'
 
 gem "rack-cors", require: "rack/cors"
 gem 'gravtastic'
 
 gem 'bson'
 
-gem 'thin'
+gem "passenger"
 
 group :production do
   gem "gibbon"
@@ -58,6 +65,9 @@ group :development, :test do
   gem "pry-rails"
   gem "pry-stack_explorer"
   gem "pry-theme"
+
+  gem 'dotenv-rails'
+  gem "codeclimate-test-reporter", require: nil
 
   gem 'airborne'
 

@@ -5,6 +5,7 @@ class ProposeMeaningChange < Proposal
   def commit!
     meaning.def = self.def
     meaning.example = self.example
+    meaning.labels = self.labels
     meaning.accepted_proposal = self
     meaning.open_proposal = nil
     meaning.save

@@ -7,14 +7,26 @@ Dir.glob(File.join(Rails.root, 'app', '{lib,app}', '*.rb')).each{|f| require f}
 
 Rails.application.eager_load!
 
+$lang = Lang.create(code: "en", name: "English")
+$lang.speech_parts.create(code: "adj", name: "adjective")
+$lang.speech_parts.create(code: "adv", name: "adverb")
+$lang.speech_parts.create(code: "verb", name: "verb")
+$lang.speech_parts.create(code: "noun", name: "noun")
+$lang.speech_parts.create(code: "conj", name: "conjunction")
+$lang.speech_parts.create(code: "pronoun", name: "pronoun")
+$lang.speech_parts.create(code: "prep", name: "preposition")
+$lang.speech_parts.create(code: "intj", name: "interjection")
+
+$speech_parts = $lang.speech_parts.to_a
+
 # We create three categories of users
 # and high users will end up (semi-randomly) with higher
 # status and votes levels. Low will have much less
 users = {
   awesome: 1,
-  high: 25,
-  medium: 75,
-  low: 75
+  high: 15,
+  medium: 35,
+  low: 50
 }
 
 users.each do |level_group, number_to_create|
@@ -54,19 +66,20 @@ puts "Users all generated"
 # through and creating proposals and then voting so that they get
 # accepted, we can increase the diversity of our data pretty quickly.
 
-puts "Creating New Word Proposals"
+puts "Creating New WordsetProposals"
 
 def create_proposal(user)
-  meanings = Array.new(rand(3) + 1).map do
-    EmbedNewWordMeaning.new(pos: Entry.pos.sample,
+  meanings = Array.new(rand(2) + 1).map do
+    EmbedNewWordMeaning.new(pos: $speech_parts.sample.code,
                             def: Faker::Lorem.sentence,
                             example: Faker::Hacker.say_something_smart,
                             reason: Faker::Hacker.say_something_smart)
   end
 
-  p = ProposeNewWord.new(embed_new_word_meanings: meanings,
-                         user: user,
-                         reason: Faker::Hacker.say_something_smart)
+  p = ProposeNewWordset.new(embed_new_word_meanings: meanings,
+                            user: user,
+                            lang: $lang,
+                            reason: Faker::Hacker.say_something_smart)
 
   begin
     word_name = Faker::Lorem.words(3, true)[0..(rand(2)+1)].join(" ")
@@ -84,6 +97,8 @@ def create_proposal(user)
   return p
 end
 
+awesome = users[:awesome].first
+
 # This hash determines how many new word proposals to propose from
 # each group, per-user
 {awesome: 30, high: 5}.each do |level_group, number_of_new_word_proposals_per_user|
@@ -96,8 +111,18 @@ end
         u = User.find(user_id)
         p = create_proposal(u)
 
-        while p.open?
-          p.votes.create(user: User.offset(rand(User.count)).first, yae: true)
+        p.reload
+
+        users.each do |level_group_name, group_users|
+          puts "#{level_group_name} are voting for ##{proposal_number}"
+          if p.open?
+            group_users.shuffle.each do |user|
+              if p.open? && user.id != u.id
+                #puts "#{user.email} is voting on #{proposal_number}"
+                p.votes.create(user_id: user.id, yae: true)
+              end
+            end
+          end
         end
 
         puts "Took #{p.votes.count} votes to close ##{proposal_number}"

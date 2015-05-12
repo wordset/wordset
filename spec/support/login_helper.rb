@@ -1,20 +1,19 @@
 module LoginHelper
   def get_as(user, path, params = nil, options = {})
-    if params.nil?
-      params = options
-      options = {}
-    end
-    options.merge!(auth_header_for(user))
-    get(path, params, options)
+    do_as(:get, user, path, params, options)
   end
 
   def post_as(user, path, params = nil, options = {})
+    do_as(:post, user, path, params, options)
+  end
+
+  def do_as(method, user, path, params = nil, options = {})
     if params.nil?
       params = options
       options = {}
     end
     options.merge!(auth_header_for(user))
-    post(path, params, options)
+    send(method, path, params, options)
   end
 
   def auth_header_for(user)

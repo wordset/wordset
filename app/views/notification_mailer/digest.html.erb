@@ -1,0 +1,26 @@
+<h1>Notification Digest</h1>
+
+<p>Since you've been away, people have been busy voting and commenting on your proposals. Here's some of the activity you may have missed.</p>
+
+<% @notifications.each do |notification| %>
+  <% activity = notification.activity %>
+  <% proposal = activity.try(:proposal) %>
+  <% word_name = proposal.try(:word_name) %>
+  <% if activity.is_a? ProposalClosedActivity %>
+    <% if activity.final_state == "accepted" %>
+      <a href="<% ui_link("proposal/#{proposal.id}") %>" style="background: #eaf0eb;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none; width: 100%;">
+        Your proposal for <span style="font-weight: 600;"><%= word_name %></span> was accepted!
+      </a>
+    <% else %>
+      <a href="<% ui_link("proposal/#{proposal.id}") %>" style="background: #fadfdd;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none; width: 100%;">
+        Your proposal for <span style="font-weight: 600;"><%= word_name %></span> was rejected.
+      </a>
+
+    <% end %>
+  <% elsif activity.is_a? ProposalCommentActivity %>
+    <a href="<% ui_link("proposal/#{proposal.id}") %>" style="background: #F3F3F3;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none; width: 100%;">
+      <%= activity.user.username%> commented on your proposal for <span style="font-weight: 600;"><%= word_name %></span>.
+    </a>
+    
+  <% end %>
+<% end %>

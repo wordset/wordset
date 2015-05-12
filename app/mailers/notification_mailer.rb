@@ -1,10 +1,29 @@
 class NotificationMailer < ApplicationMailer
   #default from: 'notifications@wordset.org'
 
-  def run_all(notifications)
-    notifications.each do |n|
-      send_single(n).deliver
+  def run_all(user, notifications)
+    if notifications.count == 1
+      send_single(notifications.first).deliver
+    else
+      digest(user, notifications).deliver
     end
+  end
+
+  def digest(user, notifications)
+    @notifications = notifications
+    @user = user
+    @proposal = Proposal.last
+    @word_name = @proposal.word_name
+    mail(to: user.email,
+         subject: "#{notifications.count} new notifications on Wordset")
+  end
+
+  def promoted(activity)
+    @activity = activity
+    @user = activity.user
+    mail(to: @user.email,
+         subject: "You just made #{@activity.new_level}!",
+         template_name: "promoted")
   end
 
   def single(notification)
@@ -30,10 +49,6 @@ class NotificationMailer < ApplicationMailer
       mail(to: @user.email,
            subject: "#{@activity.user.username} commented on your #{@word_name} proposal",
            template_name: "comment")
-    when UserPromotionActivity
-      mail(to: @user.email,
-           subject: "You just made #{@activity.new_level}!",
-           template_name: "promotion")
     end
 
   end

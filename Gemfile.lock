@@ -7,12 +7,12 @@ GIT
       railties (>= 3.2.12)
 
 GIT
-  remote: git://github.com/madglory/grape-appsignal.git
-  revision: 3e6f35f2e1c88766850fe44b07b3dce994e8798b
+  remote: git://github.com/intridea/omniauth-github.git
+  revision: 45f2fc73d6d06f30863adac0e6aa112bcaaadf67
   specs:
-    grape-appsignal (0.4.1)
-      appsignal (~> 0.9)
-      grape (~> 0.8)
+    omniauth-github (1.1.2)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (>= 1.1.1, < 2.0)
 
 GIT
   remote: git://github.com/tim-vandecasteele/grape-swagger.git
@@ -71,9 +71,6 @@ GEM
       rack-test (~> 0.6, >= 0.6.2)
       rest-client (~> 1.7, >= 1.7.3)
       rspec (~> 3.1, >= 3.1.0)
-    appsignal (0.11.5)
-      rack
-      thread_safe
     arel (6.0.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
@@ -91,10 +88,12 @@ GEM
     callsite (0.0.11)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    codeclimate-test-reporter (0.4.7)
+      simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    connection_pool (2.1.1)
+    connection_pool (2.2.0)
     cookiejar (0.3.2)
     daemons (1.1.9)
     database_cleaner (1.4.0)
@@ -109,6 +108,10 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
+    docile (1.1.5)
+    dotenv (2.0.1)
+    dotenv-rails (2.0.1)
+      dotenv (= 2.0.1)
     em-http-request (1.1.2)
       addressable (>= 2.3.4)
       cookiejar
@@ -120,7 +123,7 @@ GEM
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
-    equalizer (0.0.9)
+    equalizer (0.0.11)
     erubis (2.7.0)
     eventmachine (1.0.7)
     excon (0.44.1)
@@ -131,6 +134,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.4.3)
       i18n (~> 0.5)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.8)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
@@ -250,7 +255,7 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
-    hashie (3.4.0)
+    hashie (3.4.1)
     hike (1.2.3)
     hitimes (1.2.2)
     http_parser.rb (0.6.0)
@@ -263,10 +268,13 @@ GEM
     inflecto (0.0.2)
     ipaddress (0.8.0)
     json (1.8.2)
+    jwt (1.4.1)
     launchy (2.4.3)
       addressable (~> 2.3)
     letter_opener (1.3.0)
       launchy (~> 2.2)
+    levenshtein-ffi (1.1.0)
+      ffi (~> 1.9)
     listen (2.9.0)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -298,25 +306,55 @@ GEM
       mongoid (>= 3.0)
     mongoid-tree (2.0.0)
       mongoid (>= 4.0, <= 5.0)
-    moped (2.0.3)
+    moped (2.0.4)
       bson (~> 2.2)
       connection_pool (~> 2.0)
       optionable (~> 0.2.0)
-    multi_json (1.10.1)
+    multi_json (1.11.0)
     multi_xml (0.5.5)
+    multipart-post (2.0.0)
     nenv (0.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
     netrc (0.10.2)
+    newrelic-grape (2.0.0)
+      grape
+      newrelic_rpm
+    newrelic_moped (0.0.12)
+      moped
+      newrelic_rpm (~> 3.0, >= 3.7)
+    newrelic_rpm (3.12.0.288)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     notiffany (0.0.6)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    oauth2 (1.0.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
+      rack (~> 1.0)
+    omniauth-facebook (2.0.1)
+      omniauth-oauth2 (~> 1.2)
+    omniauth-google-oauth2 (0.2.6)
+      omniauth (> 1.0)
+      omniauth-oauth2 (~> 1.1)
+    omniauth-oauth2 (1.2.0)
+      faraday (>= 0.8, < 0.10)
+      multi_json (~> 1.3)
+      oauth2 (~> 1.0)
+      omniauth (~> 1.2)
     optionable (0.2.0)
     origin (2.1.1)
     orm_adapter (0.5.0)
+    passenger (5.0.7)
+      rack
+      rake (>= 0.8.1)
     postmark (1.5.0)
       json
       rake
@@ -427,6 +465,11 @@ GEM
       tilt (~> 1.1)
     shellany (0.0.1)
     signature (0.1.8)
+    simplecov (0.9.2)
+      docile (~> 1.1.0)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.9.0)
+    simplecov-html (0.9.0)
     sitemap_generator (5.0.5)
       builder
     slop (3.6.0)
@@ -447,7 +490,7 @@ GEM
       eventmachine (~> 1.0)
       rack (~> 1.0)
     thor (0.19.1)
-    thread_safe (0.3.4)
+    thread_safe (0.3.5)
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
@@ -456,7 +499,7 @@ GEM
     validate_url (1.0.0)
       activemodel (>= 3.0.0)
       addressable
-    virtus (1.0.4)
+    virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
       descendants_tracker (~> 0.0, >= 0.0.3)
@@ -476,29 +519,37 @@ DEPENDENCIES
   aasm
   active_model_serializers
   airborne
-  appsignal
   better_errors
   bson
+  codeclimate-test-reporter
   database_cleaner
   devise
+  dotenv-rails
   factory_girl_rails
   faker
   fog
   gibbon
   grape (= 0.9.0)
   grape-active_model_serializers
-  grape-appsignal!
   grape-raketasks
   grape-swagger!
   grape-swagger-rails!
   gravtastic
   guard-rspec
   letter_opener
+  levenshtein-ffi
   meta_request
   mongoid
   mongoid-rspec
   mongoid-serializer
   mongoid-tree
+  newrelic-grape
+  newrelic_moped (~> 0)
+  newrelic_rpm (~> 3.8)
+  omniauth-facebook
+  omniauth-github!
+  omniauth-google-oauth2
+  passenger
   postmark-rails
   pry-nav
   pry-rails
@@ -516,6 +567,5 @@ DEPENDENCIES
   sitemap_generator
   spring
   spring-commands-rspec
-  thin
   validate_url
   web-console (~> 2.0)

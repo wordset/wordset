@@ -7,7 +7,6 @@ module ProposalActivity
     base.index({proposal_id: 1})
 
     base.before_create :set_cached_word
-
   end
 
   def set_cached_word

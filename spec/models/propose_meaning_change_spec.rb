@@ -5,6 +5,8 @@ describe ProposeMeaningChange do
   before do
     @user = create(:user)
     @meaning = create(:meaning)
+    @lang = create(:lang)
+    @label = create(:label)
   end
 
   describe "Valid New Meaning Proposal" do
@@ -13,6 +15,7 @@ describe ProposeMeaningChange do
       @p = ProposeMeaningChange.new(user: @user,
                                     meaning: @meaning,
                                     def: @def,
+                                    lang: @lang,
                                     example: "I thought the boss was a little subbery")
     end
 
@@ -58,6 +61,27 @@ describe ProposeMeaningChange do
       @p.flag!
       @meaning.reload
       expect(@meaning.open_proposal).to be_nil
+    end
+
+    it "should apply new labels if accepted" do
+      expect(@meaning.labels.count).to eq(0)
+      @p.labels << @label
+      @p.save
+      @p.approve!
+      @meaning.reload
+      expect(@meaning.labels.count).to eq(1)
+      expect(@meaning.labels.first.id).to eq(@label.id)
+    end
+
+    it "should remove label if the label is proposed to be removed" do
+      @two_labels = [@label, create(:label)]
+      @meaning.labels << @two_labels
+      expect(@meaning.labels.count).to eq(2)
+      @p.labels << @label
+      @p.save
+      @p.approve!
+      @meaning.reload
+      expect(@meaning.labels.count).to eq(1)
     end
 
   end

@@ -9,7 +9,7 @@ class WordList
     if wl == nil
       wl = WordList.new(term: term)
       escaped = Regexp.escape(term)
-      wl.words = Word.limit(20).where({ :name => /^#{escaped}.*/i }).sort("word_length" => 1).map &:name
+      wl.words = Seq.limit(20).where({ :text => /^#{escaped}.*/i, :wordset_id.ne => nil }).sort("word_length" => 1).map &:text
       wl.save
     end
     wl
