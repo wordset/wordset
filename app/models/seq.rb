@@ -15,6 +15,9 @@ class Seq
   field :word_length, type: Integer, as: "l"
   index({text: 1, lang_id: 1}, {unique: true})
   index({word_length: 1})
+  index({wordset_id: 1, "_id": 1})
+  index({wordset_id: 1})
+  index({lang_id: 1, wordset_id: 1})
 
   before_save do |d|
     d.word_length = d.text.length

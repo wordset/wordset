@@ -43,6 +43,7 @@ class Proposal
   index({wordset_id: 1, created_at: -1})
   index({user_id: 1})
   index({user_id: 1, state: 1})
+  indes({user_id: 1, created_at: -1})
   index({created_at: -1})
   index({vote_user_ids: 1, state: 1})
   index({_type: 1})

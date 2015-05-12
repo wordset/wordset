@@ -18,6 +18,8 @@ class Wordset
   validates :lang,
             :presence => true
 
+  index({"removed_at": 1, "wordset_id": 1})
+
   def self.lookup(name)
     seq = Seq.where(text: name).first.try(:word)
   end
