@@ -1,9 +1,5 @@
 a.new-post {
-  border: 1px solid $olive;
-  display: inline-block;
-  margin-bottom: 20px;
-  padding: 5px 20px 5px 15px;
-  text-decoration: none;
+  @include button($olive);
   .plus {
     border-radius: 50%;
     background: $olive;
