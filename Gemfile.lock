@@ -255,6 +255,8 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    haml (4.0.6)
+      tilt
     hashie (3.4.1)
     hike (1.2.3)
     hitimes (1.2.2)
@@ -536,6 +538,7 @@ DEPENDENCIES
   grape-swagger-rails!
   gravtastic
   guard-rspec
+  haml
   letter_opener
   levenshtein-ffi
   meta_request
