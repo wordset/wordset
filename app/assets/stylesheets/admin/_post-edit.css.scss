@@ -1,6 +1,10 @@
-form {
+.edit-post, .new-post {
   margin: auto;
   max-width: 600px;
+
+  form {
+  }
+  
   input, textarea {
     width: 100%;
   }
