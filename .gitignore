@@ -17,4 +17,5 @@ dump
 /log/*
 !/log/.keep
 /tmp
+
 .env

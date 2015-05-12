@@ -2,6 +2,10 @@
 
 %section.stats
   %h1 Key Stats
+  .stat.head
+    .name Stat
+    .number Value
+    .previous Previous
   - [Wordset, User, Meaning, Proposal, Vote, Activity, Message, ProposalClosedActivity].each do |klass|
     - name = klass.to_s.pluralize
     .stat
