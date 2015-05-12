@@ -1,9 +1,12 @@
 module MeaningLike
   extend ActiveSupport::Concern
 
+
   included do |base|
     base.field :def, type: String
     base.field :example, type: String
+
+    base.include Labeled
 
     base.validates :def,
                    :length => {minimum: 10},

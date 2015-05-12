@@ -4,19 +4,21 @@ class Vote
 
   belongs_to :user
   index({user_id: 1})
-  index({user_id: 1, usurped: 1})
-  index({user_id: 1, proposal_id: 1})
-  belongs_to :proposal
+  index({user_id: 1, usurped: 1, withdrawn: 1})
+  index({user_id: 1, proposal_id: 1, withdrawn: 1, usurped: 1})
+  belongs_to :proposal#, autosave: true
   index({proposal_id: 1})
+  index({proposal_id: 1, flagged: 1, value: 1})
+  index({proposal_id: 1, withdrawn: 1, usurped: 1, value: 1})
 
   field :value, type: Integer
   field :flagged, type: Boolean, as: "f", default: false
-  index({proposal_id: 1, flagged: 1})
+  index({proposal_id: 1, flagged: 1, withdrawn: 1, usurped: 1})
   field :yae, type: Boolean, as: "y", default: true
   field :skip, type: Boolean, as: "s", default: false
 
   field :trust_points, type: Integer, as: "tp", default: 0
-  index({user_id: 1, trust_points: 1})
+  index({user_id: 1, trust_points: 1, withdrawn: 1, usurped: 1})
 
   field :autovote, type: Boolean, as: "av", default: false
 
@@ -92,7 +94,7 @@ class Vote
       if with_majority?
         self.trust_points = 1
       else
-        self.trust_points = -3
+        self.trust_points = -1
       end
     else
       self.trust_points = 0

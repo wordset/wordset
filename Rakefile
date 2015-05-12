@@ -6,3 +6,9 @@ require 'grape-raketasks'
 require 'grape-raketasks/tasks'
 
 Rails.application.load_tasks
+
+task :default => [:spec]
+desc 'run Rspec specs'
+task :spec do
+  sh 'rspec'
+end

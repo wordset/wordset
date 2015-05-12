@@ -9,6 +9,7 @@ class User
   has_many :messages
   has_many :activities
   has_many :notifications
+  has_many :identities
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
@@ -22,7 +23,11 @@ class User
                        length: { minimum: 3, maximum: 16 },
                        uniqueness: true
 
+  # PROFILE INFORMATION
+  field :location, type: String
+  field :site_url, type: String
 
+  field :unsubscribed, type: Boolean, default: false
 
   ## Database authenticatable
   field :email,              type: String, default: ""
@@ -43,10 +48,12 @@ class User
   field :last_seen_at,       type: Time, as: "lsa"
   index({:last_seen_at => -1})
 
+  field :identity_image_url, type: String
+
   ## Confirmable
-  #field :confirmation_token,   type: String
-  #field :confirmed_at,         type: Time
-  #field :confirmation_sent_at, type: Time
+  field :confirmation_token,   type: String
+  field :confirmed_at,         type: Time
+  field :confirmation_sent_at, type: Time
   #field :unconfirmed_email,    type: String # Only if using reconfirmable
 
   # Token
@@ -98,6 +105,11 @@ class User
     if Rails.env == "production" && email_opt_in_at
       Mailchimp.lists.subscribe({id: WordsetListId, email: {email: self.email}, :double_optin => false})
     end
+  end
+
+  def generate_random_password!
+    self.password = Devise.friendly_token
+    self.password_confirmation = self.password
   end
 
   private

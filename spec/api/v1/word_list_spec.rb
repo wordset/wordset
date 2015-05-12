@@ -1,11 +1,11 @@
 
 require 'rails_helper'
 
-describe Wordset::V1 do
+describe Wordsets::V1 do
   describe WordList do
     it "should load the starter list" do
-      create_list :word, 100
-      create :word, name: "aa"
+      create_list :wordset, 100
+      create :seq, text: "aa"
       get('/api/v1/word_lists')
       data = JSON.parse(response.body)
       expect(data.keys.first).to eq("word_lists")
@@ -26,8 +26,8 @@ describe Wordset::V1 do
     end
 
     it "should search for aa and return things that start with a" do
-      create_list :word, 100
-      create :word, name: "aa"
+      create_list :wordset, 100
+      create :seq, text: "aa"
       get('/api/v1/word_lists/aa')
       data = JSON.parse(response.body)
       expect(data.keys.first).to eq("word_list")
