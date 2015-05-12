@@ -1,6 +1,7 @@
 class Post
   include Mongoid::Document
   include Mongoid::Timestamps
+  include AASM
 
   field :title, type: String
   field :slug, type: String
