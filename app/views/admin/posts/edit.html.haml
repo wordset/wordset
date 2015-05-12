@@ -1,7 +1,8 @@
 
+.edit-post
+  
+  %h1 Editing Post
 
-%h1 Editing Post
+  = link_to "<--- back", admin_posts_path
 
-= link_to "<--- back", admin_posts_path
-
-= render :partial => "form"
+  = render :partial => "form"

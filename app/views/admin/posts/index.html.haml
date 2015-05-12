@@ -1,6 +1,8 @@
 %h1 Blog Posts
 
-= link_to "New Post", new_admin_post_path()
+%a{:href => new_admin_post_path(), :class => "new-post"}
+  .plus +
+  New Post
 
 %section.posts
   - @posts.each do |post|

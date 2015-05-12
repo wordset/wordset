@@ -1,0 +1,23 @@
+.stat {
+  padding: 10px;
+  &:nth-child(odd) {
+    background: #F9F9F9;
+  }
+  &.head {
+    border-bottom: 1px solid #CCC;
+  }
+  .name, .number, .previous {
+    display: inline-block;
+  }
+  .name {
+    margin-right: 10px;
+    min-width: 370px;
+  }
+  .number, .previous {
+    min-width: 100px;
+  }
+  .previous {
+    color: #888;
+  }
+
+}

@@ -1,0 +1,33 @@
+a.new-post {
+  border: 1px solid $olive;
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 5px 20px 5px 15px;
+  text-decoration: none;
+  .plus {
+    border-radius: 50%;
+    background: $olive;
+    color: $white;
+    display:inline-block;
+    font-weight: 600;
+    height: 22px;
+    margin-right: 5px;
+    text-align: center;
+    width: 22px;
+  }
+}
+.posts {
+  .post {
+    margin-bottom: 2px;
+    padding: 10px;
+    &:nth-child(odd) {
+      background: #F9F9F9;
+    }
+  }
+  .title, .state, .actions {
+    display: inline-block;
+  }
+  .title {
+    min-width: 50%;
+  }
+}
