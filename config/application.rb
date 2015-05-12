@@ -7,7 +7,7 @@ require "active_model/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
-#require "sprockets/railtie"
+require "sprockets/railtie"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -19,7 +19,7 @@ module Wordsets
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.assets.enabled = false
+    config.assets.enabled = true
 
     config.middleware.use Rack::Cors do
       allow do
