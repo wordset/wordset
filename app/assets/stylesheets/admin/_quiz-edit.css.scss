@@ -1,11 +1,33 @@
-.new-quiz {
+.new-quiz, .edit-quiz {
   fieldset {
     border: 1px solid $gray;
+    margin-bottom: 30px;
     padding-top: 20px;
     position: relative;
   }
+
+
+  fieldset > fieldset {
+    border: none;
+    padding: 0px;
+    .remove_nested_fields_link {
+      top: 28px;
+      right: 7px;
+    }
+    input {
+      margin-bottom: 0px;
+      padding-right: 36px;
+
+    }
+  }
+
+  .point-allocation {
+    margin-top: 5px;
+  }
+
   .remove_nested_fields_link {
-    background: darken($red, 20%);
+    @include transition;
+    background: $gray;
     border-radius: 50%;
     color: $white;
     display: inline-block;
@@ -17,6 +39,9 @@
       right: 5px;
     text-decoration: none;
     text-align: center;
+    &:hover {
+      background: $red;
+    }
   }
 
   .add_nested_fields_link {

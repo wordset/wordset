@@ -12,8 +12,8 @@ a.new {
     width: 22px;
   }
 }
-.posts {
-  .post {
+.posts, .quizzes {
+  .post, .quiz {
     margin-bottom: 2px;
     padding: 10px;
     &:nth-child(odd) {

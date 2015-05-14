@@ -35,10 +35,12 @@
       = fff.remove_nested_fields_link "×"
       = fff.label :text, "Answer Text"
       = fff.text_field :text
+      .point-allocation Point Allocations:
       = fff.fields_for :result_values do |ffff|
         - @quiz.quiz_results.each do |result|
-          %label= result.name
-          = ffff.select "#{result.id}", (0..10).to_a, {selected: fff.object.result_values[result.id.to_s].to_s}
+          .point-selector
+            %label= result.name
+            = ffff.select "#{result.id}", (0..10).to_a, {selected: fff.object.result_values[result.id.to_s].to_s}
     = ff.add_nested_fields_link :quiz_answers, "+ Add Answer"
   = f.add_nested_fields_link :quiz_questions, "+ Add Question"
 
