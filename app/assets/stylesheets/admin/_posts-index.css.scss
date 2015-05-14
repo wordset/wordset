@@ -26,4 +26,7 @@ a.new-post {
   .title {
     min-width: 50%;
   }
+  .state, .actions a {
+    width: 100px;
+  }
 }
