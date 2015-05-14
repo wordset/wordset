@@ -3,8 +3,10 @@ class QuizResult
 
   embedded_in :quiz
   embeds_many :quiz_answers
-  has_many :quiz_answer_values
+
+  mount_uploader :image, ImageUploader
 
   field :name, type: String
+  validates :name, presence: true
   field :image_url, type: String
 end

@@ -5,10 +5,16 @@ class Quiz
   field :slug, type: String
   field :title, type: String
 
+  validates :title, presence: true
+  validates :slug,  presence: true
+
   embeds_many :quiz_questions
   embeds_many :quiz_results
 
+  mount_uploader :image, ImageUploader
+
   accepts_nested_attributes_for :quiz_questions, allow_destroy: true
+  accepts_nested_attributes_for :quiz_results, allow_destroy: true
 
   field :state, type: String
 
