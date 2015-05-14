@@ -9,6 +9,12 @@ Rails.application.routes.draw do
         post "publish"
       end
     end
+
+    resources :quizes do
+      member do
+        post "publish"
+      end
+    end
   end
 
   root :to => redirect("/docs"), only_path: false

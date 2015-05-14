@@ -1,0 +1,21 @@
+= form_for [:admin, @quiz] do |f|
+  %label{:for => "quiz_title"} Title
+  = f.text_field :title
+  %label{:for => "quiz_slug"} Slug
+  .note should be dashed, and all lower case and unique. this makes the URL. DO NOT EDIT IF PUBLISHED.
+  = f.text_field :slug
+
+  %h3 Questions
+
+  = f.nested_fields_for :quiz_questions do |ff|
+    = ff.remove_nested_fields_link
+    = ff.label :text, "Question Text"
+    = ff.text_field :text
+    = ff.nested_fields_for :quiz_answers do |fff|
+      = fff.remove_nested_fields_link
+      = fff.label :text, "Answer Text"
+      = fff.text_field :text
+    = ff.add_nested_fields_link :quiz_answers
+  = f.add_nested_fields_link :quiz_questions
+
+  %button{type: 'submit'} Save

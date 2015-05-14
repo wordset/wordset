@@ -1,0 +1,15 @@
+%h1 Quizes
+
+%a{:href => new_admin_quiz_path(), :class => "new-quiz"}
+  .plus +
+  New Quiz
+
+%section.quizes
+  - @quizes.each do |quiz|
+    %div[quiz]
+      .title= link_to quiz.title, ui_link("/quiz/" + quiz.id)
+      .state= quiz.state
+      .actions
+        = link_to "Edit", edit_admin_quiz_path(quiz)
+        - if quiz.draft?
+          = link_to "Publish", publish_admin_quiz_path(quiz), method: :post
