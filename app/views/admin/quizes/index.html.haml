@@ -4,8 +4,8 @@
   .plus +
   New Quiz
 
-%section.quizes
-  - @quizes.each do |quiz|
+%section.quizzes
+  - @quizzes.each do |quiz|
     %div[quiz]
       .title= link_to quiz.title, ui_link("/quiz/" + quiz.id)
       .state= quiz.state

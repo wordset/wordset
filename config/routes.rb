@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :quizes do
+    resources :quizzes do
       member do
         post "publish"
       end
