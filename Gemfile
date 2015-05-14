@@ -32,12 +32,19 @@ gem 'pusher'
 gem 'sitemap_generator'
 gem 'fog'
 
+gem 'dropzonejs-rails'
+gem 'carrierwave'
+gem 'cloudinary'
+
+gem 'nested_form_fields'
+
 gem 'levenshtein-ffi', :require => 'levenshtein'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'haml'
 gem 'jquery-rails'
+gem 'coffee-rails'
 
 gem 'newrelic_rpm', '~> 3.8'
 gem 'newrelic-grape'
