@@ -3,7 +3,7 @@ class Admin::QuizesController < ApplicationController
   before_filter :authenticate_admin!
 
   def index
-    @quizes = Quiz.all
+    @quizzes = Quiz.all
   end
 
   def new
@@ -20,7 +20,7 @@ class Admin::QuizesController < ApplicationController
     @quiz = Quiz.find(params[:id])
     @quiz.publish!
     flash[:notice] = "Published!"
-    redirect_to admin_quizes_path
+    redirect_to admin_quizzes_path
   end
 
   def edit
