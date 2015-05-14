@@ -1,9 +1,24 @@
-= form_for [:admin, @quiz] do |f|
+= form_for [:admin, @quiz], html: { multipart: true } do |f|
   %label{:for => "quiz_title"} Title
   = f.text_field :title
   %label{:for => "quiz_slug"} Slug
   .note should be dashed, and all lower case and unique. this makes the URL. DO NOT EDIT IF PUBLISHED.
   = f.text_field :slug
+  - if f.object.image
+    %img{src: f.object.image_url}
+  = f.file_field :image
+  = f.hidden_field :image_cache
+
+  %h3 Results
+
+  = f.nested_fields_for :quiz_results do |ff|
+    = ff.remove_nested_fields_link
+    = ff.text_field :name
+    - if ff.object.image
+      %img{src: ff.object.image_url}
+    = ff.file_field :image
+    = ff.hidden_field :image_cache
+  = f.add_nested_fields_link :quiz_results
 
   %h3 Questions
 
@@ -11,10 +26,18 @@
     = ff.remove_nested_fields_link
     = ff.label :text, "Question Text"
     = ff.text_field :text
+    - if ff.object.image
+      %img{src: ff.object.image_url}
+    = ff.file_field :image
+    = ff.hidden_field :image_cache
     = ff.nested_fields_for :quiz_answers do |fff|
       = fff.remove_nested_fields_link
       = fff.label :text, "Answer Text"
       = fff.text_field :text
+      = fff.fields_for :result_values do |ffff|
+        - @quiz.quiz_results.each do |result|
+          %label= result.name
+          = ffff.select "#{result.id}", (0..10).to_a, {selected: fff.object.result_values[result.id.to_s].to_s}
     = ff.add_nested_fields_link :quiz_answers
   = f.add_nested_fields_link :quiz_questions
 

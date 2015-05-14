@@ -36,18 +36,6 @@ class Admin::QuizesController < ApplicationController
 
  private
   def quiz_params
-    params.require(:quiz).permit(:title, :slug,
-                                 :quiz_questions_attributes => [
-                                   :text,
-                                   :_destroy,
-                                   :id,
-                                   {:quiz_answers_attributes => [
-                                        :text,
-                                        :_destroy,
-                                        :id,
-                                        {:quiz_answer_values => [:value, :quiz_result_id]}
-                                      ]
-                                    }
-                                 ])
+    params.require(:quiz).permit!
   end
 end

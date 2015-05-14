@@ -29,12 +29,12 @@ gem 'validate_url'
 gem 'postmark-rails'
 gem 'pusher'
 
-gem 'sitemap_generator'
 gem 'fog'
+gem 'sitemap_generator'
 
-gem 'dropzonejs-rails'
-gem 'carrierwave'
-gem 'cloudinary'
+gem 'fog-aws'
+gem 'carrierwave-mongoid'
+gem 'rmagick'
 
 gem 'nested_form_fields'
 

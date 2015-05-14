@@ -3,11 +3,8 @@
 class ImageUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
-  # include CarrierWave::RMagick
+  include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
-
-  # Choose what kind of storage to use for this uploader:
-  include Cloudinary::CarrierWave
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
