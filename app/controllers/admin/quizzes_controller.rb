@@ -1,4 +1,4 @@
-class Admin::QuizesController < ApplicationController
+class Admin::QuizzesController < ApplicationController
   layout "admin"
   before_filter :authenticate_admin!
 
