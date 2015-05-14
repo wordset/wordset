@@ -21,6 +21,13 @@ h1 {
   font-weight: 300;
 }
 
+
+input {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
 .content {
   padding: 10px 50px;
   @include media-max-width($break) {
@@ -30,5 +37,7 @@ h1 {
 
 @import "header";
 @import "dashboard";
+@import "form";
 @import "posts-index";
 @import "post-edit";
+@import "quiz-edit";

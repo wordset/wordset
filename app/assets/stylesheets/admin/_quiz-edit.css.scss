@@ -1,0 +1,29 @@
+.new-quiz {
+  fieldset {
+    border: 1px solid $gray;
+    padding-top: 20px;
+    position: relative;
+  }
+  .remove_nested_fields_link {
+    background: darken($red, 20%);
+    border-radius: 50%;
+    color: $white;
+    display: inline-block;
+    font-weight: 600;
+    height: 22px;
+    width: 22px;
+    position: absolute;
+      top: 5px;
+      right: 5px;
+    text-decoration: none;
+    text-align: center;
+  }
+
+  .add_nested_fields_link {
+    @include button($blue);
+    display: block;
+    margin-top: 10px;
+    max-width: 120px;
+    text-align: center;
+  }
+}

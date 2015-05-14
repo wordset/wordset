@@ -12,18 +12,19 @@
   %h3 Results
 
   = f.nested_fields_for :quiz_results do |ff|
-    = ff.remove_nested_fields_link
+    = ff.remove_nested_fields_link "×"
+    = ff.label :text, "Result Text"
     = ff.text_field :name
     - if ff.object.image
       %img{src: ff.object.image_url}
     = ff.file_field :image
     = ff.hidden_field :image_cache
-  = f.add_nested_fields_link :quiz_results
+  = f.add_nested_fields_link :quiz_results, "+ Add Result"
 
   %h3 Questions
 
   = f.nested_fields_for :quiz_questions do |ff|
-    = ff.remove_nested_fields_link
+    = ff.remove_nested_fields_link "×"
     = ff.label :text, "Question Text"
     = ff.text_field :text
     - if ff.object.image
@@ -31,14 +32,14 @@
     = ff.file_field :image
     = ff.hidden_field :image_cache
     = ff.nested_fields_for :quiz_answers do |fff|
-      = fff.remove_nested_fields_link
+      = fff.remove_nested_fields_link "×"
       = fff.label :text, "Answer Text"
       = fff.text_field :text
       = fff.fields_for :result_values do |ffff|
         - @quiz.quiz_results.each do |result|
           %label= result.name
           = ffff.select "#{result.id}", (0..10).to_a, {selected: fff.object.result_values[result.id.to_s].to_s}
-    = ff.add_nested_fields_link :quiz_answers
-  = f.add_nested_fields_link :quiz_questions
+    = ff.add_nested_fields_link :quiz_answers, "+ Add Answer"
+  = f.add_nested_fields_link :quiz_questions, "+ Add Question"
 
   %button{type: 'submit'} Save
