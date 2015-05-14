@@ -26,4 +26,10 @@ a.new {
   .title {
     min-width: 50%;
   }
+  .state, .actions a {
+    width: 100px;
+  }
+  .actions a {
+    margin-right: 10px;
+  }
 }

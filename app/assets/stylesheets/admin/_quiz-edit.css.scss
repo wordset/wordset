@@ -25,6 +25,13 @@
     margin-top: 5px;
   }
 
+  .point-selector {
+    label {
+      display: inline-block;
+      width: 33%;
+    }
+  }
+
   .remove_nested_fields_link {
     @include transition;
     background: $gray;
@@ -35,7 +42,7 @@
     height: 22px;
     width: 22px;
     position: absolute;
-      top: 5px;
+      top: 6px;
       right: 5px;
     text-decoration: none;
     text-align: center;
