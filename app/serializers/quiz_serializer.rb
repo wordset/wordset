@@ -30,7 +30,7 @@ class QuizSerializer < ActiveModel::Serializer
     end
     h['results'] = {}
     object.quiz_results.each do |result|
-      h['results'][result.id.to_s] = {name: result.name, image: result.image}
+      h['results'][result.id.to_s] = {name: result.name, image_url: result.image.url}
     end
     h
   end
