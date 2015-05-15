@@ -4,8 +4,9 @@ module Wordsets
       include Wordsets::V1::Defaults
 
       resource :quizzes do
-        get '/' do
-          Quiz.all
+        get '/:id' do
+          quiz = Quiz.where(slug: params[:id], state: "published").first
+          quiz || Quiz.find(params[:id])
         end
       end
     end
