@@ -9,4 +9,6 @@ class QuizResult
   field :name, type: String
   validates :name, presence: true
   field :image_url, type: String
+  field :description, type: String
+
 end

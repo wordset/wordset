@@ -21,8 +21,10 @@
 
   = f.nested_fields_for :quiz_results do |ff|
     = ff.remove_nested_fields_link "×"
-    = ff.label :text, "Result Text"
+    = ff.label :text, "Result Name"
     = ff.text_field :name
+    = ff.label :text, "Result Description"
+    = ff.text_area :description
     = ff.label :image, "Result Image"
     - if ff.object.image
       %img{src: ff.object.image_url}
