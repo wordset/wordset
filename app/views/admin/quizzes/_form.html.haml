@@ -6,12 +6,14 @@
   = f.text_field :slug
   %label{for: "quiz_lang"} Lang
   = f.select "lang_id", Lang.all.map { |l| [l.name, l.id] }
+
+  = f.label :image, "Quiz Image"
   - if f.object.image
     %img{src: f.object.image_url}
   = f.file_field :image
   = f.hidden_field :image_cache
 
-  %label{for: "quiz_instructions"}
+  %label{for: "quiz_instructions"} Quiz Instructions
   = f.text_area :instructions
 
   %h3 Results

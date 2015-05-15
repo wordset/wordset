@@ -29,7 +29,7 @@ class Quiz
     state :rejected
     state :published
 
-    event :publish, before: :set_published_at do
+    event :publish do
       transitions from: :draft, to: :published
     end
 
