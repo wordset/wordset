@@ -1,6 +1,7 @@
 class LangSerializer < BaseSerializer
   attributes :id, :name, :parts
   has_many :labels, serializer: LabelSerializer
+  has_many :quizzes, serializer: QuizSerializer
 
   def id
     object.code

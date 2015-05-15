@@ -1,5 +1,9 @@
 class QuizSerializer < ActiveModel::Serializer
-  attributes :id, :slug, :title, :image_url
+  attributes :id, :title, :image_url
+
+  def id
+    object.slug
+  end
 
   def attributes
     h = super

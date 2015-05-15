@@ -4,6 +4,8 @@
   %label{:for => "quiz_slug"} Slug
   .note should be dashed, and all lower case and unique. this makes the URL. DO NOT EDIT IF PUBLISHED.
   = f.text_field :slug
+  %label{for: "quiz_lang"} Lang
+  = f.select "lang_id", Lang.all.map { |l| [l.name, l.id] }
   - if f.object.image
     %img{src: f.object.image_url}
   = f.file_field :image
