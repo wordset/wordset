@@ -15,6 +15,7 @@
     = ff.remove_nested_fields_link "×"
     = ff.label :text, "Result Text"
     = ff.text_field :name
+    = ff.label :image, "Result Image"
     - if ff.object.image
       %img{src: ff.object.image_url}
     = ff.file_field :image
@@ -27,6 +28,7 @@
     = ff.remove_nested_fields_link "×"
     = ff.label :text, "Question Text"
     = ff.text_field :text
+    = ff.label :image, "Question Image"
     - if ff.object.image
       %img{src: ff.object.image_url}
     = ff.file_field :image
