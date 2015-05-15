@@ -10,8 +10,8 @@ class Quiz
   validates :title, presence: true
   validates :slug,  presence: true
 
-  embeds_many :quiz_questions
-  embeds_many :quiz_results
+  embeds_many :quiz_questions, cascade_callbacks: true
+  embeds_many :quiz_results, cascade_callbacks: true
 
   mount_uploader :image, ImageUploader
 
