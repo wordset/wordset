@@ -35,6 +35,13 @@ input {
   }
 }
 
+.notice {
+  background: $olive;
+  color: $white;
+  padding: 5px 10px;
+  text-align: center;
+}
+
 @import "header";
 @import "dashboard";
 @import "form";
