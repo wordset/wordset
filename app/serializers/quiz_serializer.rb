@@ -1,5 +1,5 @@
 class QuizSerializer < ActiveModel::Serializer
-  attributes :id, :title, :image_url
+  attributes :id, :title, :image_url, :instructions
 
   def id
     object.slug

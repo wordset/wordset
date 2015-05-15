@@ -6,6 +6,7 @@ class Quiz
 
   field :slug, type: String
   field :title, type: String
+  field :instructions, type: String
 
   validates :title, presence: true
   validates :slug,  presence: true

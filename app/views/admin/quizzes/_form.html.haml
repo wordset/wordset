@@ -11,6 +11,9 @@
   = f.file_field :image
   = f.hidden_field :image_cache
 
+  %label{for: "quiz_instructions"}
+  = f.text_area :instructions
+
   %h3 Results
 
   = f.nested_fields_for :quiz_results do |ff|
