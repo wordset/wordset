@@ -1,6 +1,6 @@
 .stat {
   padding: 10px;
-  &:nth-child(odd) {
+  &:nth-child(3n) {
     background: #F9F9F9;
   }
   &.head {
