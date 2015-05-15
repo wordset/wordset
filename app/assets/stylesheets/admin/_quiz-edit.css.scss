@@ -21,11 +21,21 @@
     }
   }
 
+  img {
+    display: block;
+    margin: auto;
+  }
+
   .point-allocation {
     margin-top: 5px;
   }
 
   .point-selector {
+    margin-bottom: 2px;
+    padding: 2px 4px;
+    &:nth-child(even) {
+      background: #F9F9F9;
+    }
     label {
       display: inline-block;
       width: 33%;
