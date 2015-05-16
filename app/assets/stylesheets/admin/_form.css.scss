@@ -1,0 +1,21 @@
+.new-quiz, .edit-quiz, .new-post, .edit-post {
+  margin: auto;
+  max-width: 600px;
+  input, textarea {
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 100%;
+  }
+  .note {
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  button[type="submit"] {
+    @include button($olive);
+    font-size: 20px;
+    min-width: 150px;
+  }
+
+}

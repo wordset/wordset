@@ -29,8 +29,14 @@ gem 'validate_url'
 gem 'postmark-rails'
 gem 'pusher'
 
-gem 'sitemap_generator'
 gem 'fog'
+gem 'sitemap_generator'
+
+gem 'fog-aws'
+gem 'carrierwave-mongoid'
+gem 'rmagick'
+
+gem 'nested_form_fields'
 
 gem 'levenshtein-ffi', :require => 'levenshtein'
 
@@ -38,6 +44,7 @@ gem 'levenshtein-ffi', :require => 'levenshtein'
 gem 'sass-rails', '~> 5.0'
 gem 'haml'
 gem 'jquery-rails'
+gem 'coffee-rails'
 
 gem 'newrelic_rpm', '~> 3.8'
 gem 'newrelic-grape'

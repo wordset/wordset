@@ -11,5 +11,6 @@ class Lang
   has_many :proposals
   has_many :wordsets
   has_many :labels
+  has_many :quizzes
 
 end

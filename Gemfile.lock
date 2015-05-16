@@ -86,6 +86,15 @@ GEM
     bson (2.3.0)
     builder (3.2.2)
     callsite (0.0.11)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+    carrierwave-mongoid (0.7.1)
+      carrierwave (>= 0.8.0, < 0.11.0)
+      mongoid (>= 3.0, < 5.0)
+      mongoid-grid_fs (>= 1.3, < 3.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     codeclimate-test-reporter (0.4.7)
@@ -93,6 +102,13 @@ GEM
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
+    coffee-rails (4.1.0)
+      coffee-script (>= 2.2.0)
+      railties (>= 4.0.0, < 5.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.9.1.1)
     connection_pool (2.2.0)
     cookiejar (0.3.2)
     daemons (1.2.2)
@@ -129,6 +145,7 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.7)
     excon (0.45.3)
+    execjs (2.5.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -325,6 +342,9 @@ GEM
       moped (~> 2.0.0)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
+    mongoid-grid_fs (2.1.0)
+      mime-types (>= 1.0, < 3.0)
+      mongoid (>= 3.0, < 5.0)
     mongoid-rspec (2.2.0)
       mongoid (~> 4.0.0)
       rake
@@ -342,6 +362,8 @@ GEM
     multi_xml (0.5.5)
     multipart-post (2.0.0)
     nenv (0.2.0)
+    nested_form_fields (0.7)
+      rails (>= 3.2.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
@@ -462,6 +484,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rmagick (2.15.0)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -548,13 +571,16 @@ DEPENDENCIES
   airborne
   better_errors
   bson
+  carrierwave-mongoid
   codeclimate-test-reporter
+  coffee-rails
   database_cleaner
   devise
   dotenv-rails
   factory_girl_rails
   faker
   fog
+  fog-aws
   gibbon
   grape (= 0.9.0)
   grape-active_model_serializers
@@ -572,6 +598,7 @@ DEPENDENCIES
   mongoid-rspec
   mongoid-serializer
   mongoid-tree
+  nested_form_fields
   newrelic-grape
   newrelic_moped (~> 0)
   newrelic_rpm (~> 3.8)
@@ -591,6 +618,7 @@ DEPENDENCIES
   rack-ssl-enforcer
   rails
   rails_12factor
+  rmagick
   rspec-rails
   sass-rails (~> 5.0)
   sitemap_generator

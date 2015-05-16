@@ -1,4 +1,4 @@
-a.new-post {
+a.new {
   @include button($olive);
   .plus {
     border-radius: 50%;
@@ -12,8 +12,8 @@ a.new-post {
     width: 22px;
   }
 }
-.posts {
-  .post {
+.posts, .quizzes {
+  .post, .quiz {
     margin-bottom: 2px;
     padding: 10px;
     &:nth-child(odd) {
@@ -25,5 +25,11 @@ a.new-post {
   }
   .title {
     min-width: 50%;
+  }
+  .state, .actions a {
+    width: 100px;
+  }
+  .actions a {
+    margin-right: 10px;
   }
 }

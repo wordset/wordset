@@ -21,6 +21,13 @@ h1 {
   font-weight: 300;
 }
 
+
+input, textarea {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
 .content {
   padding: 10px 50px;
   @include media-max-width($break) {
@@ -28,7 +35,16 @@ h1 {
   }
 }
 
+.notice {
+  background: $olive;
+  color: $white;
+  padding: 5px 10px;
+  text-align: center;
+}
+
 @import "header";
 @import "dashboard";
+@import "form";
 @import "posts-index";
 @import "post-edit";
+@import "quiz-edit";
