@@ -7,7 +7,7 @@ if Rails.env.test? || Rails.env.cucumber?
 elsif Rails.env.production?
   CarrierWave.configure do |config|
     config.storage = :fog
-    config.fog_provider = 'fog/aws'                        # required
+    #config.fog_provider = 'fog/aws'                        # required
     config.fog_credentials = {
       provider:               'AWS',
       aws_access_key_id:      ENV["AWS_ACCESS_KEY_ID"],                        # required
@@ -15,6 +15,7 @@ elsif Rails.env.production?
     }
     config.fog_directory = "wordset-#{Rails.env}"
     config.asset_host = "https://data.wordset.org"
+    config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}
   end
 else
   CarrierWave.configure do |config|

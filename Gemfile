@@ -32,7 +32,6 @@ gem 'pusher'
 gem 'fog'
 gem 'sitemap_generator'
 
-gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'carrierwave-mongoid'
 gem 'rmagick'
 
