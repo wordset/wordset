@@ -33,6 +33,7 @@ gem 'fog'
 gem 'sitemap_generator'
 
 gem 'fog-aws'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem 'carrierwave-mongoid'
 gem 'rmagick'
 
