@@ -34,6 +34,7 @@ class Proposal
   after_create :vote_on_it!
   after_create :create_initial_activity!
 
+<<<<<<< HEAD
   badge :proposer do
     base_levels [1, 5, 10, 25]
     on :after_save
@@ -42,6 +43,8 @@ class Proposal
     end
   end
 
+=======
+>>>>>>> Revert "So, that's voter badges!"
 
   validates :user,
             :associated => true
