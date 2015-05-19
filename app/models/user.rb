@@ -10,7 +10,6 @@ class User
   has_many :activities
   has_many :notifications
   has_many :identities
-  embeds_many :badges, as: :badgeable
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable

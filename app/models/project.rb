@@ -12,7 +12,6 @@ class Project
   field :pending_targets_count, type: Integer
   field :fixed_targets_count, type: Integer
   field :percentage_complete, type: Integer
-  
 
   def self.create_parans_project
     proj = Project.create(name: "Parantheses Roundup", description: "Getting rid of parantheses in definitions.")

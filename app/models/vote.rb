@@ -1,7 +1,6 @@
 class Vote
   include Mongoid::Document
   include Mongoid::Timestamps
-  include Badger
 
   belongs_to :user
   index({user_id: 1})
@@ -51,9 +50,6 @@ class Vote
   validate  :check_proposal_open,
             on: :create
 
-  badge :voter do
-    base_levels [1, 10, 50, 100]
-  end
 
   def nay?
     !is_yae
