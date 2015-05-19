@@ -33,6 +33,14 @@ class Proposal
   after_create :vote_on_it!
   after_create :create_initial_activity!
 
+  badge :proposer do
+    base_levels [1, 5, 10, 25]
+    on :after_save
+    value do |model|
+      model.user.proposals.closed.count
+    end
+  end
+
 
   validates :user,
             :associated => true
