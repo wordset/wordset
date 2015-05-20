@@ -11,5 +11,7 @@ class QuizQuestion
   field :text, type: String
   validates :text, presence: true
   field :image_url, type: String
+  field :image_link, type: String
+  field :image_citation, type: String
 
 end

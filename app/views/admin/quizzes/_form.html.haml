@@ -29,6 +29,10 @@
     - if ff.object.image
       %img{src: ff.object.image_url}
     = ff.file_field :image
+    = ff.label :text, "Image Creator"
+    = ff.text_field :image_citation
+    = ff.label :text, "Image Link"
+    = ff.text_field :image_link
     = ff.hidden_field :image_cache
   = f.add_nested_fields_link :quiz_results, "+ Add Result"
 
@@ -42,6 +46,10 @@
     - if ff.object.image
       %img{src: ff.object.image_url}
     = ff.file_field :image
+    = ff.label :text, "Image Creator"
+    = ff.text_field :image_citation
+    = ff.label :text, "Image Link"
+    = ff.text_field :image_link
     = ff.hidden_field :image_cache
     = ff.nested_fields_for :quiz_answers do |fff|
       = fff.remove_nested_fields_link "×"

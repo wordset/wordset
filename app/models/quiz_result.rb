@@ -10,5 +10,7 @@ class QuizResult
   validates :name, presence: true
   field :image_url, type: String
   field :description, type: String
+  field :image_link, type: String
+  field :image_citation, type: String
 
 end
