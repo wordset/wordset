@@ -12,6 +12,10 @@
   - if f.object.image
     %img{src: f.object.image_url}
   = f.file_field :image
+  = f.label :text, "Image Creator"
+  = f.text_field :image_citation
+  = f.label :text, "Image Link"
+  = f.text_field :image_link
   = f.hidden_field :image_cache
 
   %label{for: "quiz_instructions"} Quiz Instructions

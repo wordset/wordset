@@ -15,6 +15,9 @@ class Quiz
   embeds_many :quiz_results, cascade_callbacks: true
 
   mount_uploader :image, ImageUploader
+  field :image_link, type: String
+  field :image_citation, type: String
+
 
   accepts_nested_attributes_for :quiz_questions, allow_destroy: true
   accepts_nested_attributes_for :quiz_results, allow_destroy: true
