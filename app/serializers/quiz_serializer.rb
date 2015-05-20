@@ -1,5 +1,5 @@
 class QuizSerializer < ActiveModel::Serializer
-  attributes :id, :title, :image_url, :instructions
+  attributes :id, :title, :image_url, :instructions, :image_citation, :image_link
 
   def id
     object.slug
@@ -26,11 +26,13 @@ class QuizSerializer < ActiveModel::Serializer
       {text: question.text,
        image_url: question.image.url,
        answers: answers,
+       image_link: question.image_link,
+       image_citation: question.image_citation,
        qid: qid}
     end
     h['results'] = {}
     object.quiz_results.each do |result|
-      h['results'][result.id.to_s] = {name: result.name, image_url: result.image.url, description: result.description}
+      h['results'][result.id.to_s] = {name: result.name, image_url: result.image.url, description: result.description, image_link: result.image_link, image_citation: result.image_citation}
     end
     h
   end
