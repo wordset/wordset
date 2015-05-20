@@ -48,6 +48,7 @@ gem 'coffee-rails'
 gem 'newrelic_rpm', '~> 3.8'
 gem 'newrelic-grape'
 gem 'newrelic_moped', '~> 0'
+gem 'grape-appsignal', github: "madglory/grape-appsignal"
 
 gem "rack-cors", require: "rack/cors"
 gem 'gravtastic'
