@@ -148,14 +148,10 @@ module TrustLevel
     level = calculate_trust_level
     min_trust = LEVELS[current_level][:min_trust]
     difference = compare_levels(level, current_level)
-    #puts "DIFFERENCe #{difference}"
     if difference > 0
-      puts "Promote #{self.id}"
       self.promote!
     elsif difference < 0
       if min_trust && ((min_trust - self.trust_points) >= DEMOTE_AFTER)
-        #binding.pry
-        puts "Demote #{self.id}"
         self.demote!
       end
     end
