@@ -8,12 +8,12 @@ module TrustLevel
     banned: {
       name: "Banned",
       vote_value: 0,
-      min_trust: -10_000,
+      min_trust: false,
     },
     fresh_face: {
       name: "Fresh Face",
       vote_value: 1,
-      min_trust: -200,
+      min_trust: 0,
       initial: true
     },
     junior_contributor: {
@@ -134,32 +134,35 @@ module TrustLevel
   def calculate_trust_level
     return :admin if admin?
     level = nil
-    LEVELS.select do |name, data|
-      if data[:min_trust] && data[:min_trust] > self.trust_points
-        return level || name
-      else
-        level = name
+    LEVELS.reverse_each do |name, data|
+      if (data[:min_trust] && data[:min_trust] <= self.trust_points)
+        return name
+      end
+    end
+    :banned
+  end
+
+  def check_trust_level
+    return if admin? || aasm.current_event
+    current_level = self.aasm.current_state.to_sym || :fresh_face
+    level = calculate_trust_level
+    min_trust = LEVELS[current_level][:min_trust]
+    difference = compare_levels(level, current_level)
+    #puts "DIFFERENCe #{difference}"
+    if difference > 0
+      puts "Promote #{self.id}"
+      self.promote!
+    elsif difference < 0
+      if min_trust && ((min_trust - self.trust_points) >= DEMOTE_AFTER)
+        #binding.pry
+        puts "Demote #{self.id}"
+        self.demote!
       end
     end
   end
 
-  def check_trust_level
-    return if admin?
-    current_level = self.trust_level.to_sym || :fresh_face
-    level = calculate_trust_level
-    min_trust = LEVELS[level][:min_trust]
-    difference = compare_levels(level, current_level)
-    if difference > 0
-      #puts "Promote #{self.id}"
-      self.promote!
-    elsif difference < 0 && (min_trust - self.trust_points) > DEMOTE_AFTER
-      #puts "Demote #{self.id}"
-      self.demote!
-    end
-  end
-
   def compare_levels(new_level, old_level)
-    LEVELS[new_level][:min_trust] - LEVELS[old_level][:min_trust]
+    (LEVELS[new_level][:min_trust] || - 1_000_000) - (LEVELS[old_level][:min_trust] || - 1_000_000)
   end
 
   def legacy_level

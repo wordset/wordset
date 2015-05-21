@@ -43,7 +43,27 @@ RSpec.describe User, type: :model do
       end
       expect(@user.trust_level_name).to eq("Junior Contributor")
       activity_classes = @user.activities.map &:class
-      expect(activity_classes).to include(UserPromotionActivity)
+      expect(activity_classes.count(UserPromotionActivity)).to eq(1)
+
+      # now, let's be a little wrong... but within the bounds
+      # of how often we can be wrong!
+      20.times do
+        @proposal = create(:open_proposal)
+        starting_trust = @user.trust_points
+        vote_as_user!(@user, true, true) #yae
+        @proposal.reject!
+        expect(@proposal.rejected?).to eq(true)
+        expect(@user.trust_level_name).to eq("Junior Contributor")
+        expect(@user.trust_points).to be < starting_trust
+      end
+      @proposal = create(:open_proposal)
+      starting_trust = @user.trust_points
+      vote_as_user!(@user, true, true) #yae
+      @proposal.reject!
+      expect(@proposal.rejected?).to eq(true)
+      expect(@user.trust_level_name).to_not eq("Junior Contributor")
+      expect(@user.trust_points).to be < starting_trust
+      # get demoted :(
     end
   end
 
