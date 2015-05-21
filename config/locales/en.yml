@@ -20,4 +20,16 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  badges:
+    voter:
+      name: "I Voted"
+      description: "Based on the number of votes you've cast"
+    contributions:
+      name: "The Great Contributor"
+      description: "Based on the number of proposal's you've had accepted"
+    chatty:
+      name: "Chatty Chat"
+      description: "Based on number of things you've said in chat"
+    linker:
+      name: "Linker"
+      description: "You posted a link to the chat room"

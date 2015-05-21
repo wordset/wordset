@@ -24,6 +24,12 @@ class ActivitySerializer < ActiveModel::Serializer
       h["comment"] = object.comment
     elsif object.is_a? UserPromotionActivity
       h["new_level"] = object.new_level
+    elsif object.is_a? UserBadgeActivity
+      h["badge"] =  {
+        level: object.level,
+        name: object.name,
+        subject: object.subject
+      }
     end
     h
   end
