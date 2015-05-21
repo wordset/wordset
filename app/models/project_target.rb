@@ -18,9 +18,14 @@ class ProjectTarget
     state :todo
     state :pending
     state :fixed
+    state :invalid
 
     event :open_proposal do
       transitions from: :todo, to: :pending
+    end
+
+    event :meaning_deleted do |variable|
+      transitions from: :todo, to: :invalid
     end
 
     event :complete do

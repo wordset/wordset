@@ -20,6 +20,11 @@ class Meaning
     if meaning.wordset.meanings.count == 0
       meaning.wordset.remove!
     end
+    # Make sure we invalidate our targets
+    project_targets.each do |target|
+      target.meaning_deleted!
+    end
+
   end
 
   def wordset_id
