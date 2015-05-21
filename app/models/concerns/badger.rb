@@ -41,9 +41,6 @@ module Badger
         model.user.send(@klass_table).count
       end
       instance_eval(&block)
-      if @display_name.nil?
-        raise "Must configure display name"
-      end
 
       config = self
       @klass.send(@event_name, Proc.new do
@@ -55,8 +52,6 @@ module Badger
     end
 
     def create_badge(model, level = 1)
-      puts model.inspect
-      puts level.inspect
       target = @target_block.call(model)
       badge = target.badges.where(name: @name, subject: @klass_table).first
       if badge
@@ -65,7 +60,6 @@ module Badger
           badge.notify!
         end
       else
-        puts "CERATING"
         badge = target.badges.create(name: @name, subject: @klass_table, level: level)
         badge.notify!
       end
@@ -78,10 +72,10 @@ module Badger
         end
       else
         value = @value_block.call(model)
-        level = (@base_levels.index do |level_value|
+        level = @base_levels.rindex do |level_value|
           value >= level_value
-        end) + 1
-        create_badge(model, level)
+        end
+        create_badge(model, level + 1) if level
       end
     end
 
@@ -92,10 +86,6 @@ module Badger
       if block
         @target_block = block
       end
-    end
-
-    def display_name(name)
-      @display_name = name
     end
 
     def on(event_name)

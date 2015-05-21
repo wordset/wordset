@@ -2,6 +2,7 @@ class Proposal
   include Mongoid::Document
   include Mongoid::Timestamps
   include AASM
+  include Badger
 
   belongs_to :wordset
   belongs_to :user
@@ -37,7 +38,7 @@ class Proposal
     base_levels [1, 5, 10, 25]
     on :after_save
     value do |model|
-      model.user.proposals.closed.count
+      model.user.proposals.where(state: "approved").count
     end
   end
 
