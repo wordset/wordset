@@ -6,6 +6,8 @@ class Project
 
   field :name, type: String
   field :description, type: String
+  field :long_description, type: String
+  field :rules, type: String
   field :start_at, type: Time
 
   field :total_targets_count, type: Integer
