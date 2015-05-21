@@ -27,8 +27,7 @@ class ActivitySerializer < ActiveModel::Serializer
     elsif object.is_a? UserBadgeActivity
       h["badge"] =  {
         level: object.level,
-        name: object.name,
-        subject: object.subject
+        display_name: I18n.t("badges.#{object.name}.name")
       }
     end
     h
