@@ -62,6 +62,7 @@ RSpec.describe User, type: :model do
       @proposal.reject!
       expect(@proposal.rejected?).to eq(true)
       @user = User.find(@user.id)
+      @user.save
       expect(@user.trust_level_name).to_not eq("Junior Contributor")
       expect(@user.trust_points).to be < starting_trust
       # get demoted :(
