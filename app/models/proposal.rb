@@ -38,7 +38,7 @@ class Proposal
     base_levels [1, 5, 10, 25]
     on :after_save
     value do |model|
-      model.user.proposals.where(state: "approved").count
+      model.user.proposals.where(state: "accepted").count
     end
   end
 

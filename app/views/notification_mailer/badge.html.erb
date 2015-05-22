@@ -1,0 +1,14 @@
+<h1>WHO GOT A BADGE? YOU DID!</h1>
+
+<p>
+  You seem to be unstoppable these days! You got *another* badge.
+</p>
+
+<h3><%= @activity.badge_full_name %></h3>
+
+<img src=<%= ui_link("assets/images/badges/" + @activity.badge_image) %> />
+
+<p>You got it <%= @activity.badge_description.downcase %></p>
+
+<p>Our little <%= @user.username %> is growing up so fast... it seems like just
+yesterday you signed up.</p>

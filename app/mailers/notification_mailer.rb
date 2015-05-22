@@ -49,6 +49,11 @@ class NotificationMailer < ApplicationMailer
       mail(to: @user.email,
            subject: "#{@activity.user.username} commented on your #{@word_name} proposal",
            template_name: "comment")
+    when UserBadgeActivity
+      @badge = @activity.name
+      mail(to: @user.email,
+           subject: "You just got the #{@activity.badge_full_name} Badge!!!!",
+           template_name: "badge")
     end
 
   end

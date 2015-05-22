@@ -9,6 +9,7 @@ class NotificationMailerPreview < ActionMailer::Preview
     @activities = [
       ProposalClosedActivity.where(final_state: "accepted").last,
       ProposalClosedActivity.where(final_state: "rejected").last,
+      UserBadgeActivity.last,
       ProposalCommentActivity.last,
       EditProposalActivity.last,
       NewProposalActivity.last,

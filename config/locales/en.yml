@@ -24,7 +24,7 @@ en:
     voter:
       name: "I Voted"
       description: "Based on the number of votes you've cast"
-    contributions:
+    proposer:
       name: "The Great Contributor"
       description: "Based on the number of proposal's you've had accepted"
     chatty:

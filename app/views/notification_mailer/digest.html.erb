@@ -21,6 +21,11 @@
     <a href="<% ui_link("proposal/#{proposal.id}") %>" style="background: #F3F3F3;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none; width: 100%;">
       <%= activity.user.username%> commented on your proposal for <span style="font-weight: 600;"><%= word_name %></span>.
     </a>
-    
+  <% elsif activity.is_a? UserBadgeActivity %>
+    <a href="<%= ui_link("user/#{activity.user.username}") %>" style="background: #eaf0eb;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none; width: 100%;">
+
+      <img src="<%= ui_link("assets/images/badges/#{activity.badge_image}") %>" style="height: 30px; width: 30px;" />
+      You got the badge: <%= activity.badge_display_name %>!
+    </a>
   <% end %>
 <% end %>
