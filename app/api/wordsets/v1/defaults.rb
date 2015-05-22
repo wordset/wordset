@@ -9,9 +9,9 @@ module Wordsets
         format :json
         formatter :json, Grape::Formatter::ActiveModelSerializers
 
-        before do
-          authenticate
-        end
+        #before do
+        #  authenticate
+        #end
 
         helpers do
           def permitted_params
