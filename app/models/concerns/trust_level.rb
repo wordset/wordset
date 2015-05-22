@@ -146,6 +146,10 @@ module TrustLevel
     return if admin? || aasm.current_event
     current_level = self.aasm.current_state.to_sym || :fresh_face
     level = calculate_trust_level
+    # There is a weird edgecase where we actually are already promoted, but this model is unaware
+    # So, check the db before we do anything
+    return if User.where(id: self.id, trust_level: level).any?
+
     min_trust = LEVELS[current_level][:min_trust]
     difference = compare_levels(level, current_level)
     if difference > 0
