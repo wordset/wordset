@@ -27,7 +27,7 @@ module Badger
       @name = name
 
       @event_name = :after_create
-      @base_levels = [1]
+      @base_levels = []
 
       @target_method = :user
       @target_block = Proc.new do |model|
@@ -51,18 +51,20 @@ module Badger
       @@directory[klass] << self
     end
 
-    def create_badge(model, level = 1)
+    def create_badge(model, level = nil)
       target = @target_block.call(model)
       badge = target.badges.where(name: @name, subject: @klass_table).first
-      if badge
-        if level > badge.level
-          badge.update_attributes(level: level)
-          badge.notify!
-        end
-      else
-        badge = target.badges.create(name: @name, subject: @klass_table, level: level)
+      if badge && badge.has_levels? && (level > badge.level)
+        badge.update_attributes(level: level)
+        badge.notify!
+      elsif badge.nil?
+        badge = target.badges.create(name: @name, subject: @klass_table, level: level, has_levels: self.has_levels?)
         badge.notify!
       end
+    end
+
+    def has_levels?
+      @base_levels.any?
     end
 
     def badge_check(model)

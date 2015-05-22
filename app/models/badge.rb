@@ -5,6 +5,7 @@ class Badge
   field :name, type: String
   field :subject, type: String
   field :level, type: Integer
+  field :has_levels, type: Integer
   has_one :user_badge_activity, dependent: :destroy
   embedded_in :badgeable, polymorphic: true
 
