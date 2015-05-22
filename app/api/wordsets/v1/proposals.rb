@@ -50,7 +50,7 @@ module Wordsets
 
           proposal = Proposal.open.
                       not.in(vote_user_ids: current_user.id).
-                      order(points: 1).first
+                      order(points: 1).where(:id.ne => params[:proposal_id]).first
           if proposal.nil?
             render "No more proposals to vote on", status: "404"
           else
