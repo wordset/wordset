@@ -4,7 +4,7 @@ class UserBadgeActivity < Activity
   field :name
   field :subject
 
-  #after_create :email_user!
+  after_create :notify_user!
 
   #def email_user!
   #  NotificationMailer.badged(self).deliver_now
