@@ -35,7 +35,7 @@ class Proposal
   after_create :create_initial_activity!
 
   badge :proposer do
-    base_levels [1, 5, 10, 25]
+    base_levels [1, 5, 10, 25, 50]
     on :after_save
     value do |model|
       model.user.proposals.where(state: "accepted").count
