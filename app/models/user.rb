@@ -93,7 +93,6 @@ class User
   end
 
   def voted_proposal_ids
-    #Mongoid::Sessions.default[:votes].find(user_id: current_user.id).select(proposal_id: 1).to_a
     self.votes.where(usurped: false).map &:proposal_id
   end
 
@@ -102,7 +101,7 @@ class User
   end
 
   def add_to_mailchimp
-    if Rails.env == "production" && email_opt_in_at
+    if Rails.env.production? && email_opt_in_at
       Mailchimp.lists.subscribe({id: WordsetListId, email: {email: self.email}, :double_optin => false})
     end
   end
