@@ -10,6 +10,10 @@ class Message
 
   field :text, type: String
 
+  badge do
+    base_levels [1, 5, 25, 50, 100]
+  end
+
   def self.parse(user, input, options = {})
     message = Message.new(user: user)
     args = input.split(" ")
