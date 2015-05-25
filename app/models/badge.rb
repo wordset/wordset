@@ -33,7 +33,7 @@ class Badge
   end
 
   def image
-    "#{self.slug}.svg"
+    "#{self.slug}.png"
   end
 
   def slug
