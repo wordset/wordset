@@ -23,9 +23,8 @@ module MeaningProposalLike
       on :after_proposal_committed
       subject_name :proposals
       condition do |model|
-        if model.user
-          british_label = Label.where(name: "British").first
-          model.labels.where(id: british_label.id).any?
+        if model.user && model.respond_to?(:labels)
+          model.labels.where(id: Label.where(name: "British").first.try(:id)).any?
         else
           false
         end
@@ -36,9 +35,8 @@ module MeaningProposalLike
       on :after_proposal_committed
       subject_name :proposals
       condition do |model|
-        if model.user
-          label = Label.where(name: "American").first
-          model.labels.where(id: label.id).any?
+        if model.user && model.respond_to?(:labels)
+          model.labels.where(id: Label.where(name: "American").first.try(:id)).any?
         else
           false
         end

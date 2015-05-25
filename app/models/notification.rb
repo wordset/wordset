@@ -74,7 +74,6 @@ class Notification
   end
 
   def send_push_notification
-    puts "SENT NOTICE"
     Pusher[user.username + '_channel'].trigger('notify', self.to_json)
   end
 
