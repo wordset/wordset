@@ -12,9 +12,11 @@ class Meaning
   has_many :proposals, inverse_of: :meaning, class_name: "ProposeMeaningChange"
   has_many :project_targets
 
+  index({removed_at: 1})
   index({removed_at: 1, "_id": 1})
   index({entry_id: 1})
   index({removed_at: 1, wordset_id: 1})
+  index({removed_at: 1, created_at: 1})
 
   set_callback :remove, :after do |meaning|
     if meaning.wordset.meanings.count == 0

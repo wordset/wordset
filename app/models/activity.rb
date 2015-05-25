@@ -8,7 +8,7 @@ class Activity
 
   has_many :notifications
 
-  index({type: 1})
+  index({_type: 1})
 
   index({created_at: -1})
 
