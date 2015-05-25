@@ -51,7 +51,7 @@ class Vote
   validate  :check_proposal_open,
             on: :create
 
-  badge :voter do
+  badge do
     base_levels [1, 10, 50, 100, 250]
   end
 

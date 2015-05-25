@@ -34,7 +34,7 @@ class Proposal
   after_create :vote_on_it!
   after_create :create_initial_activity!
 
-  badge :proposer do
+  badge do
     base_levels [1, 5, 10, 25, 50]
     on :after_save
     value do |model|
@@ -101,10 +101,17 @@ class Proposal
       commit!
       create_final_activity!
       if user
+        if project
+          give_project_badge!
+        end
         user.recalculate_points!
         user.save
       end
     end
+  end
+
+  def give_project_badge!
+    user.badges.find_or_create_by(project: project, subject: "projects", name: project.slug)
   end
 
   # Call this if the user just did an edit and

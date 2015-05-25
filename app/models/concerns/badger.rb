@@ -6,8 +6,13 @@ module Badger
   end
 
   class_methods do
-    def badge(name, &block)
-      badges[name.to_sym] = Configuration.new(name, self, block)
+    def badge(name = "count", &block)
+      subject = self.to_s.underscore.pluralize
+      key = "#{subject}/#{name}"
+      if badges[key]
+        throw "Must be unique badge name"
+      end
+      badges[key] = Configuration.new(name, subject, self, block)
     end
 
     def badges
@@ -21,10 +26,11 @@ module Badger
       @@directory
     end
 
-    def initialize(name, klass, block)
+    def initialize(name, subject, klass, block)
       @klass = klass
       @klass_table = @klass.to_s.underscore.pluralize
-      @name = name
+      @subject = subject
+      @name = name.to_s
 
       @event_name = :after_create
       @base_levels = []

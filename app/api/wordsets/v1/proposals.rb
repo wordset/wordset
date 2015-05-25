@@ -123,7 +123,10 @@ module Wordsets
             meaning = Meaning.find(d[:meaning_id])
             prop.meaning = meaning
 
-            prop.project_id = d[:project_id]
+            if d[:project_id]
+              prop.project = Project.where(slug: d[:project_id]).first || Project.find(d[:project_id])
+            end
+
             if prop.save
               meaning.open_proposal = prop
             end
