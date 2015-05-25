@@ -14,10 +14,10 @@ SitemapGenerator::Sitemap.create do
     add '/post/#{post.slug}', :priority => 1.0, :changefreq => 'weekly'
   end
 
-  #add '/users', :priority => 0.5, :changefreq => 'daily'
-  #add '/proposals', :priority => 0.3, :changefreq => 'hourly'
+  add '/users', :priority => 0.5, :changefreq => 'daily'
+  add '/proposals', :priority => 0.3, :changefreq => 'hourly'
 
-  #User.each do |user|
-  #  add '/user/#{user.username}', :priority => 0.0, :lastmod => user.updated_at
-  #end
+  User.each do |user|
+    add '/user/#{user.username}', :priority => 0.0, :lastmod => user.updated_at
+  end
 end
