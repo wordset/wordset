@@ -16,4 +16,12 @@ class Badge
                                     subject: self.subject)
 
   end
+
+  def to_data
+    {name: self.name,
+     display_name: I18n.t("badges.#{self.name}.name"),
+     description: I18n.t("badges.#{self.name}.description"),
+     level: self.level,
+     subject: self.subject}
+  end
 end

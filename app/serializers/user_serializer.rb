@@ -14,13 +14,7 @@ class UserSerializer < BaseSerializer
   end
 
   def badges
-    object.badges.map do |badge|
-      {name: badge.name,
-       display_name: I18n.t("badges.#{badge.name}.name"),
-       description: I18n.t("badges.#{badge.name}.description"),
-       level: badge.level,
-       subject: badge.subject}
-    end
+    object.badges.map &:to_data
   end
 
 end

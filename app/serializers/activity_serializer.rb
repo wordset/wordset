@@ -25,10 +25,7 @@ class ActivitySerializer < ActiveModel::Serializer
     elsif object.is_a? UserPromotionActivity
       h["new_level"] = object.new_level
     elsif object.is_a? UserBadgeActivity
-      h["badge"] =  {
-        level: object.level,
-        display_name: object.badge_display_name
-      }
+      h["badge"] =  object.user.badges.where(id: object.badge_id).first.to_data
     end
     h
   end
