@@ -18,6 +18,32 @@ module MeaningProposalLike
 
     base.index({meaning_id: 1})
     base.index({_type: 1, meaning_id: 1})
+
+    base.badge :british_label do
+      on :after_proposal_committed
+      subject_name :proposals
+      condition do |model|
+        if model.user
+          british_label = Label.where(name: "British").first
+          model.labels.where(id: british_label.id).any?
+        else
+          false
+        end
+      end
+    end
+
+    base.badge :american_label do
+      on :after_proposal_committed
+      subject_name :proposals
+      condition do |model|
+        if model.user
+          label = Label.where(name: "American").first
+          model.labels.where(id: label.id).any?
+        else
+          false
+        end
+      end
+    end
   end
 
   def set_before_create

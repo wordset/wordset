@@ -12,6 +12,8 @@ class Proposal
   has_many :votes,
             dependent: :destroy
 
+  define_model_callbacks :proposal_committed
+
   field :state, type: String, as: "s"
   field :reason, type: String, as: "r"
   field :wordnet, type: Boolean, default: false, as: "wn"
@@ -36,7 +38,7 @@ class Proposal
 
   badge do
     base_levels [1, 5, 10, 25, 50]
-    on :after_save
+    on :after_proposal_committed
     value do |model|
       model.user.proposals.where(state: "accepted").count
     end
@@ -98,14 +100,17 @@ class Proposal
 
   def commit_proposal!
     if valid?
-      commit!
-      create_final_activity!
-      if user
-        if project
-          give_project_badge!
+      run_callbacks :proposal_committed do
+        commit!
+        create_final_activity!
+        if user
+
+          if project
+            give_project_badge!
+          end
+          user.recalculate_points!
+          user.save
         end
-        user.recalculate_points!
-        user.save
       end
     end
   end

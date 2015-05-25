@@ -7,12 +7,12 @@ module Badger
 
   class_methods do
     def badge(name = "count", &block)
-      subject = self.to_s.underscore.pluralize
-      key = "#{subject}/#{name}"
+      subject_name = self.to_s.underscore.pluralize
+      key = "#{subject_name}/#{name}"
       if badges[key]
         throw "Must be unique badge name"
       end
-      badges[key] = Configuration.new(name, subject, self, block)
+      badges[key] = Configuration.new(name, subject_name, self, block)
     end
 
     def badges
@@ -26,10 +26,10 @@ module Badger
       @@directory
     end
 
-    def initialize(name, subject, klass, block)
+    def initialize(name, subject_name, klass, block)
       @klass = klass
       @klass_table = @klass.to_s.underscore.pluralize
-      @subject = subject
+      @subject_name = subject_name
       @name = name.to_s
 
       @event_name = :after_create
@@ -59,14 +59,18 @@ module Badger
 
     def create_badge(model, level = nil)
       target = @target_block.call(model)
-      badge = target.badges.where(name: @name, subject: @klass_table).first
+      badge = target.badges.where(name: @name, subject: @subject_name).first
       if badge && badge.has_levels? && (level > badge.level)
         badge.update_attributes(level: level)
         badge.notify!
       elsif badge.nil?
-        badge = target.badges.create(name: @name, subject: @klass_table, level: level, has_levels: self.has_levels?)
+        badge = target.badges.create(name: @name, subject: @subject_name, level: level, has_levels: self.has_levels?)
         badge.notify!
       end
+    end
+
+    def subject_name(name)
+      @subject_name = name
     end
 
     def has_levels?
@@ -102,6 +106,10 @@ module Badger
 
     def value(&block)
       @value_block = block
+    end
+
+    def condition(&block)
+      @condition_block = block
     end
 
     def base_levels(levels)

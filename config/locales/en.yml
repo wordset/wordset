@@ -29,6 +29,12 @@ en:
       count:
         name: "The Great Contributor"
         description: "Based on the number of proposal's you've had accepted"
+      american_label:
+        name: "NAFTA Member"
+        description: "You added the 'American' label"
+      british_label:
+        name: "Rule Britannia"
+        description: "You tagged something as 'British'"
     messages:
       count:
         name: "Chatty Chat"
