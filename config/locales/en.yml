@@ -67,7 +67,7 @@ en:
         name: "Linker"
         description: "You posted a link to the chat room"
     projects:
-      proper-noun:
+      proper-nouns:
         name: "Proper Noun Purge"
         description: "The first major project at Wordset, and you were part of it!"
       parentheses:
