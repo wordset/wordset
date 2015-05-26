@@ -10,7 +10,10 @@ class NotificationMailer < ApplicationMailer
   end
 
   def digest(user, notifications)
-    @notifications = notifications
+    @notifications = (notifications.to_a.sort_by do |notification|
+      puts notification.activity.digest_importance
+      notification.activity.digest_importance
+    end)
     @user = user
     @proposal = Proposal.last
     @word_name = @proposal.word_name

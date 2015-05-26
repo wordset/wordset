@@ -10,6 +10,10 @@ class UserBadgeActivity < Activity
   #  NotificationMailer.badged(self).deliver_now
   #end
 
+  def digest_importance
+    2
+  end
+
   # badge :fast_riser do
   #   on :create
   #   condition do |model|

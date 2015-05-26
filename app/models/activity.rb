@@ -20,6 +20,12 @@ class Activity
      'push', self.serializer.to_json)
   end
 
+  # This method is used to calculate the weight of the activity
+  # when doing a digest. Lower numbers are better.
+  def digest_importance
+    5
+  end
+
   def serializer
     ActivitySerializer.new(self)
   end
