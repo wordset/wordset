@@ -45,9 +45,7 @@ gem 'haml'
 gem 'jquery-rails'
 gem 'coffee-rails'
 
-gem 'newrelic_rpm', '~> 3.8'
-gem 'newrelic-grape'
-gem 'newrelic_moped', '~> 0'
+gem 'newrelic_rpm'
 gem 'grape-appsignal', github: "madglory/grape-appsignal"
 
 gem "rack-cors", require: "rack/cors"
