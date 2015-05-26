@@ -20,10 +20,10 @@
       <%= activity.user.username%> commented on your proposal for <span style="font-weight: 600;"><%= word_name %></span>.
     </a>
   <% elsif activity.is_a? UserBadgeActivity %>
-    <a href="<%= ui_link("user/#{activity.user.username}") %>" style="background: #eaf0eb;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none; width: 100%;">
+    <a href="<%= ui_link("user/#{activity.user.username}") %>" style="background: #e3f0f0;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px 10px 4px; text-decoration: none; width: 100%; ">
 
-      <img src="<%= ui_link("assets/images/badges/#{activity.badge.image}") %>" style="height: 30px; width: 30px;" />
-      You got the badge: <%= activity.badge.full_name %>!
+      <img src="<%= ui_link("assets/images/badges/#{activity.badge.image}") %>" style="height: 30px; margin-right: 5px; width: 30px;" />
+      <div style="display: inline-block; vertical-align: 0.6em;">You got the badge: <%= activity.badge.full_name %>!</div>
     </a>
   <% end %>
 <% end %>
