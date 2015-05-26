@@ -6,7 +6,7 @@
 
 <h3><%= @badge.full_name %></h3>
 
-<img src=<%= ui_link("assets/images/badges/" + @badge.image) %> />
+<img src=<%= ui_link("assets/images/badges/" + @badge.image) %> style="border-radius: 13px; box-shadow: 0px 0px 50px #daebeb; display: block; margin: auto; width: 200px;"/>
 
 <p>You got it <%= @badge.description.downcase %></p>
 
