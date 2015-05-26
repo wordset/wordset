@@ -3,8 +3,8 @@ module LabelBadges
 
   included do |base|
 
-    %w(american british).each do |name|
-      base.badge "#{name}_label" do
+    %w(american british aave australian canadian indian irish new-zealand south-african us).each do |name|
+      base.badge "#{name}-label" do
         on :after_proposal_committed
         subject_name :proposals
         condition do |model|
