@@ -29,7 +29,7 @@ module Wordsets
           origins "www.wordset.org", "wordset.org"
         end
         resource "/api/*", headers: :any, methods: [:get, :post, :put, :delete, :options]
-        resource "/auth/*", headers: :any, methods: [:post]
+        resource "/auth/*", headers: :any, methods: [:post, :get]
       end
     end
 

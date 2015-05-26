@@ -1,4 +1,5 @@
 class ProposeNewWordset< Proposal
+  include LabelBadges
   embeds_many :embed_new_word_meanings
 
   field :name, type: String
@@ -41,5 +42,10 @@ class ProposeNewWordset< Proposal
     end
   end
 
+  def has_label?(label_name)
+    embed_new_word_meanings.any? do |meaning|
+      meaning.has_label?(label_name)
+    end
+  end
 
 end

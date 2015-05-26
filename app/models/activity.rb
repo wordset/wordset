@@ -8,7 +8,7 @@ class Activity
 
   has_many :notifications
 
-  index({type: 1})
+  index({_type: 1})
 
   index({created_at: -1})
 
@@ -18,6 +18,12 @@ class Activity
   def push
     Pusher["activities"].trigger(
      'push', self.serializer.to_json)
+  end
+
+  # This method is used to calculate the weight of the activity
+  # when doing a digest. Lower numbers are better.
+  def digest_importance
+    5
   end
 
   def serializer

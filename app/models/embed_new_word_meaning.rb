@@ -15,4 +15,8 @@ class EmbedNewWordMeaning
   def wordnet?
     propose_new_wordset.wordnet?
   end
+
+  def has_label?(label_name)
+    self.labels.where(id: Label.where(name: label_name).first.try(:id)).any?
+  end
 end

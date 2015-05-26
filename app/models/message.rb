@@ -3,12 +3,17 @@ class Message
 
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Badger
 
   belongs_to :user
   index({user_id: 1, created_at: 1})
   index({created_at: -1})
 
   field :text, type: String
+
+  badge do
+    base_levels [1, 5, 25, 50, 100]
+  end
 
   def self.parse(user, input, options = {})
     message = Message.new(user: user)

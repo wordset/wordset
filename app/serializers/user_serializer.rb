@@ -1,5 +1,5 @@
 class UserSerializer < BaseSerializer
-  attributes :id, :points, :image_url, :trust_level, :created_at
+  attributes :id, :points, :image_url, :trust_level, :created_at, :badges
 
   def id
     object.username
@@ -11,6 +11,10 @@ class UserSerializer < BaseSerializer
 
   def trust_level
     object.trust_level_data[:name]
+  end
+
+  def badges
+    object.badges.map &:to_data
   end
 
 end

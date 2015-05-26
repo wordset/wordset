@@ -3,8 +3,10 @@ class Project
 
   has_many :project_targets
   has_many :proposals
+  has_many :badges
 
   field :name, type: String
+  field :slug, type: String
   field :description, type: String
   field :long_description, type: String
   field :rules, type: String
@@ -14,6 +16,11 @@ class Project
   field :pending_targets_count, type: Integer
   field :fixed_targets_count, type: Integer
   field :percentage_complete, type: Integer
+
+  validates :name, presence: true
+  validates :slug, presence: true
+
+  index({slug: 1})
 
   def self.create_parans_project
     proj = Project.create(name: "Parantheses Roundup", description: "Getting rid of parantheses in definitions.")

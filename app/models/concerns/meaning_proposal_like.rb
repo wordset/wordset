@@ -18,6 +18,8 @@ module MeaningProposalLike
 
     base.index({meaning_id: 1})
     base.index({_type: 1, meaning_id: 1})
+
+    
   end
 
   def set_before_create

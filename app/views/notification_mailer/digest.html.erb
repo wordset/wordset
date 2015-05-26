@@ -1,5 +1,3 @@
-<h1>Notification Digest</h1>
-
 <p>Since you've been away, people have been busy voting and commenting on your proposals. Here's some of the activity you may have missed.</p>
 
 <% @notifications.each do |notification| %>
@@ -21,6 +19,11 @@
     <a href="<% ui_link("proposal/#{proposal.id}") %>" style="background: #F3F3F3;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px; text-decoration: none; width: 100%;">
       <%= activity.user.username%> commented on your proposal for <span style="font-weight: 600;"><%= word_name %></span>.
     </a>
-    
+  <% elsif activity.is_a? UserBadgeActivity %>
+    <a href="<%= ui_link("user/#{activity.user.username}") %>" style="background: #e3f0f0;color: #100B00; display: inline-block; line-height: 1.4em; margin-bottom: 2px; padding: 10px 10px 4px; text-decoration: none; width: 100%; ">
+
+      <img src="<%= ui_link("assets/images/badges/#{activity.badge.image}") %>" style="height: 30px; margin-right: 5px; width: 30px;" />
+      <div style="display: inline-block; vertical-align: 0.6em;">You got the badge: <%= activity.badge.full_name %>!</div>
+    </a>
   <% end %>
 <% end %>

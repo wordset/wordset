@@ -1,6 +1,7 @@
 class ProposeMeaningChange < Proposal
   include MeaningLike #!!!!! LOOK IN MEANING LIKE!
   include MeaningProposalLike #!!!! ALSO HERE.
+  include LabelBadges
 
   def commit!
     meaning.def = self.def
