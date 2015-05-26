@@ -1,5 +1,6 @@
 class ProposeNewMeaning < Proposal
   include MeaningLike
+  include LabelBadges
 
   belongs_to :speech_part
   validates  :speech_part,

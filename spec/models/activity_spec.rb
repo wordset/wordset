@@ -6,8 +6,9 @@ describe Activity do
   end
 
   it "should create vote activity" do
-    Vote.create(proposal: @proposal, user: create(:user), yae: true)
-    a = Activity.where(proposal_id: @proposal.id).last
+    voter = create(:user)
+    Vote.create(proposal: @proposal, user: voter, yae: true)
+    a = Activity.where(proposal_id: @proposal.id, user: voter).last
     expect(a.class).to eq(VoteActivity)
   end
 

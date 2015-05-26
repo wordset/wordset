@@ -20,4 +20,29 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  badges:
+    votes:
+      count:
+        name: "I Voted"
+        description: "Based on the number of votes you've cast"
+    proposals:
+      count:
+        name: "The Great Contributor"
+        description: "Based on the number of proposal's you've had accepted"
+      american_label:
+        name: "NAFTA Member"
+        description: "You added the 'American' label"
+      british_label:
+        name: "Rule Britannia"
+        description: "You tagged something as 'British'"
+    messages:
+      count:
+        name: "Chatty Chat"
+        description: "Based on number of things you've said in chat"
+      links:
+        name: "Linker"
+        description: "You posted a link to the chat room"
+    projects:
+      parentheses:
+        name: "Parentheses Roundup"
+        description: "You helped us rid the Wordset of parentheses in meanings"

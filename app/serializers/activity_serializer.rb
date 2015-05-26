@@ -24,6 +24,8 @@ class ActivitySerializer < ActiveModel::Serializer
       h["comment"] = object.comment
     elsif object.is_a? UserPromotionActivity
       h["new_level"] = object.new_level
+    elsif object.is_a? UserBadgeActivity
+      h["badge"] =  object.user.badges.where(id: object.badge_id).first.to_data
     end
     h
   end

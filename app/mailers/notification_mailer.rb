@@ -10,7 +10,10 @@ class NotificationMailer < ApplicationMailer
   end
 
   def digest(user, notifications)
-    @notifications = notifications
+    @notifications = (notifications.to_a.sort_by do |notification|
+      puts notification.activity.digest_importance
+      notification.activity.digest_importance
+    end)
     @user = user
     @proposal = Proposal.last
     @word_name = @proposal.word_name
@@ -49,6 +52,11 @@ class NotificationMailer < ApplicationMailer
       mail(to: @user.email,
            subject: "#{@activity.user.username} commented on your #{@word_name} proposal",
            template_name: "comment")
+    when UserBadgeActivity
+      @badge = @activity.badge
+      mail(to: @user.email,
+           subject: "You just got the #{@badge.full_name} Badge!!!!",
+           template_name: "badge")
     end
 
   end

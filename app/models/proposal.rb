@@ -2,6 +2,7 @@ class Proposal
   include Mongoid::Document
   include Mongoid::Timestamps
   include AASM
+  include Badger
 
   belongs_to :wordset
   belongs_to :user
@@ -10,6 +11,8 @@ class Proposal
 
   has_many :votes,
             dependent: :destroy
+
+  define_model_callbacks :proposal_committed
 
   field :state, type: String, as: "s"
   field :reason, type: String, as: "r"
@@ -33,6 +36,13 @@ class Proposal
   after_create :vote_on_it!
   after_create :create_initial_activity!
 
+  badge do
+    base_levels [1, 5, 10, 25, 50]
+    on :after_proposal_committed
+    value do |model|
+      model.user.proposals.where(state: "accepted").count
+    end
+  end
 
   validates :user,
             :associated => true
@@ -90,13 +100,23 @@ class Proposal
 
   def commit_proposal!
     if valid?
-      commit!
-      create_final_activity!
-      if user
-        user.recalculate_points!
-        user.save
+      run_callbacks :proposal_committed do
+        commit!
+        create_final_activity!
+        if user
+
+          if project
+            give_project_badge!
+          end
+          user.recalculate_points!
+          user.save
+        end
       end
     end
+  end
+
+  def give_project_badge!
+    user.badges.find_or_create_by(project: project, subject: "projects", name: project.slug)
   end
 
   # Call this if the user just did an edit and
