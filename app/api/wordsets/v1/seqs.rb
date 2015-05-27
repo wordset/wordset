@@ -19,6 +19,12 @@ module Wordsets
             .offset(rand(Seq.count))
         end
 
+        get '/:lang.list' do
+          lang = Lang.where(code: params[:lang]).first
+          list = Seq.where(lang: lang).sort(text: 1).pluck("text").join(", ")
+          render({list: list})
+        end
+
         get '/:id' do
           Seq.lookup(params[:id])
         end
