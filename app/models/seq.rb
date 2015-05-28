@@ -18,6 +18,7 @@ class Seq
   index({wordset_id: 1, "_id": 1})
   index({wordset_id: 1})
   index({lang_id: 1, wordset_id: 1})
+  index({updated_at: 1})
 
   before_save do |d|
     d.word_length = d.text.length
