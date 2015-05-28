@@ -6,7 +6,7 @@ module Wordsets
       resource :posts do
 
         get "/", :each_serializer => PostSerializer do
-          Post.limit(3).sort({published_at: -1}).to_a
+          Post.where(state: 'published').sort({published_at: -1}).to_a
         end
 
         get ':slug' do
