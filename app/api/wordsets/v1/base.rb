@@ -18,6 +18,8 @@ module Wordsets
       mount Wordsets::V1::WordLists
       mount Wordsets::V1::WordsetsApi
 
+      Grape::Endpoint.send :include, Garner::Cache::Context
+
 
       add_swagger_documentation(
         api_version: "v1",
