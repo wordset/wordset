@@ -627,6 +627,5 @@ DEPENDENCIES
   sitemap_generator
   spring
   spring-commands-rspec
-  thin
   validate_url
   web-console (~> 2.0)
