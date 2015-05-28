@@ -12,6 +12,7 @@ gem "grape-active_model_serializers"
 gem 'grape-swagger', github: 'tim-vandecasteele/grape-swagger'
 gem 'grape-swagger-rails', github: 'BrandyMint/grape-swagger-rails'
 gem 'grape-raketasks'
+gem 'garner'
 
 gem 'rails_12factor', group: :production
 gem 'rack-ssl-enforcer'

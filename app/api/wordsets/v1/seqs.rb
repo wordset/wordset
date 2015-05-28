@@ -2,6 +2,7 @@ module Wordsets
   module V1
     class Seqs < Grape::API
       include Wordsets::V1::Defaults
+      include Garner::Cache::Context
 
       resource :seqs do
 
@@ -21,8 +22,9 @@ module Wordsets
 
         get '/:lang.list' do
           lang = Lang.where(code: params[:lang]).first
-          list = Seq.where(lang: lang).sort(text: 1).pluck("text").join(", ")
-          render({list: list})
+          garner.bind(Seq) do
+            {list: Seq.where(lang: lang).sort(text: 1).pluck("text").join(", ")}
+          end
         end
 
         get '/:id' do
