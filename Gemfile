@@ -47,6 +47,7 @@ gem 'jquery-rails'
 gem 'coffee-rails'
 
 gem 'newrelic_rpm'
+gem 'newrelic_moped'
 gem 'grape-appsignal', github: "madglory/grape-appsignal"
 
 gem "rack-cors", require: "rack/cors"
