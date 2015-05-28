@@ -4,6 +4,11 @@ module Wordsets
       include Wordsets::V1::Defaults
 
       resource :posts do
+
+        get "/", :each_serializer => PostSerializer do
+          Post.limit(3).sort({published_at: -1}).to_a
+        end
+
         get ':slug' do
           post = Post.where(slug: params[:slug], state: 'published').first
           # Treat it like an ID if it doesn't exist or isn't published
