@@ -7,7 +7,7 @@ gem 'rails'
 # Use mysql as the database for Active Record
 gem 'mongoid'
 
-gem "grape", '0.9.0'
+gem "grape"
 gem "grape-active_model_serializers"
 gem 'grape-swagger', github: 'tim-vandecasteele/grape-swagger'
 gem 'grape-swagger-rails', github: 'BrandyMint/grape-swagger-rails'

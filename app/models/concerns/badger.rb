@@ -20,6 +20,9 @@ module Badger
     end
   end
 
+  def check_for_badges
+  end
+
   class Configuration
     @@directory = {}
     def self.directory

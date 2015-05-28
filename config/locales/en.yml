@@ -29,12 +29,36 @@ en:
       count:
         name: "The Great Contributor"
         description: "Based on the number of proposal's you've had accepted"
-      american_label:
+      american-label:
         name: "NAFTA Member"
         description: "You added the 'American' label"
-      british_label:
+      british-label:
         name: "Rule Britannia"
         description: "You tagged something as 'British'"
+      aave-label:
+        name: "AAVE Represent"
+        description: "You tagged something as 'AAVE'"
+      australian-label:
+        name: "Outback"
+        description: "You tagged something as 'Australian'"
+      canadian-label:
+        name: "Good Job, Eh!"
+        description: "You tagged something as 'Canadian'"
+      indian-label:
+        name: "Chakde Phatte"
+        description: "You tagged something as 'Indian'"
+      irish-label:
+        name: "Belfast Breakdance"
+        description: "You tagged something as 'Irish'"
+      new-zealand-label:
+        name: "Middle Earth"
+        description: "You tagged something as 'New Zealand'"
+      south-african-label:
+        name: "African Spirit"
+        description: "You tagged something as 'South African'"
+      us-label:
+        name: "USA! USA!"
+        description: "You tagged something as 'US'"
     messages:
       count:
         name: "Chatty Chat"
@@ -43,6 +67,9 @@ en:
         name: "Linker"
         description: "You posted a link to the chat room"
     projects:
+      proper-nouns:
+        name: "Proper Noun Purge"
+        description: "The first major project at Wordset, and you were part of it!"
       parentheses:
         name: "Parentheses Roundup"
         description: "You helped us rid the Wordset of parentheses in meanings"
