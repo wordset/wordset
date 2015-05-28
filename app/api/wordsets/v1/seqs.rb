@@ -22,7 +22,7 @@ module Wordsets
 
         get '/:lang.list' do
           lang = Lang.where(code: params[:lang]).first
-          garner.bind(Seq) do
+          garner.options(expires_in: 1.hour).bind(Seq) do
             {list: Seq.where(lang: lang).sort(text: 1).pluck("text").join(", ")}
           end
         end
