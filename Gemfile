@@ -57,7 +57,6 @@ gem "passenger"
 
 group :production do
   gem "gibbon"
-  gem "thin"
 end
 
 group :development do
