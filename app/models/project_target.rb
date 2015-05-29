@@ -1,5 +1,6 @@
 class ProjectTarget
   include Mongoid::Document
+  include Mongoid::Timestamps
   include AASM
 
   belongs_to :project
@@ -10,22 +11,22 @@ class ProjectTarget
   index({project_id: 1, state: 1})
   index({project_id: 1, meaning_id: 1})
 
-  after_save do |target|
+  after_save(on: :update) do |target|
     target.project.recalculate_counts!
   end
 
   aasm :column => :state do
-    state :todo
+    state :todo, initial: true
     state :pending
     state :fixed
-    state :invalid
+    state :marked_invalid
 
     event :open_proposal do
       transitions from: :todo, to: :pending
     end
 
-    event :meaning_deleted do |variable|
-      transitions from: :todo, to: :invalid
+    event :meaning_deleted do
+      transitions from: :todo, to: :marked_invalid
     end
 
     event :complete do
