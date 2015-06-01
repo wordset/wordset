@@ -12,7 +12,7 @@ class LangSerializer < BaseSerializer
   end
 
   def posts_simple
-    object.posts.published.limit(3).map do |p|
+    object.posts.published.order(published_at: -1).limit(3).map do |p|
       {id: p.slug, title: p.title}
     end
   end
