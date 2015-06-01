@@ -19,7 +19,7 @@ module MeaningProposalLike
     base.index({meaning_id: 1})
     base.index({_type: 1, meaning_id: 1})
 
-    
+
   end
 
   def set_before_create
@@ -37,13 +37,13 @@ module MeaningProposalLike
   end
 
   def update_project_target
-    if project
+    if project &&  project_target.todo?
       project_target.open_proposal!
     end
   end
 
   def project_target
-    ProjectTarget.where(meaning: meaning, project: project).first
+    @project_target ||= ProjectTarget.where(meaning: meaning, project: project).first
   end
 
   def no_existing_proposal

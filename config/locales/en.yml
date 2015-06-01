@@ -73,3 +73,6 @@ en:
       parentheses:
         name: "Parentheses Roundup"
         description: "You helped us rid the Wordset of parentheses in meanings"
+      gender-neutral-project:
+        name: "Aequalitas lingua"
+        description: "You pitched into the Gender Nuetral Project and helped us clean up the sexism in Wordnet"
