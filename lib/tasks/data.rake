@@ -6,7 +6,7 @@ namespace :data do
 
   task :gendered_project => :environment do
     ProjectTarget.where(state: "invalid").update_all(state: "marked_invalid")
-    project = Project.create(name: "Sexism Purge", slug: "sexism-purge",
+    project = Project.create(name: "Gender Neutral Project", slug: "gender-neutral-project",
             description: "Remove gendered pronouns from example sentences",
             long_description: "<p>Wordset inherited a lot of example sentences that break our rules for what a good example sentence should be. Help us clear out the gendered example sentences and make Wordset the first gender neutral dictionary!</p>",
             rules: "Replace he/she/him/her/his/hers/girl/boy/man/woman with I/they/we/you/it or sentences in the passive voice.")
