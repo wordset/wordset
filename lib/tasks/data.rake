@@ -1,15 +1,14 @@
 
 namespace :data do
-  task :run => [:clean, :add_lang_to_posts]
+  task :run => [:clean, :add_lang_code]
 
   task :clean => ["db:mongoid:remove_undefined_indexes", "db:mongoid:create_indexes"]
 
-  task :add_lang_to_posts => :environment do
+  task :add_lang_code => :environment do
     lang = Lang.first
-    Project.update_all(lang_id: lang.id)
-    Post.update_all(lang_id: lang.id)
-    lang.featured_project = Project.where(slug: "gender-neutral-project").first
-    lang.save
+    [Seq, Project, Proposal, Post, Label, Message].each do |klass|
+      klass.update_all(lang_code: "en", lang_id: lang.id)
+    end
   end
 
 end

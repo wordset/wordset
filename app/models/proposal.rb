@@ -3,11 +3,11 @@ class Proposal
   include Mongoid::Timestamps
   include AASM
   include Badger
+  include BelongsToLang
 
   belongs_to :wordset
   belongs_to :user
   belongs_to :project
-  belongs_to :lang
 
   has_many :votes,
             dependent: :destroy

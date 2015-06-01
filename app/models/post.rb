@@ -2,8 +2,7 @@ class Post
   include Mongoid::Document
   include Mongoid::Timestamps
   include AASM
-
-  belongs_to :lang
+  include BelongsToLang
 
   field :title, type: String
   field :slug, type: String

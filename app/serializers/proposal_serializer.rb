@@ -2,7 +2,6 @@ class ProposalSerializer < ActiveModel::Serializer
   attributes :id, :wordset_id, :state, :created_at, :wordnet,
              :user_id, :reason, :type, :tally, :flagged, :word_name, :original, :lang_id
   has_one :user, embed_key: :to_param
-  has_one :lang, embed_key: :code
   has_many :votes
   has_many :activities, serializer: ActivitySerializer
   has_one :meaning
@@ -10,6 +9,10 @@ class ProposalSerializer < ActiveModel::Serializer
 
   def type
     object._type[7..-1]
+  end
+
+  def lang_id
+    object.lang_code
   end
 
   def meaning

@@ -3,8 +3,7 @@ class Seq
   include Mongoid::Timestamps
   include AnagramHelpers
   include Labeled
-
-  belongs_to :lang
+  include BelongsToLang
   belongs_to :wordset
   field :text, as: "t"
 
@@ -13,7 +12,7 @@ class Seq
   validate :seq_uniqueness, on: :create
 
   field :word_length, type: Integer, as: "l"
-  index({text: 1, lang_id: 1}, {unique: true})
+  index({text: 1, lang_code: 1}, {unique: true})
   index({word_length: 1})
   index({wordset_id: 1, "_id": 1})
   index({wordset_id: 1})
@@ -26,8 +25,7 @@ class Seq
 
   def self.lookup(key)
     lang_code, *text = key.split("-")
-    lang = Lang.where(code: lang_code).first
-    Seq.where(lang: lang, text: text.join("-"), :wordset_id.ne => nil).first
+    Seq.where(lang_code: lang_code, text: text.join("-"), :wordset_id.ne => nil).first
   end
 
   def seq_uniqueness
@@ -37,6 +35,6 @@ class Seq
   end
 
   def key
-    "#{lang.code}-#{text}"
+    "#{lang_code}-#{text}"
   end
 end

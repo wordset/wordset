@@ -22,6 +22,7 @@ module Wordsets
         post '/' do
           authorize!
           message = Message.parse(@user, params[:message][:text], path: params[:message][:path])
+          message.lang = current_lang
           message.save!
           serializer = MessageSerializer.new(message, meta: { online: User.online_usernames})
           Pusher['messages'].trigger('push', serializer.to_json)

@@ -1,7 +1,7 @@
 class Project
   include Mongoid::Document
+  include BelongsToLang
 
-  belongs_to :lang
   has_many :project_targets
   has_many :proposals
   has_many :badges
@@ -24,6 +24,7 @@ class Project
 
   index({slug: 1})
   index({lang_id: 1, slug: 1})
+  index({slug: 1, lang_code: 1})
 
   def self.create_parans_project
     proj = Project.create(name: "Parantheses Roundup", description: "Getting rid of parantheses in definitions.")
