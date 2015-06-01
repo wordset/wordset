@@ -3,6 +3,8 @@ class Post
   include Mongoid::Timestamps
   include AASM
 
+  belongs_to :lang
+
   field :title, type: String
   field :slug, type: String
   field :author_name, type: String
@@ -12,6 +14,9 @@ class Post
 
   index({state: 1})
   index({state: 1, slug: 1})
+  index({lang_id: 1, slug: 1, state: 1})
+
+  validates :lang_id, presence: true
 
   aasm :column => :state do
     state :draft, initial: true
