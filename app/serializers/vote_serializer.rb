@@ -1,6 +1,5 @@
 class VoteSerializer < BaseSerializer
-  attributes :id, :proposal_id, :yae, :value, :usurped, :withdrawn, :skip
-  has_one :user, embed_key: :to_param
+  attributes :id, :proposal_id, :yae, :value, :usurped, :withdrawn, :skip, :user_id
 
   def user_id
     object.user.username
