@@ -8,6 +8,7 @@ describe MessageLink do
 
   def valid_message(msg, options = {})
     message = Message.parse(@user, msg, options)
+    message.lang = Lang.first || create(:lang)
     expect(message.class).to eq(MessageLink)
     expect(message.save).to eq(true)
     message.reload
