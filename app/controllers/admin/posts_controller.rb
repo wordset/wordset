@@ -36,6 +36,6 @@ class Admin::PostsController < ApplicationController
 
  private
   def post_params
-    params.require(:post).permit(:title, :slug, :body, :author_name, :text)
+    params.require(:post).permit(:title, :slug, :body, :author_name, :text, :lang_code)
   end
 end

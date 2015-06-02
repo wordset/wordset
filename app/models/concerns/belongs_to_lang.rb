@@ -11,6 +11,19 @@ module BelongsToLang
   end
 
   def update_lang_code
-    self.lang_code = self.lang.code
+    self.attributes[:lang_code] = self.lang.code
+  end
+
+  def lang_code=(code)
+    if code != self.lang_code
+      lang = Lang.where(code: code).first
+      if lang
+        self.lang = lang
+        update_lang_code
+      else
+        throw "invalid lang_code"
+      end
+    end
+    code
   end
 end

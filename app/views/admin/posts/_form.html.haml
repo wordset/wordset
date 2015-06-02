@@ -1,4 +1,6 @@
 = form_for [:admin, @post] do |f|
+  %label{:for => "post_lang_code"} Lang
+  = f.select :lang_code, Lang.select_list
   %label{:for => "post_title"} Title
   = f.text_field :title
   %label{:for => "post_author_name"} Author Name

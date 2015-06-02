@@ -9,12 +9,7 @@ module Wordsets
             Project.where(slug: params[:id]).first || Project.find(params[:id])
           end
         end
-
-        # TODO: Make this use real logic!
-        get '/current', serializer: ProjectSerializer do
-          Project.find("54f4fd486461370003000000")
-        end
-
+        
         get '/:id', serializer: ProjectSerializer do
           current_project
         end

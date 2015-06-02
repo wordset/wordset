@@ -17,4 +17,8 @@ class Lang
 
   belongs_to :featured_project, class_name: "Project"
 
+  def self.select_list
+    self.all.map { |l| [l.name, l.code] }
+  end
+
 end
