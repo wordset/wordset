@@ -1,8 +1,7 @@
 class Quiz
   include Mongoid::Document
   include AASM
-
-  belongs_to :lang
+  include BelongsToLang
 
   field :slug, type: String
   field :title, type: String
