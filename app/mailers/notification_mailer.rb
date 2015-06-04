@@ -1,13 +1,6 @@
 class NotificationMailer < ApplicationMailer
   #default from: 'notifications@wordset.org'
 
-  def run_all(user, notifications)
-    if notifications.count == 1
-      send_single(notifications.first).deliver
-    else
-      digest(user, notifications).deliver
-    end
-  end
 
   def digest(user, notifications)
     @notifications = (notifications.to_a.sort_by do |notification|

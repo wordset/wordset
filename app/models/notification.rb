@@ -64,7 +64,11 @@ class Notification
         list.each &:no_email_allowed!
         unsub_count += 1
       else
-        NotificationMailer.run_all(user, list)
+        if list.count == 1
+          NotificationMailer.single(list.first).deliver_now!
+        else
+          NotificationMailer.digest(user, list).deliver_now!
+        end
         list.each &:send_email!
         sent_count += list.size
       end
