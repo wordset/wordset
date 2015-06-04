@@ -4,8 +4,7 @@ class NotificationMailer < ApplicationMailer
 
   def digest(user, notifications)
     @notifications = (notifications.to_a.sort_by do |notification|
-      puts notification.activity.digest_importance
-      notification.activity.digest_importance
+      notification.activity ? notification.activity.digest_importance : 0
     end)
     @user = user
     @proposal = Proposal.last
