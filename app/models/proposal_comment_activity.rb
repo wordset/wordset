@@ -14,4 +14,8 @@ class ProposalCommentActivity < Activity
     end
   end
 
+  def digest_importance
+    4
+  end
+
 end
