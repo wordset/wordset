@@ -1,3 +1,7 @@
+# DEPRECATED REPO
+
+Due to various factors, legal and otherwise, we're having to fork off development of the API into a different repo. We are leaving this code here for postarity and <3. This codebase got us pretty damn far, but it's time to wave goodbye. The Ember app won't be changing, nor our commitment to developing as openly as possible, but we've made the hard decision to split out this code.
+
 [![Stories in Ready](https://badge.waffle.io/wordset/wordset.png?label=ready&title=Ready)](https://waffle.io/wordset/wordset)
 # Wordset API
 
