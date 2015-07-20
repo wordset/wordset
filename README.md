@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/wordset/wordset.png?label=ready&title=Ready)](https://waffle.io/wordset/wordset)
 
 # Wordset Public Tracker
 
